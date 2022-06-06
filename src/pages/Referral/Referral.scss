@@ -1,0 +1,166 @@
+@import "../../assets/theme/clr_var.scss";
+
+.container_wrap.referral_page{
+    background-image: none;
+    .custom_container{
+        z-index: 1; max-width: 100%;
+        position: relative;
+    }
+    .timeto_connect{
+        background-image: url("../../assets/images/referral-header-bg.jpg");
+        background-size: contain;
+        padding: 75px; position: relative;
+        background-repeat: no-repeat;
+        background-position: left -25px;
+        @media (max-width:1440px){
+            padding: 55px;  background-size: cover;
+        }
+        @media (max-width:767px){
+            padding: 15px;
+        }
+        &:before {
+            background: #1C1C2D;
+            position: absolute;
+            width: 100%;
+            content: "";
+            left: 0;
+            height: 100%;
+            right: 0;
+            top: 0;
+            opacity: 0.8;
+            z-index: 0;
+        }
+        .invite_othr{
+            padding-right: 100px;
+            @media (max-width:1440px){
+                padding-right: 30px; 
+            }
+            @media (max-width:767px){
+                padding-right: 0px; 
+            }
+            h2{
+                margin: 25px 0;
+            }
+            a{
+                color: $white; font-family: $baseFont;
+                text-decoration: underline; font-size: 13px;
+            }
+        }
+        .refflink {
+            background-color: #1C1C2D;
+            padding: 20px 35px 35px;
+            border-radius: 12px;
+            @media (max-width:767px){
+                padding: 20px; margin-top: 20px;
+            }
+            h2{
+                margin: 15px 0;
+            }
+            .referalCopyBox {
+                position: relative;
+                // margin-bottom: 50px;
+                @media (max-width: 991px) {
+                  // margin-bottom: 20px;
+                }
+                input {
+                  height: 45px;
+                  width: 100%;
+                  border: 0;
+                  background: #323245;
+                  border-radius: 11px;
+                  font-size: 13px;
+                  line-height: 22px;
+                  color: $white;
+                  font-family: $baseFont;
+                  padding: 0 15px;
+                  &:hover,
+                  &:focus {
+                    box-shadow: 0px 0px 3px $boderColor !important;
+                    border-color: $boderColor;
+                  }
+                }
+                button {
+                  position: absolute;
+                  right: 16px;
+                  top: 51%;
+                  background-image: url(../../assets/images/copy.png);
+                  transform: translateY(-50%);
+                  border: 0;
+                  width: 18px;
+                  height: 21px;
+                  background-color:transparent;
+                  background-size: 15px;
+                  background-repeat: no-repeat;
+                }
+            }
+            .how_get{
+                padding: 0;
+                display: flex;
+                margin: 15px 0 20px; 
+                li{
+                    margin-right: 50px;
+                    p{
+                        margin: 0;
+                    }
+                    span{
+                        color: $white;
+                        font-size: 20px; font-weight: 700; font-family: $baseFont;
+                    }
+                }
+            }
+            .share_anyone {
+                display: flex;
+                align-items: center;
+                p{
+                    margin:0; font-weight: 600;
+                }
+                ul.shareable {
+                    padding: 0;
+                    display: flex;
+                    margin-left: 15px; margin-bottom:0;
+                    li{
+                        margin-right: 10px;
+                    }
+                }
+            }
+            
+        }
+    }
+    .referrl_comm{
+        padding: 65px 75px;
+        @media (max-width:1440px){
+            padding: 55px;
+        }
+        @media (max-width:767px){
+            padding: 15px
+        }
+        .totl_reff{
+            background-color: #323245;
+            border-radius: 22px;
+            @media (max-width:767px){
+                margin-bottom: 20px;
+            }
+            .reff_title{
+                border-bottom: 1px solid $boderColor; padding: 35px 25px 20px;
+                h3{
+                    color: $white; font-size: 20px; font-weight: 700; margin: 0;
+                    @media (max-width:1440px){
+                        font-size: 18px;
+                    }
+                }
+            }
+            .reff_cont{
+                padding: 20px 25px 35px;
+                span{
+                    color: $white; font-size: 18px; font-weight: 600; 
+                }
+            }
+        }
+    }
+    h2{
+        font-size: 25px; line-height: 34px; font-weight: 700;
+    }
+    p{
+        color: $white; line-height: 21px; font-size: 14px; 
+    }
+}

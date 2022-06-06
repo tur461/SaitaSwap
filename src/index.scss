@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import "./assets/theme/clr_var.scss";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Montserrat", "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Montserrat",
+    "Courier New", monospace;
+}
+
+a {
+  text-decoration: none;
+}
+::-webkit-scrollbar {
+  background-color: $dimbg;
+  width: 8px;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: $boderColor;
+  border-radius: 5px;
+}
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0; font-family: $baseFont !important;
+}
+label{
+  font-family: $baseFont !important;
+}
+p {
+  margin: 0; padding: 0; font-family: $baseFont !important;
+}
+div {
+  box-sizing: border-box;
+}
+.btn {
+  font-family: $baseFont;
+  color: $white;
+  font-size: 16px;
+  font-weight: 400;
+  background: $dimbg;
+  height: 46px;
+  border-radius: 30px !important; 
+  display: inline-block;
+  line-height: 46px;
+  transition: all .25s;
+  border: 0 !important;
+  text-align: center;
+  min-width: 160px;
+  padding: 0;
+  &:hover{
+    background: $baseColor;
+    color: $secondaryColor;
+  }
+  &.full{
+    width: 100%;
+  }
+  @media (max-width:767px){
+    min-width: 140px; font-size: 15px;
+  }
+
+  &:disabled {
+    cursor: default;
+    background: $buttonDisabled;
+    color: $baseColor;
+    border-color: $buttonDisabled;
+  }
+}
+.cm_btn{
+  background: $gradientColor !important;
+}
+.title_hd{
+  color: $white; font-size: 44px; font-family: $baseFont; font-weight: 700;
+  @media (max-width:1199px){
+    font-size: 28px; 
+  }
+  @media (max-width:767px){
+    font-size: 22px; 
+  }
+}
+.h2, h2, h3, h4, h5, h6 {
+  color: $white;
+  font-family: $baseFont;
+}
+
+.container{
+  @media (max-width:1440px){
+    max-width: 1050px !important;
+  }
+} 
+.modal {
+  right: 0 !important; left: auto !important;
+  width: calc(100% - 236px) !important;
+  @media (max-width:919px){
+    width: 100% !important;
+  }
+}
+.modal-backdrop {
+  right: 0 !important; left: auto !important;
+  @media (max-width:919px){
+    width: 100% !important;
+  }
+}
+.scroll_top {
+  cursor: pointer;
+}
+ 
