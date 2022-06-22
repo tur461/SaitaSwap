@@ -2,11 +2,18 @@
 
 .container_wrap.trade {
   padding: 100px 0;
-  background:#3d0c6f;
-  // background-image: url("../../assets/images/swap-bg.jpg");
+  // background:#3d0c6f;
+  background-image: url("../../assets/images/swap-bg.jpg");
   @media (max-width: 767px) {
     padding: 50px 0;
   }
+  .row {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
   .comnBlk {
     padding: 40px 10px 30px;
     padding-top: 0;
@@ -239,7 +246,7 @@
       }
     }
     .lp-class {
-      border: 1px solid #7868E6;
+      border: 1px solid #7868e6;
       border-radius: 20px;
       padding: 25px 15px 10px;
       h4 {
@@ -378,7 +385,7 @@
       background: $dimbg;
       h3 {
         font-size: 18px;
-        opacity: 0.5;
+        opacity: 0.8;
         font-weight: 700;
         text-align: center;
         margin-bottom: 0;
@@ -390,7 +397,7 @@
       .accordion-item {
         background-color: $dimbg;
         border-radius: 16px;
-        border: 2px solid #7868E6;
+        border: 2px solid #7868e6;
         color: $white;
         .accordion-header {
           .accordion-button {
