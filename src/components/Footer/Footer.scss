@@ -70,7 +70,7 @@
         font-size: 14px;
         font-weight: 700;
         height: 36px;
-        line-height: 36px; padding: 0;
+        line-height: 36px; padding: 0 20px;
       }
     } 
     .noib_info {
@@ -116,4 +116,9 @@
       }
     }
   }
+}
+
+.footer_style .niob_price img {
+  width: 49px;
+  height: auto;
 }

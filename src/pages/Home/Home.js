@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { rootName } from "../../constant";
 import Button from "../../components/Button/Button";
 import FarmCard from "../../components/FarmCard/FarmCard";
-import NIOB from "../../assets/images/token_icons/NIOB.svg";
+import NIOB from "../../assets/images/saitaswap.png";
 import BUSD from "../../assets/images/token_icons/BUSD-Token.svg";
 import ANCHOR from "../../assets/images/token_icons/ANCHOR-Token.svg";
 import BTCB from "../../assets/images/token_icons/BTCB-Token.svg";
@@ -570,14 +570,14 @@ const Home = () => {
         <Carousel fade {...options}>
           <Carousel.Item>
             <Carousel.Caption>
-              <h3>Welcome to NIOB Swap</h3>
+              <h3>Welcome to SAITA Swap</h3>
               <p>
                 Decentralized Exchange and Automatic Liquidity Acquisition Yield
                 Farm running currently on Binance Smart Chain.
               </p>
               <p>
-                If you are new to NIOB please also visit our Tutorial Section in
-                our official docs. We’ll teach you step by step you to use NIOB
+                If you are new to SAITA please also visit our Tutorial Section in
+                our official docs. We’ll teach you step by step you to use SAITA
                 Swap and it’s assets.
               </p>
               <a
@@ -585,7 +585,7 @@ const Home = () => {
                 target={"_blank"}
                 className="captionFooter d-flex justify-content-between align-items-center"
               >
-                <span>NIOB Tutorial</span>
+                <span>SAITA Tutorial</span>
                 <span>
                   <Image
                     src={require("../../assets/images/Link-Icon.svg").default}
@@ -607,16 +607,16 @@ const Home = () => {
               <h3>The Docs</h3>
               <p>
                 All important and technical information about the project
-                "Niob", tokenomics, project roadmap and term explanations can be
+                "Saita", tokenomics, project roadmap and term explanations can be
                 found in our docs. If you have any questions, please ask them in
-                the official Niob Telegram Channel.
+                the official Saita Telegram Channel.
               </p>
               <a
                 href="https://docs.niob.finance"
                 target={"_blank"}
                 className="captionFooter d-flex justify-content-between align-items-center"
               >
-                <span>NIOB Docs</span>{" "}
+                <span>SAITA Docs</span>{" "}
                 <span>
                   <Image
                     src={require("../../assets/images/Link-Icon.svg").default}
@@ -643,12 +643,12 @@ const Home = () => {
               />
               <h3>Start your engine </h3>
               <p>Start your journey or improve your wallet portfolio:</p>
-              <h3>NIOB Price: ${niobBusdValue.toFixed(4)}</h3>
+              <h3>SAITA Price: ${niobBusdValue.toFixed(4)}</h3>
               <Link
                 to={"/trade/exchange"}
                 className="captionFooter d-flex justify-content-between align-items-center"
               >
-                <span>Buy NIOB Token </span> <span className="arrowIcon" />
+                <span>Buy SAITA Token </span> <span className="arrowIcon" />
               </Link>
             </div>
           </Col>
@@ -694,7 +694,7 @@ const Home = () => {
               <h3 className="fw-strong pb-2">Announcements</h3>
               <TwitterTimelineEmbed
                 sourceType="profile"
-                screenName="niobfinance"
+                screenName="saitafinance"
                 options={{ height: 418 }}
                 theme="dark"
                 noScrollbar={true}
@@ -703,7 +703,7 @@ const Home = () => {
           </Col>
           <Col xl={6} lg={12}>
             <div className="comnBlk mb-4">
-              <h3>NIOB Stats</h3>
+              <h3>SAITA Stats</h3>
               <ul className="pl-0 niobStats">
                 <li>
                   <label>Market Cap</label>
@@ -749,7 +749,7 @@ const Home = () => {
                   <span>{addCommas(anchorTotalSupply.toFixed(2))}</span>
                 </li>
                 <li>
-                  <label>New Niob/Block</label>
+                  <label>New Saita/Block</label>
                   <span>{niobPerBlock}</span>
                   {/* <span>{addCommas(anchorPerBlock)}</span> */}
                 </li>

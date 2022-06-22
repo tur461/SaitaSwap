@@ -9,7 +9,7 @@ import {
 } from "react-pro-sidebar";
 import { isMobile } from "react-device-detect";
 import Twitter from "../../assets/images/twitter-icon.svg";
-import NIOBtoken from "../../assets/images/NIOB-Token-Icon.svg";
+import NIOBtoken from "../../assets/images/saitaswap.png";
 import Telegram from "../../assets/images/telegram-icon.svg";
 import Docs from "../../assets/images/docs-icon.svg";
 import Medium from "../../assets/images/medium-icon.svg";

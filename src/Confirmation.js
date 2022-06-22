@@ -22,7 +22,7 @@ const Confirmation = () => {
     return (
           <div className="d-center">
               <div className="information-box">
-                <h3>Welcome To NiobSwap</h3>  
+                <h3>Welcome To SaitaSwap</h3>  
                 <h3>Please Enter Code To Access Site</h3>
                 <form action="">
                     <input type="text" value={inputValue} onChange={onChange} className="form-control mb-3" />

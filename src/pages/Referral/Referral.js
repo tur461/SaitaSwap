@@ -51,8 +51,8 @@ const Referral = () => {
                         <Col xxl={6} xl={6}>
                             <div className="invite_othr">
                                 <h1 className="title_hd">Time to connect</h1>
-                                <h3>Invite your friends to earn rewards from their NIOB staking rewards. </h3>
-                                <p>Every direct referral provides 1% income on Niob farms and pools staking rewards claims. Every indirect referral provides an additional 1% referral reward. Users can receive these rewards on their indirect referrals for up to the 3-rd level. Referral rewards are paid in NIOB tokens. </p>
+                                <h3>Invite your friends to earn rewards from their SAITA staking rewards. </h3>
+                                <p>Every direct referral provides 1% income on Saita farms and pools staking rewards claims. Every indirect referral provides an additional 1% referral reward. Users can receive these rewards on their indirect referrals for up to the 3-rd level. Referral rewards are paid in SAITA tokens. </p>
                             </div>
                         </Col>
                         <Col xxl={5} xl={6}>

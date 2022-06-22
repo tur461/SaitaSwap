@@ -374,7 +374,7 @@ const GalaxyCard = (props) => {
             <p>${addCommas(liquidity.toFixed(2))}</p>
           </div>
           <div className="erndniob">
-            <span>Earned NIOB</span>
+            <span>Earned SAITA</span>
             <p>{stakeAmounts.rewards !== NaN ? addCommas(stakeAmounts.rewards) : "0.00"}</p>
             <p>$ {stakeAmounts.rewards !== NaN ? earnedDollarValue(dollarVal, stakeAmounts.rewards) : "0.00"}</p>
           </div>
