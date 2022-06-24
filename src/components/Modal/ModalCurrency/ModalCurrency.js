@@ -45,7 +45,6 @@ const ModalCurrency = ({
       // cleanup function here
     };
   }, [show, searchByName]);
-  console.log("aja token list", tokenList);
   return (
     <Modal
       scrollable={true}

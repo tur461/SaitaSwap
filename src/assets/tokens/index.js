@@ -22,23 +22,22 @@ export const NIOB1 = "0x035781918b7221293B6938c9c0037cDf1dB183dE";
 export const NIOB2 = "0xADdcE6c9Dd30a6b252eAB252a11aBe518381132C";
 export const BURN_ADDRESS = "0x000000000000000000000000000000000000dEaD";
 export const DEFLATIONNARY_TOKENS = [
-  "0x4aac18De824eC1b553dbf342829834E4FF3F7a9F",
-  "0x5ac5e6Af46Ef285B3536833E65D245c49b608d9b",
+  "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
 ];
 export const LIQUIDITY_PROVIDER_FEE = 0.2;
 
 // ******** BSC_MAIN_NET LP's, WETH and USD **********
-export const ANCHOR_BUSD_LP = "0xca8cb77efac26f901042196f766bac4ee5077df0";
-export const BNB_BUSD_LP = "0xe2466652a46e47fa278be0a2ad8dce7c8445be41";
-export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
-export const USD = "0xe9e7cea3dedca5984780bafc599bd69add087d56";
-export const pancakeFactory = "0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73";
+// export const ANCHOR_BUSD_LP = "0xca8cb77efac26f901042196f766bac4ee5077df0";
+// export const BNB_BUSD_LP = "0xe2466652a46e47fa278be0a2ad8dce7c8445be41";
+// export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
+// export const USD = "0xe9e7cea3dedca5984780bafc599bd69add087d56";
+export const pancakeFactory = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f";
 
 // ******** BSC_TEST_NET LP's, WETH and USD **********
-// export const ANCHOR_BUSD_LP = "0x5c93fa885d2D4Ee88032a28882638f40519Fb83d";
-// export const BNB_BUSD_LP = "0x1cd0db040D556280f95679cE2796aaE698475616";
-// export const WETH = "0x31BBA4f3f2Ec07Db6CFB2D959C72CcAB2bFD0e8A";
-// export const USD = "0x2Dd65fFe5F1B2D8a745b7194cCa59B451C5986D2";
+export const ANCHOR_BUSD_LP = "0x5c93fa885d2D4Ee88032a28882638f40519Fb83d";
+export const BNB_BUSD_LP = "0x1cd0db040D556280f95679cE2796aaE698475616";
+export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
+export const USD = "0x2Dd65fFe5F1B2D8a745b7194cCa59B451C5986D2";
 
 export const AUDIT = "https://docs.niob.finance/audits";
 export const LOTTERY = "https://docs.niob.finance/products/#niob-lottery";
@@ -93,11 +92,20 @@ export const TOKEN_LIST = [
   {
     icon: NIOB,
     name: "SAITAMA",
-    address: "0x5ac5e6Af46Ef285B3536833E65D245c49b608d9b",
+    address: "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "SAITAMA",
+  },
+  {
+    icon: BNB,
+    name: "LP",
+    address: "0xdF334150FFe9Bc4989a7F3FD5db378d0eD60f0A0",
     isAdd: false,
     isDel: false,
     decimals: 18,
-    symbol: "SAITAMA",
+    symbol: "LP",
   },
   // {
   //   icon: BUSD,

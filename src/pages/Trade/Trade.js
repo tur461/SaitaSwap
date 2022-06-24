@@ -134,7 +134,7 @@ const Trade = (props) => {
               <div className="comnBlk">
                 <Tabs
                   activeKey={tab}
-                  defaultActiveKey="swap"
+                  defaultActiveKey="exchange"
                   id="uncontrolled-tab-example"
                   className="mb-3"
                   onSelect={handleTab}

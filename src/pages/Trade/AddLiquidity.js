@@ -228,14 +228,17 @@ const AddLiquidity = (props) => {
       let currentPairAddress;
       if (a1 === "BNB") {
         a1 = WETH; //WETH
+        console.log(a1, a2);
         currentPairAddress = await ExchangeService.getPair(a1, a2);
+        console.log("ye ha asli maal", currentPairAddress);
       } else if (a2 === "BNB") {
         a2 = WETH; //WETH
         currentPairAddress = await ExchangeService.getPair(a1, a2);
+        console.log("ye ha asli maal 1", currentPairAddress);
       } else {
         currentPairAddress = await ExchangeService.getPair(a1, a2);
+        console.log("ye ha asli maal 2", currentPairAddress);
       }
-
       if (currentPairAddress !== "0x0000000000000000000000000000000000000000") {
         setCurrentPairAddress(currentPairAddress);
         const lpTokenBalance = await ContractServices.getTokenBalance(
@@ -281,7 +284,7 @@ const AddLiquidity = (props) => {
           isUserConnected
         );
         allowance = Number(allowance) / 10 ** Number(tokenOne.decimals);
-        // console.log(allowance, 'token 1')
+        console.log(tokenOne.decimals, "token 1 decimals---------------");
         if (amount > allowance) {
           setTokenOneApproval(true);
         } else {
@@ -323,7 +326,7 @@ const AddLiquidity = (props) => {
         if (tokenOne.address === "BNB") {
           tokenAddress = WETH;
         }
-
+        console.log("EEEEEE", currentPairAddress);
         if (currentPairAddress) {
           const tk0 = await ExchangeService.getTokenZero(currentPairAddress);
           const tk1 = await ExchangeService.getTokenOne(currentPairAddress);
@@ -751,7 +754,7 @@ const AddLiquidity = (props) => {
         amountBDesired * 10 ** tokenTwo.decimals
       ).toFixed();
       amountAMin = BigNumber(amountAMin * 10 ** tokenOne.decimals).toFixed();
-      amountBMin = BigNumber(amountBMin * 10 ** tokenOne.decimals).toFixed();
+      amountBMin = BigNumber(amountBMin * 10 ** tokenTwo.decimals).toFixed();
 
       let dl = Math.floor(new Date().getTime() / 1000);
       dl = dl + deadline * 60;
@@ -767,6 +770,7 @@ const AddLiquidity = (props) => {
         deadline: dl,
         value,
       };
+      console.log(data, "datt123");
       try {
         dispatch(startLoading());
         const result = await ExchangeService.addLiquidity(data);

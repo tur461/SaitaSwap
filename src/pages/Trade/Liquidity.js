@@ -57,6 +57,7 @@ const Liquidity = ({ handleAddLiquidity, handleRemove }) => {
     }
   };
 
+  console.log("userLpTokens", userLpTokens);
   return (
     <>
       <Container fluid className="swapScreen comnSection add_lq_box">

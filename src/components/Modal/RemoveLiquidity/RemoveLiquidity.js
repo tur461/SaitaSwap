@@ -11,6 +11,7 @@ import {
   startLoading,
   stopLoading,
   saveUserLpTokens,
+  addLpToken,
 } from "../../../redux/actions";
 import { ContractServices } from "../../../services/ContractServices";
 import { ExchangeService } from "../../../services/ExchangeService";
@@ -439,6 +440,20 @@ const RemoveLiquidity = (props) => {
     );
     dispatch(saveUserLpTokens(result));
   };
+
+  const updateLpTokens = async () => {
+    const { lptoken } = props;
+    const lpdata = {
+      pair: lptoken.pair,
+      decimals: lptoken.decimals,
+      name: "Import LPs",
+      pairName: lptoken.pairName,
+      symbol: lptoken.symbol,
+      token0: lptoken.token0,
+      token1: lptoken.token1,
+    };
+    dispatch(addLpToken(lpdata));
+  };
   const removeLiquidity = async () => {
     const acc = await ContractServices.getDefaultAccount();
     if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
@@ -517,8 +532,13 @@ const RemoveLiquidity = (props) => {
         v,
         checkSignature,
       };
+
       try {
-        const result = await ExchangeService.removeLiquidityETHWithPermit(data);
+        const result = await ExchangeService.removeLiquidityETHWithPermit(
+          data,
+          updateLpTokens
+        );
+
         // console.log(result, 'remove liquidity transaction');
         dispatch(stopLoading());
 

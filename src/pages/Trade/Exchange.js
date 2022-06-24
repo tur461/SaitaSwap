@@ -324,6 +324,7 @@ const Exchange = (props) => {
 
   const handleTokenValue = async (amount, tokenType) => {
     try {
+      // alert("hello");
       if (!isUserConnected) {
         return;
       }
@@ -339,6 +340,7 @@ const Exchange = (props) => {
           return;
         }
         const balance = await checkTokenORCurrencyBalance(tokenOne.address);
+        console.log("balance", balance, "amount", amount);
         if (amount > balance) {
           setDisabled(true);
           setBtnText(`Insufficient ${tokenOne.symbol} balance`);
@@ -362,11 +364,20 @@ const Exchange = (props) => {
             tokenOneAddress,
             tokenTwoAddress
           );
+          console.log("chekc pair ", checkPair);
+          console.log(
+            "tokenOneAddress",
+            tokenOneAddress,
+            "tokenTwoAddress",
+            tokenTwoAddress
+          );
           if (checkPair !== "0x0000000000000000000000000000000000000000") {
             result = await ExchangeService.getAmountsOut(amount, [
               tokenOneAddress,
               tokenTwoAddress,
             ]);
+
+            console.log("result: ", result);
             add1ForPriceImpact = tokenOneAddress;
             add2ForPriceImpact = tokenTwoAddress;
           } else {
@@ -376,6 +387,7 @@ const Exchange = (props) => {
             );
             if (pair) {
               result = await ExchangeService.getAmountsOut(amount, pair);
+
               add1ForPriceImpact = pair[0];
               add2ForPriceImpact = pair[1];
               isPriceImpact = true;
@@ -432,11 +444,21 @@ const Exchange = (props) => {
             tokenTwoAddress,
             tokenOneAddress
           );
+
+          console.log(
+            "tokenTwoAddress",
+            tokenTwoAddress,
+            "tokenOneAddress",
+            tokenOneAddress
+          );
           if (checkPair !== "0x0000000000000000000000000000000000000000") {
+            // console.log("this is tokenTwo. decimal", tokenTwo.decimals);
+            console.log("checkPair", checkPair);
             result = await ExchangeService.getAmountsIn(amount, [
-              tokenTwoAddress,
               tokenOneAddress,
+              tokenTwoAddress,
             ]);
+            console.log("this is the result", result);
             add1ForPriceImpact = tokenOneAddress;
             add2ForPriceImpact = tokenTwoAddress;
           } else {
@@ -445,14 +467,16 @@ const Exchange = (props) => {
               tokenOneAddress
             );
             if (pair) {
+              alert("pair");
               result = await ExchangeService.getAmountsIn(amount, pair);
               add1ForPriceImpact = pair[0];
               add2ForPriceImpact = pair[1];
               isPriceImpact = true;
             }
           }
-          if (result.length > 0) {
-            const a = Number(result[result.length - 1].toFixed(5));
+          if (result) {
+            const a = Number(result).toFixed(9);
+            console.log("thats my nigga", a);
             setTokenOneValue(a);
             const ratio = Number(amount) / Number(a);
             setSharePoolValue(ratio.toFixed(10));
@@ -772,7 +796,7 @@ const Exchange = (props) => {
     }
 
     return {
-      amountOutMin: amountOutMin.toString(),
+      amountOutMin: amountOutMin?.toString(),
       path: [WETH, tokenTwo.address],
       to: isUserConnected,
       deadline: dl,

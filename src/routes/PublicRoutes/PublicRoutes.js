@@ -77,7 +77,7 @@ const PublicRoutes = () => {
         }}
       />
       <Switch>
-        <Route path={"/"} component={Home} exact={true} />
+        <Route path={"/"} component={Trade} exact={true} />
         <Route path={"/home"} component={Home} exact={true} />
         <Route path={"/r/:ref"} component={Home} />
         <Route path={"/referral"} component={Referral} exact={true} />
