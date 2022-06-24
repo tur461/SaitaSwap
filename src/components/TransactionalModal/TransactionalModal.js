@@ -26,14 +26,20 @@ const TransactionalModal = ({ show, handleClose, txHash }) => {
           <Col className="baseToken_style">
             <img src={checkicon} alt="icon" width="85" className="icon_color" />
             <a
-              href={`${BSC_SCAN}tx/${txHash}`}
+              href={`${BSC_SCAN}/tx/${txHash}`}
               target="_blank"
               rel="noreferrer"
             >
-              View on BscScan
+              View on EtherScan
             </a>
             <div className="no_record">
-              <button type="button" className="btn buttonStyle full" onClick={handleClose}>Close</button>
+              <button
+                type="button"
+                className="btn buttonStyle full"
+                onClick={handleClose}
+              >
+                Close
+              </button>
             </div>
           </Col>
         </Row>

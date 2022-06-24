@@ -72,38 +72,17 @@ const getTokenOne = async (currentPairAddress) => {
 };
 
 const getAmountsOut = async (amountIn, pair) => {
-  console.log(amountIn, "amountin hai", pair, "pair hai");
   try {
     const decimals1 = await ContractServices.getDecimals(pair[0]);
     const addAmountIn = amountIn * 10 ** decimals1;
 
     let calAmount = BigNumber(addAmountIn).toFixed();
     calAmount.toString();
-    let contract;
-    if (
-      pair[0].toLowerCase() === TOKEN_LIST[1].address.toLowerCase() ||
-      pair[1].toLowerCase() === TOKEN_LIST[1].address.toLowerCase()
-    ) {
-      contract = await ContractServices.callContract(
-        MAIN_CONTRACT_LIST.router.address,
-        MAIN_CONTRACT_LIST.router.abi
-      );
-    } else if (
-      (pair[0].toLowerCase() === TOKEN_LIST[0].address.toLowerCase() ||
-        pair[0].toLowerCase() === TOKEN_LIST[2].address.toLowerCase()) &&
-      (pair[1].toLowerCase() === TOKEN_LIST[0].address.toLowerCase() ||
-        pair[1].toLowerCase() === TOKEN_LIST[2].address.toLowerCase())
-    ) {
-      contract = await ContractServices.callContract(
-        MAIN_CONTRACT_LIST.router.address,
-        MAIN_CONTRACT_LIST.router.abi
-      );
-    } else {
-      contract = await ContractServices.callContract(
-        MAIN_CONTRACT_LIST.panCakeRouter.address,
-        MAIN_CONTRACT_LIST.router.abi
-      );
-    }
+
+    const contract = await ContractServices.callContract(
+      MAIN_CONTRACT_LIST.router.address,
+      MAIN_CONTRACT_LIST.router.abi
+    );
 
     const result = await contract.methods.getAmountsOut(calAmount, pair).call();
 
@@ -127,34 +106,15 @@ const getAmountsIn = async (amountOut, pair) => {
 
     let calAmount = BigNumber(addAmountOut).toFixed();
     calAmount.toString();
-    let contract;
 
-    if (
-      pair[0].toLowerCase() === TOKEN_LIST[1].address.toLowerCase() ||
-      pair[1].toLowerCase() === TOKEN_LIST[1].address.toLowerCase()
-    ) {
-      contract = await ContractServices.callContract(
-        MAIN_CONTRACT_LIST.router.address,
-        MAIN_CONTRACT_LIST.router.abi
-      );
-    } else if (
-      (pair[0].toLowerCase() === TOKEN_LIST[0].address.toLowerCase() ||
-        pair[0].toLowerCase() === TOKEN_LIST[2].address.toLowerCase()) &&
-      (pair[1].toLowerCase() === TOKEN_LIST[0].address.toLowerCase() ||
-        pair[1].toLowerCase() === TOKEN_LIST[2].address.toLowerCase())
-    ) {
-      contract = await ContractServices.callContract(
-        MAIN_CONTRACT_LIST.router.address,
-        MAIN_CONTRACT_LIST.router.abi
-      );
-    } else {
-      contract = await ContractServices.callContract(
-        MAIN_CONTRACT_LIST.panCakeRouter.address,
-        MAIN_CONTRACT_LIST.router.abi
-      );
-    }
-    console.log(calAmount, "calAmount", pair, "pair");
+    const contract = await ContractServices.callContract(
+      MAIN_CONTRACT_LIST.router.address,
+      MAIN_CONTRACT_LIST.router.abi
+    );
+
+    console.log("Testing: ", calAmount, pair);
     const result = await contract.methods.getAmountsIn(calAmount, pair).call();
+    console.log("result: ", result);
     const decimals = await ContractServices.getDecimals(pair[0]);
     return Number(result[0]) / 10 ** decimals;
 
@@ -462,7 +422,6 @@ const removeLiquidityWithPermit = async (data) => {
   });
 };
 const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
-  
   return new Promise(async (resolve, reject) => {
     try {
       let {
@@ -569,6 +528,7 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
             })
             .on("receipt", (receipt) => {
               console.log(receipt, "in service add liquidity");
+              updateLpTokens();
               toast.success("Liquidity removed successfully.");
             })
             .on("error", (error, receipt) => {
@@ -609,6 +569,7 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
             })
             .on("receipt", (receipt) => {
               console.log(receipt, "in service add liquidity");
+              updateLpTokens();
               toast.success("Liquidity removed successfully.");
             })
             .on("error", (error, receipt) => {
@@ -641,6 +602,7 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
             })
             .on("receipt", (receipt) => {
               console.log(receipt, "in service add liquidity");
+              updateLpTokens();
               toast.success("Liquidity removed successfully.");
             })
             .on("error", (error, receipt) => {

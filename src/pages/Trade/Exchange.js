@@ -251,7 +251,6 @@ const Exchange = (props) => {
           isUserConnected
         );
         allowance = Number(allowance) / 10 ** Number(tokenOne.decimals);
-        //  console.log(allowance, 'token 1')
         if (amount > allowance) {
           setTokenOneApproval(true);
         } else {
@@ -269,7 +268,6 @@ const Exchange = (props) => {
           isUserConnected
         );
         allowance = Number(allowance) / 10 ** Number(tokenTwo.decimals);
-        // console.log(allowance, 'token 2')
         if (amount > allowance) {
           setTokenTwoApproval(true);
         } else {
@@ -324,8 +322,19 @@ const Exchange = (props) => {
 
   const handleTokenValue = async (amount, tokenType) => {
     try {
-      // alert("hello");
       if (!isUserConnected) {
+        return;
+      }
+      if (
+        tokenOne.address.toLowerCase() !==
+          TOKEN_LIST[0].address.toLowerCase() &&
+        tokenOne.address.toLowerCase() !==
+          TOKEN_LIST[1].address.toLowerCase() &&
+        tokenTwo.address.toLowerCase() !==
+          TOKEN_LIST[0].address.toLowerCase() &&
+        tokenTwo.address.toLowerCase() !== TOKEN_LIST[1].address.toLowerCase()
+      ) {
+        toast.error("One token should be either Eth or Saitama");
         return;
       }
       const acc = await ContractServices.getDefaultAccount();
@@ -340,7 +349,6 @@ const Exchange = (props) => {
           return;
         }
         const balance = await checkTokenORCurrencyBalance(tokenOne.address);
-        console.log("balance", balance, "amount", amount);
         if (amount > balance) {
           setDisabled(true);
           setBtnText(`Insufficient ${tokenOne.symbol} balance`);
@@ -364,20 +372,11 @@ const Exchange = (props) => {
             tokenOneAddress,
             tokenTwoAddress
           );
-          console.log("chekc pair ", checkPair);
-          console.log(
-            "tokenOneAddress",
-            tokenOneAddress,
-            "tokenTwoAddress",
-            tokenTwoAddress
-          );
           if (checkPair !== "0x0000000000000000000000000000000000000000") {
             result = await ExchangeService.getAmountsOut(amount, [
               tokenOneAddress,
               tokenTwoAddress,
             ]);
-
-            console.log("result: ", result);
             add1ForPriceImpact = tokenOneAddress;
             add2ForPriceImpact = tokenTwoAddress;
           } else {
@@ -393,6 +392,7 @@ const Exchange = (props) => {
               isPriceImpact = true;
             }
           }
+          console.log("resultresultresult", result);
           if (result.length > 0) {
             const a = Number(result[result.length - 1].toFixed(5));
             const ratio = Number(amount) / Number(a);
@@ -444,21 +444,11 @@ const Exchange = (props) => {
             tokenTwoAddress,
             tokenOneAddress
           );
-
-          console.log(
-            "tokenTwoAddress",
-            tokenTwoAddress,
-            "tokenOneAddress",
-            tokenOneAddress
-          );
           if (checkPair !== "0x0000000000000000000000000000000000000000") {
-            // console.log("this is tokenTwo. decimal", tokenTwo.decimals);
-            console.log("checkPair", checkPair);
             result = await ExchangeService.getAmountsIn(amount, [
               tokenOneAddress,
               tokenTwoAddress,
             ]);
-            console.log("this is the result", result);
             add1ForPriceImpact = tokenOneAddress;
             add2ForPriceImpact = tokenTwoAddress;
           } else {
@@ -467,7 +457,6 @@ const Exchange = (props) => {
               tokenOneAddress
             );
             if (pair) {
-              alert("pair");
               result = await ExchangeService.getAmountsIn(amount, pair);
               add1ForPriceImpact = pair[0];
               add2ForPriceImpact = pair[1];
@@ -476,7 +465,6 @@ const Exchange = (props) => {
           }
           if (result) {
             const a = Number(result).toFixed(9);
-            console.log("thats my nigga", a);
             setTokenOneValue(a);
             const ratio = Number(amount) / Number(a);
             setSharePoolValue(ratio.toFixed(10));

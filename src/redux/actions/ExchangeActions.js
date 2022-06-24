@@ -219,17 +219,6 @@ export const addLpToken = (lp) => {
               oldLp.balance === lp.balance
             ) {
               check = false;
-            } else {
-              let realIndex = userLpTokens.findIndex(
-                (item) => item.pair === lp.pair
-              );
-              userLpTokens[realIndex].balance = balance;
-              userLpTokens[realIndex].poolShare = poolShare;
-              userLpTokens[realIndex].token0Deposit = token0Deposit;
-              userLpTokens[realIndex].token1Deposit = token1Deposit;
-              console.log("this is the realIndex", userLpTokens[realIndex]);
-              await dispatch(saveUserLpTokens(userLpTokensArr));
-              return;
             }
           }
           if (check) {
@@ -238,6 +227,85 @@ export const addLpToken = (lp) => {
             await dispatch(saveUserLpTokens(userLpTokensArr));
           }
           return data;
+        } else {
+          return null;
+        }
+      }
+    } catch (error) {
+      console.log("Error: ", error);
+      return error;
+    }
+  };
+};
+
+export const updateLpToken = (lp) => {
+  return async (dispatch, getState) => {
+    try {
+      const {
+        persist: { isUserConnected, tokenList, userLpTokens },
+      } = getState();
+      if (lp) {
+        dispatch(checkUserLpTokens(true));
+        let userLpTokensArr = userLpTokens;
+
+        const balance = await ContractServices.getTokenBalanceFull(
+          lp.pair,
+          isUserConnected
+        );
+        if (balance > 0) {
+          let token0Obj = {},
+            token1Obj = {},
+            token0Deposit = 0,
+            token1Deposit = 0,
+            poolShare = "0",
+            ratio = 0;
+          const totalSupply = await ContractServices.getTotalSupply(lp.pair);
+
+          ratio = balance / totalSupply;
+          poolShare = ((balance / totalSupply) * 100).toFixed(2);
+
+          const reserves = await ExchangeService.getReserves(lp.pair);
+
+          if (lp.token0.toLowerCase() === WETH.toLowerCase()) {
+            lp.token0 = "BNB";
+            token0Obj = tokenList.find((d) => d.address === "BNB");
+          } else {
+            token0Obj = tokenList.find(
+              (d) => d.address.toLowerCase() === lp.token0.toLowerCase()
+            );
+          }
+          if (lp.token1.toLowerCase() === WETH.toLowerCase()) {
+            lp.token1 = "BNB";
+            token1Obj = tokenList.find((d) => d.address === "BNB");
+          } else {
+            token1Obj = tokenList.find(
+              (d) => d.address.toLowerCase() === lp.token1.toLowerCase()
+            );
+          }
+          //lp deposit
+          token0Deposit =
+            ratio * (reserves["_reserve0"] / 10 ** token0Obj.decimals);
+          token1Deposit =
+            ratio * (reserves["_reserve1"] / 10 ** token1Obj.decimals);
+
+          const data = {
+            ...lp,
+            token0Obj,
+            token1Obj,
+            token0Deposit,
+            token1Deposit,
+            balance,
+            poolShare,
+          };
+          let realIndex = userLpTokens.findIndex(
+            (item) => item.pair === lp.pair
+          );
+          userLpTokens[realIndex].balance = balance;
+          userLpTokens[realIndex].poolShare = poolShare;
+          userLpTokens[realIndex].token0Deposit = token0Deposit;
+          userLpTokens[realIndex].token1Deposit = token1Deposit;
+          await dispatch(saveUserLpTokens(userLpTokensArr));
+          return;
         } else {
           return null;
         }

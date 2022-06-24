@@ -229,8 +229,8 @@ export const MAIN_CONTRACT_LIST = {
     abi: pairABI,
   },
   farm: {
-    address: "0xD18B23ad6c8ACc4AD32AAd6a5dF750ce28C8C772",
-    blockNumber: 10004492,
+    address: "0x85EB04E60ee5920eaFfe2807CcC1521358F6Cf5D",
+    blockNumber: 10889234,
     abi: farmABI,
   },
   anchorNew: {

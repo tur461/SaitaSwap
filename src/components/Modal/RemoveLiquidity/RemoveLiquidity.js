@@ -11,7 +11,7 @@ import {
   startLoading,
   stopLoading,
   saveUserLpTokens,
-  addLpToken,
+  updateLpToken,
 } from "../../../redux/actions";
 import { ContractServices } from "../../../services/ContractServices";
 import { ExchangeService } from "../../../services/ExchangeService";
@@ -452,7 +452,7 @@ const RemoveLiquidity = (props) => {
       token0: lptoken.token0,
       token1: lptoken.token1,
     };
-    dispatch(addLpToken(lpdata));
+    dispatch(updateLpToken(lpdata));
   };
   const removeLiquidity = async () => {
     const acc = await ContractServices.getDefaultAccount();
@@ -901,7 +901,7 @@ const RemoveLiquidity = (props) => {
           </>
         )}
 
-        <Col className="totalPrice">
+        {/* <Col className="totalPrice">
           <ul className="text-start">
             <li>Price:</li>
           </ul>
@@ -909,7 +909,8 @@ const RemoveLiquidity = (props) => {
             <li>1 NIOB = 0.00035815 BNB</li>
             <li>1 BNB = 3870.84 NIOB</li>
           </ul>
-        </Col>
+        </Col> */}
+        <br></br>
         <Col className="btnCol">
           <Button
             className="approveBtn"
