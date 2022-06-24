@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Col, Row, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import DownArrow from "../../../assets/images/down-arrow.png";
-import NiobIcon from "../../../assets/images/NIOB-Token-Icon.svg";
-import BnbIcon from "../../../assets/images/token_icons/WBNB-Token-Icon.svg";
+import NiobIcon from "../../../assets/images/saitaswap.png";
+import BnbIcon from "../../../assets/images/WBNB-Token-Icon.svg";
 import { MAIN_CONTRACT_LIST, TOKEN_LIST, WETH } from "../../../assets/tokens";
 import {
   addTransaction,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import "./Footer.scss";
 import { Link } from "react-router-dom";
-import NIOB from "../../assets/images/token_icons/NIOB.svg";
+import NIOB from "../../assets/images/saitaswap.png";
 import MetaMask from "../../assets/images/MetaMask-Icon.svg";
 import ScrollTop from "../ScrollTop/ScrollTop";
 import { Button } from "react-bootstrap";
