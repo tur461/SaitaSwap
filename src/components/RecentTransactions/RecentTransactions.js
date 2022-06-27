@@ -34,7 +34,7 @@ const RecentTransactions = ({ show, handleClose }) => {
                           <a
                             target="_blank"
                             rel="noreferrer noopener"
-                            href={`${BSC_SCAN}tx/${t.tx}`}
+                            href={`${BSC_SCAN}/tx/${t.tx}`}
                             className="success"
                           >
                             {t.message}

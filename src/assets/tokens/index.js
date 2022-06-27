@@ -10,7 +10,14 @@ import POLKADOT from "../images/token_icons/POLKADOT.svg";
 import TRON from "../images/token_icons/TRON.svg";
 import CAKE from "../images/token_icons/CAKE.svg";
 import NIOB from "../images/token_icons/NIOB.svg";
-
+import SHRIYO from "/data/nm/SaitaSwap/src/assets/images/token_icons/saitamaIcons/shriyo-Inu.png";
+import IMPACTXP from "/data/nm/SaitaSwap/src/assets/images/token_icons/saitamaIcons/impactXp.png";
+import Kishimoto from "/data/nm/SaitaSwap/src/assets/images/token_icons/saitamaIcons/kishimoto.png";
+import MANDOX from "/data/nm/SaitaSwap/src/assets/images/token_icons/saitamaIcons/MandoX.png";
+import SAITA from "/data/nm/SaitaSwap/src/assets/images/saitaswap.png";
+import SHAMAN from "/data/nm/SaitaSwap/src/assets/images/schdule.png";
+import LP from "/data/nm/SaitaSwap/src/assets/images/Pool-Header-Logo.png";
+import ETH1 from "/data/nm/SaitaSwap/src/assets/images/token_icons/Ethreallogo.png";
 import routerABI from "../ABI/router.ABI.json";
 import factoryABI from "../ABI/factory.ABI.json";
 import pairABI from "../ABI/pair.ABI.json";
@@ -90,7 +97,7 @@ export const TOKEN_LIST = [
     symbol: "ETH",
   },
   {
-    icon: NIOB,
+    icon: SAITA,
     name: "SAITAMA",
     address: "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
     isAdd: false,
@@ -99,13 +106,58 @@ export const TOKEN_LIST = [
     symbol: "SAITAMA",
   },
   {
-    icon: BNB,
+    icon: LP,
     name: "LP",
     address: "0xdF334150FFe9Bc4989a7F3FD5db378d0eD60f0A0",
     isAdd: false,
     isDel: false,
     decimals: 18,
     symbol: "LP",
+  },
+  {
+    icon: SHRIYO,
+    name: "Shiryo-Inu",
+    address: "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "Shiryo-Inu",
+  },
+  {
+    icon: IMPACTXP,
+    name: "ImpactXP",
+    address: "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "ImpactXP",
+  },
+  {
+    icon: Kishimoto,
+    name: "Kishimoto",
+    address: "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "Kishimoto",
+  },
+  {
+    icon: MANDOX,
+    name: "Mandox",
+    address: "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "Mandox",
+  },
+  {
+    icon: SHAMAN,
+    name: "Shaman",
+    address: "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
+    isAdd: false,
+    isDel: false,
+    decimals: 18,
+    symbol: "Shaman",
   },
   // {
   //   icon: BUSD,
