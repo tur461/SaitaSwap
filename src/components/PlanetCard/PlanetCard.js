@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import ButtonCustom from "../Button/Button";
 import { Button } from "react-bootstrap";
 import "./PlanetCard.scss";
 import RightArrow from "../../assets/images/right-arrow.png";
@@ -19,7 +18,7 @@ import { BigNumber } from "bignumber.js";
 import { toast } from "../Toast/Toast";
 import { addTransaction, startLoading, stopLoading } from "../../redux/actions";
 import { addCommas } from "../../constant";
-import NIOB from "../../assets/images/token_icons/NIOB.svg";
+
 
 const PlanetCard = (props) => {
   const [classToggle, setClassToggle] = useState(false);
@@ -58,7 +57,7 @@ const PlanetCard = (props) => {
   });
   const [dollarValue, setAnchorDollarValue] = useState(0.01);
 
-  const getAnchorDollarValue = async () => {
+  const getSaitaDollarValue = async () => {
     if (poolInfo.lpToken != undefined) {
       try {
         let reserves = await ExchangeService.getReserves(ANCHOR_BUSD_LP);
@@ -113,7 +112,6 @@ const PlanetCard = (props) => {
 
   const init = async () => {
     if (poolInfo) {
-      // console.log("Pool Info:", poolInfo);
       const { lpToken } = poolInfo;
       if (lpToken) {
         const totalSupplyTemp = await ContractServices.getTotalSupply(lpToken);
@@ -167,7 +165,7 @@ const PlanetCard = (props) => {
           const rewards = Number(
             Number(
               (await FarmService.pendingPanther(pid, isUserConnected)) /
-                10 ** 18
+              10 ** 18
             ).toFixed(5)
           );
           if (!check && amount > 0) {
@@ -252,15 +250,11 @@ const PlanetCard = (props) => {
     if (pairAddress == "0x0000000000000000000000000000000000000000") {
       return 0;
     }
-
-    // console.log("pairAddresspairAddress", pairAddress);
     const tokenZero = await ExchangeService.getTokenZero(pairAddress);
     const tokenOne = await ExchangeService.getTokenOne(pairAddress);
     const reserve = await ExchangeService.getReserves(pairAddress);
     const decimalZero = await ContractServices.getDecimals(tokenZero);
     const decimalOne = await ContractServices.getDecimals(tokenOne);
-
-    // console.log(tokenZero, TOKEN_LIST[2].address);
 
     if (tokenZero.toLowerCase() === TOKEN_LIST[2]?.address.toLowerCase()) {
       return (price =
@@ -272,17 +266,17 @@ const PlanetCard = (props) => {
         (reserve[1] * 10 ** decimalZero) / (reserve[0] * 10 ** decimalOne));
     }
 
-    let priceBNBToUSD = await calPrice(BNB_BUSD_LP); //replace with BNB-USD pair
+    // let priceBNBToUSD = await calPrice(BNB_BUSD_LP); //replace with BNB-USD pair
     if (tokenZero.toLowerCase() === WETH.toLowerCase()) {
       price =
         (reserve[0] * 10 ** decimalOne) / (reserve[1] * 10 ** decimalZero);
-      return price * priceBNBToUSD;
+      return price * 0.002;
     }
 
     if (tokenOne.toLowerCase() === WETH.toLowerCase()) {
       price =
         (reserve[1] * 10 ** decimalZero) / (reserve[0] * 10 ** decimalOne);
-      return price * priceBNBToUSD;
+      return price * 0.002;
     }
   };
 
@@ -335,6 +329,8 @@ const PlanetCard = (props) => {
       const decimalZero = await ContractServices.getDecimals(tokenZero);
       const decimalOne = await ContractServices.getDecimals(tokenOne);
 
+      //let priceA = 0.001;
+      //let priceB = 0.002;
       let priceA = await getDollarAPR(tokenZero);
       let priceB = await getDollarAPR(tokenOne);
 
@@ -380,9 +376,6 @@ const PlanetCard = (props) => {
 
       const totalSupply = await ExchangeService.getTotalSupply(pairAddress);
       const tokenStaked = await ExchangeService.getTokenStaked(pairAddress);
-      console.log("PriceA:", priceA);
-      console.log("PriceB:", priceB);
-      console.log("reserve:", reserve);
       const liquidity =
         (((reserve[0] / 10 ** decimalZero) * priceA +
           (reserve[1] / 10 ** decimalOne) * priceB) /
@@ -412,8 +405,7 @@ const PlanetCard = (props) => {
       return filename == "default.60b90c93.svg" ? "farm-coin" : "";
     }
   };
-  const earnedNiobValue = (dollarValue, rewards) => {
-    console.log("DOllar value:", dollarValue);
+  const earnedSaitaValue = (dollarValue, rewards) => {
     let fixedAfterDecimal = Number(0.01 * rewards).toFixed(9);
     let res = addCommas(fixedAfterDecimal);
     return res;
@@ -425,11 +417,9 @@ const PlanetCard = (props) => {
     return res;
   };
   useEffect(async () => {
-    await getAnchorDollarValue();
+    await getSaitaDollarValue();
     init();
-    // console.log('userInfo.amount', userInfo.amount);
   }, [isUserConnected]);
-
   return (
     <>
       <Button
@@ -483,7 +473,7 @@ const PlanetCard = (props) => {
             </p>
           </div>
           <div className="erndniob">
-            <span>Earned Niob</span>
+            <span>Earned Saita</span>
             <p>
               {addCommas(stakeAmounts.rewards) === "NaN" || NaN
                 ? 0
@@ -491,10 +481,10 @@ const PlanetCard = (props) => {
             </p>
             <p>
               ${" "}
-              {earnedNiobValue(dollarValue, stakeAmounts.rewards) === "NaN" ||
-              NaN
+              {earnedSaitaValue(dollarValue, stakeAmounts.rewards) === "NaN" ||
+                NaN
                 ? 0
-                : earnedNiobValue(dollarValue, stakeAmounts.rewards)}
+                : earnedSaitaValue(dollarValue, stakeAmounts.rewards)}
             </p>
           </div>
         </div>
@@ -604,7 +594,7 @@ const PlanetCard = (props) => {
                 {addCommas(stakeAmounts.rewards) === "NaN" || NaN
                   ? 0
                   : addCommas(stakeAmounts.rewards)}{" "}
-                NIOB
+                SAITA
               </p>
               <span>
                 $

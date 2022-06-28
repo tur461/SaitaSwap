@@ -117,7 +117,7 @@ const walletWindowListener = async () => {
                 ],
               });
               window.location.reload();
-            } catch (error) {}
+            } catch (error) { }
           }
         }
       }
@@ -150,7 +150,7 @@ const walletWindowListener = async () => {
                     },
                   ],
                 });
-              } catch (error) {}
+              } catch (error) { }
             }
           }
         }
@@ -218,7 +218,6 @@ const callContract = async (contractAddress, contractABI) => {
   return contractOjbect;
 };
 const callTokenContract = async (tokenAddress) => {
-  console.log("currentTokenAddress haiiiii", currentTokenAddress);
   if (
     tokenContractObject &&
     currentContractAddress &&
@@ -281,13 +280,11 @@ const allowanceToken = async (tokenAddress, mainContractAddress, address) => {
 
 const getTokenBalance = async (tokenAddress, address) => {
   try {
-    console.log("ye hai token address", tokenAddress);
     const contract = await callTokenContract(tokenAddress);
     const decimals = await contract.methods.decimals().call();
-    console.log("decimals----------------", decimals);
     let result = await contract.methods.balanceOf(address).call();
     result = (Number(result) / 10 ** decimals).toFixed(5);
-    console.log(result, "RESULT _________________________");
+    console.log(result);
     return Number(result);
   } catch (error) {
     console.log("Error:", error);

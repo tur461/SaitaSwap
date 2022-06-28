@@ -276,7 +276,6 @@ function PoolGalaxy(props) {
         dispatch(addTransaction(data));
       }
     } catch (err) {
-      console.log(err, 'lp harvest');
       dispatch(stopLoading());
       setStakeConfimation(false);
 

@@ -34,8 +34,8 @@ export const LIQUIDITY_PROVIDER_FEE = 0.2;
 export const pancakeFactory = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f";
 
 // ******** BSC_TEST_NET LP's, WETH and USD **********
-export const ANCHOR_BUSD_LP = "0x5c93fa885d2D4Ee88032a28882638f40519Fb83d";
-export const BNB_BUSD_LP = "0x1cd0db040D556280f95679cE2796aaE698475616";
+export const ANCHOR_BUSD_LP = "0xe59099067708C3030332CbEAE91e420D588E109C";
+export const BNB_BUSD_LP = "0xE5799D95Ac7ECCbAf672777eDb516D29c030f5a9";
 export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
 export const USD = "0x2Dd65fFe5F1B2D8a745b7194cCa59B451C5986D2";
 
@@ -229,7 +229,7 @@ export const MAIN_CONTRACT_LIST = {
     abi: pairABI,
   },
   farm: {
-    address: "0x85EB04E60ee5920eaFfe2807CcC1521358F6Cf5D",
+    address: "0x642A34f580FBA0D9b82ae8caD9112aAf36B34c1A",
     blockNumber: 10889234,
     abi: farmABI,
   },

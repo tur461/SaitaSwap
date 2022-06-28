@@ -16,11 +16,7 @@ const poolInfo = async (index, type) => {
   try {
     const contract = await ContractServices.callContract(MAIN_CONTRACT_LIST.farm.address, MAIN_CONTRACT_LIST.farm.abi);
     const result = await contract.methods.poolInfo(index).call();
-    const poolType = await contract.methods.poolType(result.lpToken).call();
-    if (poolType === type) {
-      return result;
-    }
-    return false;
+    return result;
   } catch (error) {
     return error;
   }
@@ -118,7 +114,6 @@ const userInfo = async (index, address) => {
     const contract = await ContractServices.callContract(MAIN_CONTRACT_LIST.farm.address, MAIN_CONTRACT_LIST.farm.abi);
     return await contract.methods.userInfo(index, address).call();
   } catch (err) {
-    console.log("Error:", err);
     return err;
   }
 }

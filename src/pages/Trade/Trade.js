@@ -44,8 +44,6 @@ const Trade = (props) => {
     history.push(`${rootName}/trade/liquidity/addLiquidity`);
   };
   const handleRemove = (lp) => {
-    // console.log('hitt');
-    // console.log('this is lp ==>>', lp);
     if (!isUserConnected) {
       return toast.error("Connect wallet first!");
     }

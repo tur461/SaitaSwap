@@ -139,7 +139,6 @@ const FarmPlanets = (props) => {
       for (let i = 0; i < pL; i++) {
         const poolInfo = await FarmService.poolInfo(i, "1");
         const userInfo = await FarmService.userInfo(i, isUserConnected);
-        // console.log(userInfo, '------i------', i);
         if (poolInfo) {
           if (Number(poolInfo.allocPoint) === 0) {
             setInactiveFarms((inactiveFarms) => [

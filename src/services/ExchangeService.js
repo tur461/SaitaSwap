@@ -99,6 +99,8 @@ const getAmountsOut = async (amountIn, pair) => {
   }
 };
 
+
+
 const getAmountsIn = async (amountOut, pair) => {
   try {
     const decimals1 = await ContractServices.getDecimals(pair[1]);
@@ -111,10 +113,7 @@ const getAmountsIn = async (amountOut, pair) => {
       MAIN_CONTRACT_LIST.router.address,
       MAIN_CONTRACT_LIST.router.abi
     );
-
-    console.log("Testing: ", calAmount, pair);
     const result = await contract.methods.getAmountsIn(calAmount, pair).call();
-    console.log("result: ", result);
     const decimals = await ContractServices.getDecimals(pair[0]);
     return Number(result[0]) / 10 ** decimals;
 
@@ -1309,7 +1308,7 @@ const swapExactTokensForETH = async (data, a1, a2) => {
           reject(error);
         }
       } else {
-        // console.log("HEREEEEEE ELSE:", data);
+        // ("HEREEEEEE ELSE:", data);
         try {
           const gas = await contract.methods
             .swapExactTokensForETH(amountIn, amountOutMin, path, to, deadline)
@@ -1337,6 +1336,21 @@ const swapExactTokensForETH = async (data, a1, a2) => {
     }
   });
 };
+
+const getAmountsOutForDValue = async (amountIn, pair) => {
+  try {
+
+    const contract = await ContractServices.callContract(
+      MAIN_CONTRACT_LIST.router.address,
+      MAIN_CONTRACT_LIST.router.abi
+    );
+
+    return await contract.methods.getAmountsOut(amountIn, pair).call();
+
+  } catch (error) {
+    return error;
+  }
+};
 //exporting functions
 export const ExchangeService = {
   getPair,
@@ -1361,4 +1375,5 @@ export const ExchangeService = {
   getBurnedToken,
   getAmountsIn,
   getPairFromPancakeFactory,
+  getAmountsOutForDValue
 };

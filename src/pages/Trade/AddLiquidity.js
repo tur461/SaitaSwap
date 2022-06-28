@@ -228,16 +228,12 @@ const AddLiquidity = (props) => {
       let currentPairAddress;
       if (a1 === "BNB") {
         a1 = WETH; //WETH
-        console.log(a1, a2);
         currentPairAddress = await ExchangeService.getPair(a1, a2);
-        console.log("ye ha asli maal", currentPairAddress);
       } else if (a2 === "BNB") {
         a2 = WETH; //WETH
         currentPairAddress = await ExchangeService.getPair(a1, a2);
-        console.log("ye ha asli maal 1", currentPairAddress);
       } else {
         currentPairAddress = await ExchangeService.getPair(a1, a2);
-        console.log("ye ha asli maal 2", currentPairAddress);
       }
       if (currentPairAddress !== "0x0000000000000000000000000000000000000000") {
         setCurrentPairAddress(currentPairAddress);
@@ -680,7 +676,7 @@ const AddLiquidity = (props) => {
           Math.floor(
             (amountTokenDesired -
               (amountTokenDesired * slippagePercentage) / 100) *
-              10 ** tokenTwo.decimals
+            10 ** tokenTwo.decimals
           )
         ).toFixed();
         amountTokenDesired = BigNumber(
@@ -693,7 +689,7 @@ const AddLiquidity = (props) => {
           Math.floor(
             (amountTokenDesired -
               (amountTokenDesired * slippagePercentage) / 100) *
-              10 ** tokenOne.decimals
+            10 ** tokenOne.decimals
           )
         ).toFixed();
         amountTokenDesired = BigNumber(
@@ -770,7 +766,6 @@ const AddLiquidity = (props) => {
         deadline: dl,
         value,
       };
-      console.log(data, "datt123");
       try {
         dispatch(startLoading());
         const result = await ExchangeService.addLiquidity(data);
