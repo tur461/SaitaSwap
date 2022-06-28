@@ -438,7 +438,7 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
         checkSignature,
       } = data;
       value = "0";
-
+      console.log(token, "inspection");
       const contract = await ContractServices.callContract(
         MAIN_CONTRACT_LIST.router.address,
         MAIN_CONTRACT_LIST.router.abi

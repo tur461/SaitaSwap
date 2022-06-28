@@ -110,6 +110,16 @@ const Sidebar = (props) => {
             closeSidebar();
             setSideBarOption("");
           }}
+          className={splitLocation[1] === "liquidity" ? "active" : ""}
+          icon={<i className="farm_nav_icon"></i>}
+        >
+          <Link to="/staking">Stake</Link>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            closeSidebar();
+            setSideBarOption("");
+          }}
           className={splitLocation[1] === "farmplanets" ? "active" : ""}
           icon={<i className="farm_nav_icon"></i>}
         >

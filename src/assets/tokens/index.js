@@ -10,19 +10,31 @@ import POLKADOT from "../images/token_icons/POLKADOT.svg";
 import TRON from "../images/token_icons/TRON.svg";
 import CAKE from "../images/token_icons/CAKE.svg";
 import NIOB from "../images/token_icons/NIOB.svg";
-
+import SHRIYO from "../images/token_icons/saitamaIcons/shriyo-Inu.png";
+import IMPACTXP from "../images/token_icons/saitamaIcons/impactXp.png";
+import Kishimoto from "../images/token_icons/saitamaIcons/kishimoto.png";
+import MANDOX from "../images/token_icons/saitamaIcons/MandoX.png";
+import SAITA from "../images/saitaswap.png";
+import SHAMAN from "../images/schdule.png";
+import LP from "../images/Pool-Header-Logo.png";
+import ETH1 from "../images/token_icons/Ethreallogo.png";
 import routerABI from "../ABI/router.ABI.json";
 import factoryABI from "../ABI/factory.ABI.json";
 import pairABI from "../ABI/pair.ABI.json";
 import farmABI from "../ABI/farmABI.json";
 import anchorABI from "../ABI/anchor.ABI.json";
 import referralsABI from "../ABI/referrals.ABI.json";
-
+import shaman from "../images/token_icons/saitamaIcons/shaman.png";
 export const NIOB1 = "0x035781918b7221293B6938c9c0037cDf1dB183dE";
 export const NIOB2 = "0xADdcE6c9Dd30a6b252eAB252a11aBe518381132C";
 export const BURN_ADDRESS = "0x000000000000000000000000000000000000dEaD";
 export const DEFLATIONNARY_TOKENS = [
   "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
+  "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
+  "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
+  "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
+  "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
+  "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
 ];
 export const LIQUIDITY_PROVIDER_FEE = 0.2;
 
@@ -90,7 +102,7 @@ export const TOKEN_LIST = [
     symbol: "ETH",
   },
   {
-    icon: NIOB,
+    icon: SAITA,
     name: "SAITAMA",
     address: "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
     isAdd: false,
@@ -99,13 +111,58 @@ export const TOKEN_LIST = [
     symbol: "SAITAMA",
   },
   {
-    icon: BNB,
+    icon: LP,
     name: "LP",
     address: "0xdF334150FFe9Bc4989a7F3FD5db378d0eD60f0A0",
     isAdd: false,
     isDel: false,
     decimals: 18,
     symbol: "LP",
+  },
+  {
+    icon: SHRIYO,
+    name: "Shiryo-Inu",
+    address: "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "Shiryo-Inu",
+  },
+  {
+    icon: IMPACTXP,
+    name: "ImpactXP",
+    address: "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "ImpactXP",
+  },
+  {
+    icon: Kishimoto,
+    name: "Kishimoto",
+    address: "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "Kishimoto",
+  },
+  {
+    icon: MANDOX,
+    name: "Mandox",
+    address: "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "Mandox",
+  },
+  {
+    icon: shaman,
+    name: "Shaman",
+    address: "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
+    isAdd: false,
+    isDel: false,
+    decimals: 18,
+    symbol: "Shaman",
   },
   // {
   //   icon: BUSD,

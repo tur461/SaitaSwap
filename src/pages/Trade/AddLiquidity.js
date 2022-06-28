@@ -313,6 +313,15 @@ const AddLiquidity = (props) => {
 
   const handleTokenValue = async (amount, tokenType) => {
     let amt1, amt2;
+    if (
+      tokenOne.address.toLowerCase() !== TOKEN_LIST[0].address.toLowerCase() &&
+      tokenOne.address.toLowerCase() !== TOKEN_LIST[1].address.toLowerCase() &&
+      tokenTwo.address.toLowerCase() !== TOKEN_LIST[0].address.toLowerCase() &&
+      tokenTwo.address.toLowerCase() !== TOKEN_LIST[1].address.toLowerCase()
+    ) {
+      toast.error("One token should be either Eth or Saitama");
+      return;
+    }
     if (tokenType === "TK1") {
       setTokenOneValue(amount);
       amt1 = amount;

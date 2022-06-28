@@ -126,6 +126,11 @@ const Liquidity = ({ handleAddLiquidity, handleRemove }) => {
                           className="remove_liq_btn"
                           // onClick={() =>  removehandleShow(true)}
                           onClick={() => handleAddLiquidity(lp)}
+                          style={{
+                            display: "inline",
+                            marginLeft: "6px",
+                            marginRight: "162px",
+                          }}
                         />
                         <ButtonPrimary
                           title="Remove liquidity"
@@ -133,6 +138,11 @@ const Liquidity = ({ handleAddLiquidity, handleRemove }) => {
                           onClick={() => {
                             setLptoken(lp);
                             removehandleShow();
+                          
+                          }}
+                          style={{
+                            display: "inline",
+                            padding: "2px 7px 3px 6px",
                           }}
                         />
                       </div>

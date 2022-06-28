@@ -12,7 +12,7 @@ import AddLiquidity from "../../pages/Trade/AddLiquidity";
 import { rootName } from "../../constant";
 import PoolGalaxy from "../../pages/PoolGalaxy/PoolGalaxy";
 import ReactGA from "react-ga";
-
+import Staking from "../../pages/Trade/Staking";
 const PublicRoutes = () => {
   const location = useLocation();
 
@@ -81,6 +81,7 @@ const PublicRoutes = () => {
         <Route path={"/home"} component={Home} exact={true} />
         <Route path={"/r/:ref"} component={Home} />
         <Route path={"/referral"} component={Referral} exact={true} />
+        <Route path={"/staking"} component={Staking} exact={true} />
         <Route
           path={"/farmplanets/:tab"}
           component={FarmPlanets}
