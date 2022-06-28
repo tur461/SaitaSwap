@@ -17,17 +17,20 @@ import "./Staking.scss";
 import { ContractServices } from "../../services/ContractServices";
 import ABISTAKING from "../../assets/ABI/SaitaABI.json";
 import TOKENABI from "../../assets/ABI/abi.saitama.json";
+import { toast } from "../../components/Toast/Toast";
 const Staking = () => {
   const contractAddress = "0xd9bcc6474499B397707D3379595f2d27f47B3629";
   const tokenAddress = "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C";
   const MAX_AMT = "0xffffffffffffffffffffffffffffffffffffffff";
   const [inputAmount, setInputAmount] = useState();
-  const [days, setDays] = useState(1);
+  const [days, setDays] = useState(0);
   const [reward, setReward] = useState(0);
   const [tokenBalance, setTokenBalance] = useState();
-  const [finaldays, setfinaldays] = useState();
+  // const [finaldays, setfinaldays] = useState();
   const [transactionNo, setTransNo] = useState({});
   const [dataArray, setDataArray] = useState([]);
+  const [contract, setContract] = useState();
+  const [userAddress, setUserAddress] = useState("");
   let daataarray = [];
   // const [dataObj, setDataObj] = useState({
   //   amount: "",
@@ -38,19 +41,21 @@ const Staking = () => {
 
   let totalSeconds = 86400;
   let finalRewards = inputAmount && reward ? (inputAmount * reward) / 100 : 0;
+
   useEffect(async () => {
     let contract = await ContractServices.callContract(
       contractAddress,
       ABISTAKING
     );
+    setContract(contract);
     console.log("real contract", contract.methods);
-    let rewardPercent = await contract.methods
-      .rewardPercent(days * totalSeconds)
-      .call();
+    console.log("useEffect days input", days);
+    let rewardPercent = await contract.methods.rewardPercent(days).call();
     setReward(rewardPercent);
     console.log("reward", rewardPercent);
-    console.log("useEffect days", days);
+
     let userAddress = await ContractServices.isMetamaskInstalled();
+    setUserAddress(userAddress);
     const TokenBalance = await ContractServices.getTokenBalanceFull(
       tokenAddress,
       userAddress
@@ -58,25 +63,17 @@ const Staking = () => {
     console.log("tokenbalace", TokenBalance);
     setTokenBalance(TokenBalance);
   }, [days]);
-  const destructure = async (array) => {
+  const destructure = async (array, i) => {
     daataarray.push({
       amount: array[0],
-      lockInUntil: array[1],
-      lockInPeriod: array[2],
-      stakeInTime: array[3],
+      lockInPeriod: array[1],
+      lockInUntil: array[2],
+      isClaimed: array[3],
+      transactionNo: i,
     });
     console.log("ydaataarraye hai dataObj", array, daataarray);
   };
-  // const hello = async () => {
-  //   let contract = await Contractservices.callContract(
-  //     contractAddress,
-  //     ABISTAKING
-  //   );
-  //   console.log("real contract", contract.methods);
-  //   let reward = await contract.methods.rewardPercent(totalSeconds).call();
-  //   console.log("reward", reward);
-  //   setReward(reward);
-  // };
+
   console.log("ye hai main array", dataArray);
   const letsCallContract = async () => {
     try {
@@ -107,17 +104,17 @@ const Staking = () => {
       console.log("nnncnbcnc", days);
       console.log("++++++++++++++++before stake");
       let gas = await contract.methods
-        .stake(days * totalSeconds, inputAmount)
+        .stake(days, inputAmount * 10 ** 9)
         .estimateGas({ from: userAddress });
       console.log("before stake");
       let result = await contract.methods
-        .stake(days * totalSeconds, inputAmount)
+        .stake(days, inputAmount * 10 ** 9)
         .send({ from: userAddress, gas: gas });
       console.log("gas", gas);
       console.log("tokeninstance", tokenInstance);
       console.log("result", result);
       let data = await contract.methods.stakingTx(userAddress);
-      setfinaldays(days * totalSeconds);
+      // setfinaldays(days * totalSeconds);
       const transactionNo = await contract.methods
         .stakingTx(userAddress)
         .call();
@@ -131,7 +128,7 @@ const Staking = () => {
           .userTransactions(userAddress, i)
           .call();
         // console.log("transactionDetails", transactionDetails);
-        await destructure(transactionDetails);
+        await destructure(transactionDetails, i);
       }
 
       setDataArray(daataarray);
@@ -141,7 +138,65 @@ const Staking = () => {
       console.log(error);
     }
   };
+  const letsUnstake = async (trans) => {
+    try {
+      let contract = await ContractServices.callContract(
+        contractAddress,
+        ABISTAKING
+      );
+      let userAddress = await ContractServices.isMetamaskInstalled();
+      let gas = await contract.methods
+        .claim(trans)
+        .estimateGas({ from: userAddress });
+      let result = contract.methods
+        .claim(trans)
+        .send({ from: userAddress, gas: gas });
+      console.log("real contract", contract.methods);
+      console.log("xxxxxxxxxxccccccccccccc", trans);
+      console.log("claim result", result);
+      const transactionNo = await contract.methods
+        .stakingTx(userAddress)
+        .call();
+      console.log("transactionNo", transactionNo);
+      setTransNo(transactionNo);
+      let totalTransactions = transactionNo.txNo;
+      console.log("totalTransactions", totalTransactions);
+      let transactionDetails;
+      for (let i = 1; i <= totalTransactions; i++) {
+        transactionDetails = await contract.methods
+          .userTransactions(userAddress, i)
+          .call();
+        // console.log("transactionDetails", transactionDetails);
+        await destructure(transactionDetails, i);
+      }
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+  const getTheStake = async () => {
+    try {
+      alert("jj");
+      const transactionNo = await contract.methods
+        .stakingTx(userAddress)
+        .call();
+      console.log("transactionNo", transactionNo);
+      setTransNo(transactionNo);
+      let totalTransactions = transactionNo.txNo;
+      console.log("totalTransactions", totalTransactions);
+      let transactionDetails;
+      for (let i = 1; i <= totalTransactions; i++) {
+        transactionDetails = await contract.methods
+          .userTransactions(userAddress, i)
+          .call();
+        // console.log("transactionDetails", transactionDetails);
+        await destructure(transactionDetails, i);
+      }
 
+      setDataArray(daataarray);
+    } catch (error) {
+      alert(error);
+    }
+  };
   console.log("inputamount", inputAmount, "days", days);
   console.log("lastFinalArray", dataArray);
   console.log("rewar------------d", reward);
@@ -193,23 +248,28 @@ const Staking = () => {
                         <span className="ms-2">{reward}%</span>
                       </p>
                       <p className="d-flex">
-                        <span>Lock Days:</span>{" "}
-                        <span className="ms-2">{days}</span>
+                        <span>Lock-In Period:</span>{" "}
+                        <span className="ms-2">{days} Days</span>
                       </p>
                       <p className="d-flex">
                         <span>Final Rewards:</span>{" "}
-                        <span className="ms-2">{finalRewards}</span>
+                        <span className="ms-2">{finalRewards} Saitama</span>
                       </p>
                     </div>
                     <div>
                       <p className="d-flex">
                         <span>Daily Rewards:</span>{" "}
-                        <span className="ms-2">60</span>
+                        <span className="ms-2">
+                          {finalRewards / days?.toFixed(4) + " Saitama"}
+                        </span>
                       </p>
                     </div>
                   </div>
                   <Button className="stake_btn" onClick={letsCallContract}>
                     Stake
+                  </Button>
+                  <Button className="stake_btn" onClick={getTheStake}>
+                    Get your stakings
                   </Button>
                 </div>
                 {console.log("in the jsx", dataArray)}
@@ -221,7 +281,7 @@ const Staking = () => {
                           <div className="value_amount_sec d-block">
                             <div className="value_amount d-flex">
                               <p>Stake Amount:</p>
-                              <p>{item.amount}</p>
+                              <p>{item.amount/(10**9)}</p>
                             </div>
                             <div className="value_amount d-flex">
                               <p>lockInUntil:</p>
@@ -229,10 +289,25 @@ const Staking = () => {
                             </div>
                             <div className="value_amount d-flex">
                               <p>lockInPeriod:</p>
-                              <p>{item.lockInUntil / 86400 + "Days"}</p>
+                              <p>{item.lockInPeriod + "Seconds"}</p>
                             </div>
                           </div>
-                          <Button className="unstake_btn">Unstake</Button>
+                          {item.isClaimed === true ? (
+                            <Button className="unstake_btn">Claimed</Button>
+                          ) : (
+                            <Button
+                              className="unstake_btn"
+                              onClick={() => {
+                                try {
+                                  letsUnstake(item.transactionNo);
+                                } catch (err) {
+                                  alert("nnn");
+                                }
+                              }}
+                            >
+                              Unstake
+                            </Button>
+                          )}
                         </div>
                       </div>
                     ))

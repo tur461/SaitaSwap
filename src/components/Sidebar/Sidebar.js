@@ -104,13 +104,17 @@ const Sidebar = (props) => {
           >
             <Link to="/trade/liquidity">Liquidity</Link>
           </MenuItem>
-          <MenuItem
-            onClick={() => closeSidebar()}
-            className={splitLocation[2] === "liquidity" ? "active" : ""}
-          >
-            <Link to="/staking">Staking</Link>
-          </MenuItem>
         </SubMenu>
+        <MenuItem
+          onClick={() => {
+            closeSidebar();
+            setSideBarOption("");
+          }}
+          className={splitLocation[1] === "liquidity" ? "active" : ""}
+          icon={<i className="farm_nav_icon"></i>}
+        >
+          <Link to="/staking">Stake</Link>
+        </MenuItem>
         <MenuItem
           onClick={() => {
             closeSidebar();

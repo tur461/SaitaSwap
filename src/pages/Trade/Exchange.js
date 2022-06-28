@@ -325,18 +325,18 @@ const Exchange = (props) => {
       if (!isUserConnected) {
         return;
       }
-      if (
-        tokenOne.address.toLowerCase() !==
-          TOKEN_LIST[0].address.toLowerCase() &&
-        tokenOne.address.toLowerCase() !==
-          TOKEN_LIST[1].address.toLowerCase() &&
-        tokenTwo.address.toLowerCase() !==
-          TOKEN_LIST[0].address.toLowerCase() &&
-        tokenTwo.address.toLowerCase() !== TOKEN_LIST[1].address.toLowerCase()
-      ) {
-        toast.error("One token should be either Eth or Saitama");
-        return;
-      }
+      // if (
+      //   tokenOne.address.toLowerCase() !==
+      //     TOKEN_LIST[0].address.toLowerCase() &&
+      //   tokenOne.address.toLowerCase() !==
+      //     TOKEN_LIST[1].address.toLowerCase() &&
+      //   tokenTwo.address.toLowerCase() !==
+      //     TOKEN_LIST[0].address.toLowerCase() &&
+      //   tokenTwo.address.toLowerCase() !== TOKEN_LIST[1].address.toLowerCase()
+      // ) {
+      //   toast.error("One token should be either Eth or Saitama");
+      //   return;
+      // }
       const acc = await ContractServices.getDefaultAccount();
       if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
         return toast.error("Wallet address doesn`t match!");
