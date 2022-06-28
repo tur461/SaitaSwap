@@ -24,7 +24,7 @@ import pairABI from "../ABI/pair.ABI.json";
 import farmABI from "../ABI/farmABI.json";
 import anchorABI from "../ABI/anchor.ABI.json";
 import referralsABI from "../ABI/referrals.ABI.json";
-
+import shaman from "/data/nm/SaitaSwap/src/assets/images/token_icons/saitamaIcons/shaman.png";
 export const NIOB1 = "0x035781918b7221293B6938c9c0037cDf1dB183dE";
 export const NIOB2 = "0xADdcE6c9Dd30a6b252eAB252a11aBe518381132C";
 export const BURN_ADDRESS = "0x000000000000000000000000000000000000dEaD";
@@ -156,7 +156,7 @@ export const TOKEN_LIST = [
     symbol: "Mandox",
   },
   {
-    icon: SHAMAN,
+    icon: shaman,
     name: "Shaman",
     address: "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
     isAdd: false,

@@ -175,7 +175,6 @@ const Staking = () => {
   };
   const getTheStake = async () => {
     try {
-      alert("jj");
       const transactionNo = await contract.methods
         .stakingTx(userAddress)
         .call();
@@ -281,7 +280,7 @@ const Staking = () => {
                           <div className="value_amount_sec d-block">
                             <div className="value_amount d-flex">
                               <p>Stake Amount:</p>
-                              <p>{item.amount/(10**9)}</p>
+                              <p>{item.amount / 10 ** 9}</p>
                             </div>
                             <div className="value_amount d-flex">
                               <p>lockInUntil:</p>
