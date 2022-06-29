@@ -95,12 +95,14 @@ const Sidebar = (props) => {
           <MenuItem
             onClick={() => closeSidebar()}
             className={splitLocation[2] === "exchange" ? "active" : ""}
+            icon={<i className="exchange_nav_icon"></i>}
           >
             <Link to="/trade/exchange">Exchange</Link>
           </MenuItem>
           <MenuItem
             onClick={() => closeSidebar()}
             className={splitLocation[2] === "liquidity" ? "active" : ""}
+            icon={<i className="liquidity_nav_icon"></i>}
           >
             <Link to="/trade/liquidity">Liquidity</Link>
           </MenuItem>
@@ -111,7 +113,7 @@ const Sidebar = (props) => {
             setSideBarOption("");
           }}
           className={splitLocation[1] === "liquidity" ? "active" : ""}
-          icon={<i className="farm_nav_icon"></i>}
+          icon={<i className="stake_nav_icon"></i>}
         >
           <Link to="/staking">Stake</Link>
         </MenuItem>

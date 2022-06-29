@@ -17,7 +17,7 @@ const SelectCoin = (props) => {
             onChange={props.onChange}
             placeholder={props.placeholder}
             value={props.defaultValue}
-            min={0}
+            min={0} 
             minLength={1}
             maxLength={79}
             autoCorrect="off"

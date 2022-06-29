@@ -369,25 +369,27 @@ const FarmPlanets = (props) => {
 
   return (
     <div className="container_wrap farmpln frm_plnet_disply">
-      <div className="upper_text">
+      <div className="upperBox">
         <Container>
-          <Row>
-            <Col xl={6} className="pl-0">
-              <div className="farm_title">
-                <div className="farm_icon">
-                  <img src={FarmIcon} />
+          <div className="upper_text">
+            <Row>
+              <Col xl={6} className="pl-0">
+                <div className="farm_title">
+                  <div className="farm_icon">
+                    <img src={FarmIcon} />
+                  </div>
+                  <div className="desc">
+                    <h1 className="title_hd">Farm Planets</h1>
+                    <p>
+                      There is so much to explore! SaitaSwap offers multiple
+                      farming oppurtunities to you. Get amazing rewards by staking
+                      your LP tokens in return for additional SAITAMA Tokens.
+                    </p>
+                  </div>
                 </div>
-                <div className="desc">
-                  <h1 className="title_hd">Farm Planets</h1>
-                  <p>
-                    There is so much to explore! SaitaSwap offers multiple
-                    farming oppurtunities to you. Get amazing rewards by staking
-                    your LP tokens in return for additional SAITAMA Tokens.
-                  </p>
-                </div>
-              </div>
-            </Col>
-          </Row>
+              </Col>
+            </Row>
+          </div>
         </Container>
       </div>
       <div className="farm_srchbar">

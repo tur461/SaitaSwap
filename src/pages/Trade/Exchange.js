@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Col, Tabs, Tab } from "react-bootstrap";
-import ConnectWallet from "../../components/ConnectWallet/ConnectWallet";
+import ConnectWallet from "../../components/ConnectWallet/ConnectWallet"; 
 import CardCustom from "../../components/cardCustom/CardCustom";
 import ButtonPrimary from "../../components/Button/Button";
 import SelectCoin from "../../components/selectCoin/SelectCoin";

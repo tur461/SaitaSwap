@@ -13,7 +13,7 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Montserrat",
     "Courier New", monospace;
-}
+} 
 
 a {
   text-decoration: none;
@@ -153,4 +153,24 @@ input[type="number"] {
   border:1px solid $secondaryColor;
   background: $baseColor;
   text-align: center;
+}
+.py-40 {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.py-60 {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  @media (max-width:767px) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+.py-80 {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  @media (max-width:767px) {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
 }

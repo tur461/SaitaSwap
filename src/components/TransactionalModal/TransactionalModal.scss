@@ -46,6 +46,7 @@
         img {
           display: block;
           margin: 0 auto 0.9735rem;
+          max-width: 35px;
           &.icon_color {
             filter: invert(33%) sepia(74%) saturate(654%) hue-rotate(276deg) brightness(89%) contrast(91%);
           }

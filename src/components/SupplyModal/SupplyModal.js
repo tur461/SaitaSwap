@@ -65,7 +65,7 @@ const SupplyModal = ({
                         {1}&nbsp;{tokenTwoCurrency} = {calculateFraction("TK2")}
                         &nbsp;{tokenOneCurrency}
                       </p>
-                    </li>
+                    </li> 
                     <li>
                       Share of Pool: <span>{sharePoolValue}% </span>
                     </li>
@@ -75,7 +75,7 @@ const SupplyModal = ({
               <li className="mb-0 mt-4">
               <Col className="btnCol">
                 <Button
-                  className="approveBtn"
+                  className="buttonStyle"
                   disabled={liquidityConfirmation}
                   onClick={() => addLiquidity()}
                 >
