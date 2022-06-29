@@ -18,6 +18,7 @@ import { ContractServices } from "../../services/ContractServices";
 import ABISTAKING from "../../assets/ABI/SaitaABI.json";
 import TOKENABI from "../../assets/ABI/abi.saitama.json";
 import { toast } from "../../components/Toast/Toast";
+import Loader from "react-loader-spinner";
 const Staking = () => {
   const contractAddress = "0xd9bcc6474499B397707D3379595f2d27f47B3629";
   const tokenAddress = "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C";
@@ -31,6 +32,7 @@ const Staking = () => {
   const [dataArray, setDataArray] = useState([]);
   const [contract, setContract] = useState();
   const [userAddress, setUserAddress] = useState("");
+  const [isDisabled, setIsDisabled] = useState(false);
   let daataarray = [];
   // const [dataObj, setDataObj] = useState({
   //   amount: "",
@@ -87,6 +89,7 @@ const Staking = () => {
       let estimateGas = await tokenInstance.methods
         .approve(contractAddress, MAX_AMT)
         .estimateGas({ from: userAddress });
+      setIsDisabled(true);
       let approveToken = await tokenInstance.methods
         .allowance(userAddress, contractAddress)
         .call();
@@ -132,12 +135,22 @@ const Staking = () => {
       }
 
       setDataArray(daataarray);
-
+      setIsDisabled(false);
       // console.log("transactionDetails2", transactionDetails);
     } catch (error) {
       console.log(error);
     }
   };
+  // const disableButton = () => {
+  //   const btn = document.getElementById("myBtn");
+  //   function myFunction() {
+  //     btn.disabled = true;
+  //     setTimeout(() => {
+  //       btn.disabled = false;
+  //       console.log("Button Activated");
+  //     }, 5000);
+  //   }
+  // };
   const letsUnstake = async (trans) => {
     try {
       let contract = await ContractServices.callContract(
@@ -175,6 +188,7 @@ const Staking = () => {
   };
   const getTheStake = async () => {
     try {
+      setIsDisabled(true);
       const transactionNo = await contract.methods
         .stakingTx(userAddress)
         .call();
@@ -192,6 +206,7 @@ const Staking = () => {
       }
 
       setDataArray(daataarray);
+      setIsDisabled(false);
     } catch (error) {
       alert(error);
     }
@@ -264,9 +279,24 @@ const Staking = () => {
                       </p>
                     </div>
                   </div>
-                  <Button className="stake_btn" onClick={letsCallContract}>
+                  <Button
+                    className="stake_btn"
+                    id="myBtn"
+                    disabled={isDisabled}
+                    onClick={letsCallContract}
+                  >
                     Stake
                   </Button>
+                  {isDisabled && (
+                    <Loader
+                      type="Circles"
+                      color="#FFFFFF"
+                      height={15}
+                      width={15}
+                      visible={true}
+                      // timeout={5000} //3 secs
+                    />
+                  )}
                   <Button className="stake_btn" onClick={getTheStake}>
                     Get your stakings
                   </Button>
