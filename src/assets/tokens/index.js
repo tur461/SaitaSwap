@@ -93,7 +93,7 @@ export const TOKEN_LIST = [
   //   symbol: "SAITAMA",
   // },
   {
-    icon: BNB,
+    icon: ETH,
     name: "ETH",
     address: "BNB",
     isAdd: false,

@@ -201,7 +201,8 @@ const Staking = () => {
   console.log("rewar------------d", reward);
   localStorage.setItem("Transaction details", dataArray);
   return (
-    <div className="container_wrap referral_page">
+    // referral_page
+    <div className="container_wrap stakePage py-40">
       <div className="timeto_connect">
         <Container className="custom_container">
           <Row>
@@ -264,14 +265,15 @@ const Staking = () => {
                       </p>
                     </div>
                   </div>
-                  <Button className="stake_btn" onClick={letsCallContract}>
+                  <Button className="buttonStyle w-100 my-3" onClick={letsCallContract}>
                     Stake
                   </Button>
-                  <Button className="stake_btn" onClick={getTheStake}>
+                  <Button className="buttonStyle w-100" onClick={getTheStake}>
                     Get your stakings
                   </Button>
                 </div>
                 {console.log("in the jsx", dataArray)}
+                <div className="stakeAmountbox">
                 {dataArray
                   ? dataArray?.map((item) => (
                       <div className="duration_bits">
@@ -311,6 +313,7 @@ const Staking = () => {
                       </div>
                     ))
                   : null}
+                  </div>
               </div>
             </Col>
           </Row>
