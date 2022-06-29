@@ -242,10 +242,10 @@ const canHarvest = async (pid, address) => {
     return err;
   }
 }
-const pendingPanther = async (pid, address) => {
+const pendingSaitama = async (pid, address) => {
   try {
     const contract = await ContractServices.callContract(MAIN_CONTRACT_LIST.farm.address, MAIN_CONTRACT_LIST.farm.abi);
-    return await contract.methods.pendingNiob(pid, address).call();
+    return await contract.methods.pendingSaitama(pid, address).call();
   } catch (err) {
     return err;
   }
@@ -290,7 +290,7 @@ export const FarmService = {
   withdraw,
   withdrawNiob,
   canHarvest,
-  pendingPanther,
+  pendingSaitama,
   getPoolTokenDetails,
   poolInfoo,
   totalAllocationPoint,

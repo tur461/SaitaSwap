@@ -36,6 +36,7 @@ const PlanetCard = (props) => {
     status,
   } = props;
 
+  console.log("PoolInfo:", poolInfo)
   const [lpTokenDetails, setLpTokenDetails] = useState(null);
   const [showIncrease, setShowIncrease] = useState(false);
   const [totalSupply, setTotalSupply] = useState(0);
@@ -164,9 +165,9 @@ const PlanetCard = (props) => {
 
           const rewards = Number(
             Number(
-              (await FarmService.pendingPanther(pid, isUserConnected)) /
-              10 ** 18
-            ).toFixed(5)
+              (await FarmService.pendingSaitama(pid, isUserConnected)) /
+              10 ** 9
+            ).toFixed(9)
           );
           if (!check && amount > 0) {
             setShowIncrease(true);
