@@ -1028,7 +1028,7 @@ const RemoveLiquidity = (props) => {
             <ul className="text-start">
               <li>
                 {" "}
-                <h4>LP TOKENS IN YOUR WALLET</h4>{" "}
+                <h5>LP TOKENS IN YOUR WALLET</h5>{" "}
               </li>
             </ul>
             <ul className="text-end">
