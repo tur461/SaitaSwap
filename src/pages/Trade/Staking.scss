@@ -168,30 +168,35 @@
 }
 .duration_bits {
   max-width: 600px;
-  border-radius: 20px;
+  border-radius: 5px;
   text-align: center;
   margin: 10px auto;
   padding: 10px;
   background-color: #072530;
-  .value_sec {
-    justify-content: space-between;
-    display: flex;
-    align-items: flex-start;
-    align-items: center;
-    padding: 0 20px;
-    .value_amount {
-      gap: 10px;
-      color: white;
-      justify-content: space-between;
-      p {
-        font-size: 14px !important;
-        margin: 0;
-      }
+  border: 0;
+  tr {
+    border-bottom:1px solid $baseColor;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  th, td {
+    padding: 10px 10px;
+    font-size: 14px !important;
+    color: $white;
+    text-align: left;
+    vertical-align: middle;
+    p {
+      font-size: 14px !important;
+      margin: 0;
     }
     .unstake_btn {
-      width: 20%;
       background: transparent linear-gradient(268deg, #8b26f4 0%, #c996cc 100%);
       border-radius: 15px;
+      font-size: 13px;
+      padding: 8px 10px;
+      min-width: 90px;
+      height: 35px;
       &:hover,
       &:focus {
         background: transparent
@@ -200,12 +205,19 @@
       }
     }
   }
+  th {
+    padding: 15px 10px;
+    font-size: 13px !important;
+  }
   h3 {
     font-size: 18px;
   }
 }
-
+.table>:not(:first-child) {
+  border-top: none;
+}
 .stakeAmountbox {
-  max-height: 250px;
+  max-height: 200px;
   overflow: auto;
+  margin-top: 15px;
 }

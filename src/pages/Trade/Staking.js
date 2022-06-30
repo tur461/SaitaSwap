@@ -7,6 +7,7 @@ import {
   Button,
   Form,
   FormControl,
+  Table,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -274,46 +275,68 @@ const Staking = () => {
                 </div>
                 {console.log("in the jsx", dataArray)}
                 <div className="stakeAmountbox">
-                {dataArray
-                  ? dataArray?.map((item) => (
-                      <div className="duration_bits">
-                        <h3>{item.time}</h3>
-                        <div className="value_sec px-3">
-                          <div className="value_amount_sec d-block">
-                            <div className="value_amount d-flex">
-                              <p>Stake Amount:</p>
-                              <p>{item.amount / 10 ** 9}</p>
-                            </div>
-                            <div className="value_amount d-flex">
-                              <p>lockInUntil:</p>
-                              <p>{item.lockInUntil}</p>
-                            </div>
-                            <div className="value_amount d-flex">
-                              <p>lockInPeriod:</p>
-                              <p>{item.lockInPeriod + "Seconds"}</p>
-                            </div>
-                          </div>
-                          {item.isClaimed === true ? (
-                            <Button className="unstake_btn">Claimed</Button>
-                          ) : (
-                            <Button
-                              className="unstake_btn"
-                              onClick={() => {
-                                try {
-                                  letsUnstake(item.transactionNo);
-                                } catch (err) {
-                                  alert("nnn");
-                                }
-                              }}
-                            >
-                              Unstake
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    ))
-                  : null}
-                  </div>
+                  <Table responsive className="duration_bits">
+                    <thead>
+                      <tr>
+                        <th>Timer</th>
+                        <th>Stake Amount:</th>
+                        <th>Lock In Until</th>
+                        <th>Lock In Period</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    {dataArray
+                      ? dataArray?.map((item) => (
+                        <tbody>
+                          <tr>
+                            <td><h3>{item.time}</h3></td>
+                            <td>{item.amount / 10 ** 9}</td>
+                            <td>{item.lockInUntil}</td>
+                            <td>{item.lockInPeriod + "Seconds"}</td>
+                            <td>
+                              {item.isClaimed === true ? (
+                                <Button className="unstake_btn">Claimed</Button>
+                              ) : (
+                                <Button
+                                  className="unstake_btn"
+                                  onClick={() => {
+                                    try {
+                                      letsUnstake(item.transactionNo);
+                                    } catch (err) {
+                                      alert("nnn");
+                                    }
+                                  }}
+                                >
+                                  Unstake
+                                </Button>
+                              )}
+                            </td>
+                          </tr>
+                        </tbody>
+                        // <div className="duration_bits value_sec">
+                        //   <h3>{item.time}</h3>
+
+                        //   <div className="value_sec px-3">
+                        //     <div className="value_amount_sec d-block">
+                        //       <div className="value_amount d-flex">
+                        //         <p></p>
+                        //         <p></p>
+                        //       </div>
+                        //       <div className="value_amount d-flex">
+                        //         <p></p>
+                        //         <p></p>
+                        //       </div>
+                        //       <div className="value_amount d-flex">
+                        //         <p>:</p>
+                        //         <p></p>
+                        //       </div>
+                        //     </div>
+                        //   </div>
+                        // </div>
+                      ))
+                      : null}
+                  </Table>
+                </div>
               </div>
             </Col>
           </Row>
@@ -326,7 +349,7 @@ const Staking = () => {
                     </Row>
                 </Container>
             </div> */}
-    </div>
+    </div >
   );
 };
 
