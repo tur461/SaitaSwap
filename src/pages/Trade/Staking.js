@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { BigNumber } from "bignumber.js";
 import {
   Container,
   Col,
@@ -7,6 +9,7 @@ import {
   Button,
   Form,
   FormControl,
+  Table,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -43,7 +46,9 @@ const Staking = () => {
 
   let totalSeconds = 86400;
   let finalRewards = inputAmount && reward ? (inputAmount * reward) / 100 : 0;
-
+  const isTheUserConnected = useSelector(
+    (state) => state.persist.isUserConnected
+  );
   useEffect(async () => {
     let contract = await ContractServices.callContract(
       contractAddress,
@@ -65,6 +70,12 @@ const Staking = () => {
     console.log("tokenbalace", TokenBalance);
     setTokenBalance(TokenBalance);
   }, [days]);
+  const handleChange = (e) => {
+    setInputAmount(e.target.value);
+    if (inputAmount) {
+      setIsDisabled(false);
+    }
+  };
   const destructure = async (array, i) => {
     daataarray.push({
       amount: array[0],
@@ -78,67 +89,77 @@ const Staking = () => {
 
   console.log("ye hai main array", dataArray);
   const letsCallContract = async () => {
-    try {
-      let userAddress = await ContractServices.isMetamaskInstalled();
-      // let gasPrice = await Contractservices.calculateGasPrice();
-      let tokenInstance = await ContractServices.callContract(
-        tokenAddress,
-        TOKENABI
-      );
-      console.log("tokenInstance", tokenInstance);
-      let estimateGas = await tokenInstance.methods
-        .approve(contractAddress, MAX_AMT)
-        .estimateGas({ from: userAddress });
-      setIsDisabled(true);
-      let approveToken = await tokenInstance.methods
-        .allowance(userAddress, contractAddress)
-        .call();
-      if (approveToken == 0) {
-        await tokenInstance.methods
-          .approve(contractAddress, MAX_AMT)
-          .send({ from: userAddress, gas: estimateGas });
-      }
-      let contract = await ContractServices.callContract(
-        contractAddress,
-        ABISTAKING
-      );
-      console.log("contract", contract.methods);
-      console.log("userAddress", userAddress);
-      console.log("nnncnbcnc", days);
-      console.log("++++++++++++++++before stake");
-      let gas = await contract.methods
-        .stake(days, inputAmount * 10 ** 9)
-        .estimateGas({ from: userAddress });
-      console.log("before stake");
-      let result = await contract.methods
-        .stake(days, inputAmount * 10 ** 9)
-        .send({ from: userAddress, gas: gas });
-      console.log("gas", gas);
-      console.log("tokeninstance", tokenInstance);
-      console.log("result", result);
-      let data = await contract.methods.stakingTx(userAddress);
-      // setfinaldays(days * totalSeconds);
-      const transactionNo = await contract.methods
-        .stakingTx(userAddress)
-        .call();
-      console.log("transactionNo", transactionNo);
-      setTransNo(transactionNo);
-      let totalTransactions = transactionNo.txNo;
-      console.log("totalTransactions", totalTransactions);
-      let transactionDetails;
-      for (let i = 1; i <= totalTransactions; i++) {
-        transactionDetails = await contract.methods
-          .userTransactions(userAddress, i)
-          .call();
-        // console.log("transactionDetails", transactionDetails);
-        await destructure(transactionDetails, i);
-      }
+    if (isTheUserConnected) {
+      if (inputAmount) {
+        try {
+          console.log(inputAmount);
+          console.log(userAddress, "gggg");
+          // let userAddress = await ContractServices.isMetamaskInstalled();
+          // let gasPrice = await Contractservices.calculateGasPrice();
+          let tokenInstance = await ContractServices.callContract(
+            tokenAddress,
+            TOKENABI
+          );
+          console.log("tokenInstance", tokenInstance);
+          let estimateGas = await tokenInstance.methods
+            .approve(contractAddress, MAX_AMT)
+            .estimateGas({ from: userAddress });
+          setIsDisabled(true);
+          let approveToken = await tokenInstance.methods
+            .allowance(userAddress, contractAddress)
+            .call();
+          if (approveToken == 0) {
+            await tokenInstance.methods
+              .approve(contractAddress, MAX_AMT)
+              .send({ from: userAddress, gas: estimateGas });
+          }
+          let contract = await ContractServices.callContract(
+            contractAddress,
+            ABISTAKING
+          );
+          console.log("contract", contract.methods);
+          console.log("userAddress", userAddress);
+          console.log("nnncnbcnc", days);
+          console.log("++++++++++++++++before stake");
+          let gas = await contract.methods
+            .stake(days, inputAmount * 10 ** 9)
+            .estimateGas({ from: userAddress });
+          console.log("before stake");
+          let result = await contract.methods
+            .stake(days, BigNumber(inputAmount) * 10 ** 9)
+            .send({ from: userAddress, gas: gas });
+          console.log("gas", gas);
+          console.log("tokeninstance", tokenInstance);
+          console.log("result", result);
+          let data = await contract.methods.stakingTx(userAddress);
+          // setfinaldays(days * totalSeconds);
+          const transactionNo = await contract.methods
+            .stakingTx(userAddress)
+            .call();
+          console.log("transactionNo", transactionNo);
+          setTransNo(transactionNo);
+          let totalTransactions = transactionNo.txNo;
+          console.log("totalTransactions", totalTransactions);
+          let transactionDetails;
+          for (let i = 1; i <= totalTransactions; i++) {
+            transactionDetails = await contract.methods
+              .userTransactions(userAddress, i)
+              .call();
+            // console.log("transactionDetails", transactionDetails);
+            await destructure(transactionDetails, i);
+          }
 
-      setDataArray(daataarray);
-      setIsDisabled(false);
-      // console.log("transactionDetails2", transactionDetails);
-    } catch (error) {
-      console.log(error);
+          setDataArray(daataarray);
+          setIsDisabled(false);
+          // console.log("transactionDetails2", transactionDetails);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        toast.error("Please enter the staking amount");
+      }
+    } else {
+      toast.error("Please Connect your wallet first");
     }
   };
   // const disableButton = () => {
@@ -152,63 +173,71 @@ const Staking = () => {
   //   }
   // };
   const letsUnstake = async (trans) => {
-    try {
-      let contract = await ContractServices.callContract(
-        contractAddress,
-        ABISTAKING
-      );
-      let userAddress = await ContractServices.isMetamaskInstalled();
-      let gas = await contract.methods
-        .claim(trans)
-        .estimateGas({ from: userAddress });
-      let result = contract.methods
-        .claim(trans)
-        .send({ from: userAddress, gas: gas });
-      console.log("real contract", contract.methods);
-      console.log("xxxxxxxxxxccccccccccccc", trans);
-      console.log("claim result", result);
-      const transactionNo = await contract.methods
-        .stakingTx(userAddress)
-        .call();
-      console.log("transactionNo", transactionNo);
-      setTransNo(transactionNo);
-      let totalTransactions = transactionNo.txNo;
-      console.log("totalTransactions", totalTransactions);
-      let transactionDetails;
-      for (let i = 1; i <= totalTransactions; i++) {
-        transactionDetails = await contract.methods
-          .userTransactions(userAddress, i)
+    if (isTheUserConnected) {
+      try {
+        let contract = await ContractServices.callContract(
+          contractAddress,
+          ABISTAKING
+        );
+        let userAddress = await ContractServices.isMetamaskInstalled();
+        let gas = await contract.methods
+          .claim(trans)
+          .estimateGas({ from: userAddress });
+        let result = contract.methods
+          .claim(trans)
+          .send({ from: userAddress, gas: gas });
+        console.log("real contract", contract.methods);
+        console.log("xxxxxxxxxxccccccccccccc", trans);
+        console.log("claim result", result);
+        const transactionNo = await contract.methods
+          .stakingTx(userAddress)
           .call();
-        // console.log("transactionDetails", transactionDetails);
-        await destructure(transactionDetails, i);
+        console.log("transactionNo", transactionNo);
+        setTransNo(transactionNo);
+        let totalTransactions = transactionNo.txNo;
+        console.log("totalTransactions", totalTransactions);
+        let transactionDetails;
+        for (let i = 1; i <= totalTransactions; i++) {
+          transactionDetails = await contract.methods
+            .userTransactions(userAddress, i)
+            .call();
+          // console.log("transactionDetails", transactionDetails);
+          await destructure(transactionDetails, i);
+        }
+      } catch (error) {
+        toast.error(error);
       }
-    } catch (error) {
-      toast.error(error);
+    } else {
+      toast.error("Please Connect your wallet first");
     }
   };
   const getTheStake = async () => {
-    try {
-      setIsDisabled(true);
-      const transactionNo = await contract.methods
-        .stakingTx(userAddress)
-        .call();
-      console.log("transactionNo", transactionNo);
-      setTransNo(transactionNo);
-      let totalTransactions = transactionNo.txNo;
-      console.log("totalTransactions", totalTransactions);
-      let transactionDetails;
-      for (let i = 1; i <= totalTransactions; i++) {
-        transactionDetails = await contract.methods
-          .userTransactions(userAddress, i)
+    if (isTheUserConnected) {
+      try {
+        setIsDisabled(true);
+        const transactionNo = await contract.methods
+          .stakingTx(userAddress)
           .call();
-        // console.log("transactionDetails", transactionDetails);
-        await destructure(transactionDetails, i);
-      }
+        console.log("transactionNo", transactionNo);
+        setTransNo(transactionNo);
+        let totalTransactions = transactionNo.txNo;
+        console.log("totalTransactions", totalTransactions);
+        let transactionDetails;
+        for (let i = 1; i <= totalTransactions; i++) {
+          transactionDetails = await contract.methods
+            .userTransactions(userAddress, i)
+            .call();
+          // console.log("transactionDetails", transactionDetails);
+          await destructure(transactionDetails, i);
+        }
 
-      setDataArray(daataarray);
-      setIsDisabled(false);
-    } catch (error) {
-      alert(error);
+        setDataArray(daataarray);
+        setIsDisabled(false);
+      } catch (error) {
+        alert(error);
+      }
+    } else {
+      toast.error("Please connect your wallet first");
     }
   };
   console.log("inputamount", inputAmount, "days", days);
@@ -231,63 +260,67 @@ const Staking = () => {
                   <span className="ms-2">{tokenBalance?.toFixed(4)}</span>
                 </p>
                 <div className="staking_content">
-                  <FormControl
-                    placeholder="Input"
-                    value={inputAmount}
-                    onChange={(e) => setInputAmount(e.target.value)}
-                  />
-                  <div className="duration_sec">
-                    <Button
-                      className="time_duration"
-                      onClick={() => setDays(60)}
-                    >
-                      60 days
-                    </Button>
-                    <Button
-                      className="time_duration"
-                      onClick={() => setDays(90)}
-                    >
-                      90 days
-                    </Button>
-                    <Button
-                      className="time_duration"
-                      onClick={() => setDays(120)}
-                    >
-                      120 days
-                    </Button>
-                  </div>
-                  <div className="text_area text-white">
-                    <div className="d-flex flex-column">
-                      <p className="d-flex">
-                        <span>APY:</span>
-                        <span className="ms-2">{reward}%</span>
-                      </p>
-                      <p className="d-flex">
-                        <span>Lock-In Period:</span>{" "}
-                        <span className="ms-2">{days} Days</span>
-                      </p>
-                      <p className="d-flex">
-                        <span>Final Rewards:</span>{" "}
-                        <span className="ms-2">{finalRewards} Saitama</span>
-                      </p>
+                  <form onSubmit={() => alert("ff")}>
+                    <FormControl
+                      placeholder="Input"
+                      value={inputAmount}
+                      onChange={(e) => handleChange(e)}
+                      required
+                    />
+                    <div className="duration_sec">
+                      <Button
+                        className="time_duration"
+                        onClick={() => setDays(60)}
+                      >
+                        60 days
+                      </Button>
+                      <Button
+                        className="time_duration"
+                        onClick={() => setDays(90)}
+                      >
+                        90 days
+                      </Button>
+                      <Button
+                        className="time_duration"
+                        onClick={() => setDays(120)}
+                      >
+                        120 days
+                      </Button>
                     </div>
-                    <div>
-                      <p className="d-flex">
-                        <span>Daily Rewards:</span>{" "}
-                        <span className="ms-2">
-                          {finalRewards / days?.toFixed(4) + " Saitama"}
-                        </span>
-                      </p>
+                    <div className="text_area text-white">
+                      <div className="d-flex flex-column">
+                        <p className="d-flex">
+                          <span>APY:</span>
+                          <span className="ms-2">{reward}%</span>
+                        </p>
+                        <p className="d-flex">
+                          <span>Lock-In Period:</span>{" "}
+                          <span className="ms-2">{days} Days</span>
+                        </p>
+                        <p className="d-flex">
+                          <span>Final Rewards:</span>{" "}
+                          <span className="ms-2">{finalRewards} Saitama</span>
+                        </p>
+                      </div>
+                      <div>
+                        <p className="d-flex">
+                          <span>Daily Rewards:</span>{" "}
+                          <span className="ms-2">
+                            {finalRewards / days?.toFixed(4) + " Saitama"}
+                          </span>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <Button
-                    className="stake_btn"
-                    id="myBtn"
-                    disabled={isDisabled}
-                    onClick={letsCallContract}
-                  >
-                    Stake
-                  </Button>
+                    <Button
+                      className="stake_btn"
+                      id="myBtn"
+                      disabled={isDisabled}
+                      onClick={letsCallContract}
+                    >
+                      Stake
+                    </Button>
+                  </form>
+
                   {isDisabled && (
                     <Loader
                       type="Circles"
@@ -304,46 +337,72 @@ const Staking = () => {
                 </div>
                 {console.log("in the jsx", dataArray)}
                 <div className="stakeAmountbox">
-                {dataArray
-                  ? dataArray?.map((item) => (
-                      <div className="duration_bits">
-                        <h3>{item.time}</h3>
-                        <div className="value_sec px-3">
-                          <div className="value_amount_sec d-block">
-                            <div className="value_amount d-flex">
-                              <p>Stake Amount:</p>
-                              <p>{item.amount / 10 ** 9}</p>
-                            </div>
-                            <div className="value_amount d-flex">
-                              <p>lockInUntil:</p>
-                              <p>{item.lockInUntil}</p>
-                            </div>
-                            <div className="value_amount d-flex">
-                              <p>lockInPeriod:</p>
-                              <p>{item.lockInPeriod + "Seconds"}</p>
-                            </div>
-                          </div>
-                          {item.isClaimed === true ? (
-                            <Button className="unstake_btn">Claimed</Button>
-                          ) : (
-                            <Button
-                              className="unstake_btn"
-                              onClick={() => {
-                                try {
-                                  letsUnstake(item.transactionNo);
-                                } catch (err) {
-                                  alert("nnn");
-                                }
-                              }}
-                            >
-                              Unstake
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    ))
-                  : null}
-                  </div>
+                  <Table responsive className="duration_bits">
+                    <thead>
+                      <tr>
+                        <th>Timer</th>
+                        <th>Stake Amount:</th>
+                        <th>Lock In Until</th>
+                        <th>Lock In Period</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    {dataArray
+                      ? dataArray?.map((item) => (
+                          <tbody>
+                            <tr>
+                              <td>
+                                <h3>{item.time}</h3>
+                              </td>
+                              <td>{item.amount / 10 ** 9}</td>
+                              <td>{item.lockInUntil}</td>
+                              <td>{item.lockInPeriod + "Seconds"}</td>
+                              <td>
+                                {item.isClaimed === true ? (
+                                  <Button className="unstake_btn">
+                                    Claimed
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    className="unstake_btn"
+                                    onClick={() => {
+                                      try {
+                                        letsUnstake(item.transactionNo);
+                                      } catch (err) {
+                                        alert("nnn");
+                                      }
+                                    }}
+                                  >
+                                    Unstake
+                                  </Button>
+                                )}
+                              </td>
+                            </tr>
+                          </tbody>
+                          // <div className="duration_bits value_sec">
+                          //   <h3>{item.time}</h3>
+
+                          //   <div className="value_sec px-3">
+                          //     <div className="value_amount_sec d-block">
+                          //       <div className="value_amount d-flex">
+                          //         <p></p>
+                          //         <p></p>
+                          //       </div>
+                          //       <div className="value_amount d-flex">
+                          //         <p></p>
+                          //         <p></p>
+                          //       </div>
+                          //       <div className="value_amount d-flex">
+                          //         <p>:</p>
+                          //         <p></p>
+                          //       </div>
+                          //     </div>
+                          //   </div>
+                          // </div>
+                        ))
+                      : null}
+                  </Table>
+                </div>
               </div>
             </Col>
           </Row>

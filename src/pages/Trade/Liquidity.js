@@ -120,10 +120,10 @@ const Liquidity = ({ handleAddLiquidity, handleRemove }) => {
                           <li>{lp.poolShare}%</li>
                         </ul>
                       </div>
-                      <div className="remove_liq text-center mb-2">
+                      <div className="remove_liq d-flex text-center mb-2">
                         <ButtonPrimary
                           title="Add liquidity"
-                          className="remove_liq_btn"
+                          className="remove_liq_btn w-50 me-2"
                           // onClick={() =>  removehandleShow(true)}
                           onClick={() => handleAddLiquidity(lp)}
                           style={{
@@ -134,7 +134,7 @@ const Liquidity = ({ handleAddLiquidity, handleRemove }) => {
                         />
                         <ButtonPrimary
                           title="Remove liquidity"
-                          className="remove_liq_btn"
+                          className="remove_liq_btn w-50 ms-2"
                           onClick={() => {
                             setLptoken(lp);
                             removehandleShow();
