@@ -19,6 +19,7 @@ import { ContractServices } from "../../services/ContractServices";
 import ABISTAKING from "../../assets/ABI/SaitaABI.json";
 import TOKENABI from "../../assets/ABI/abi.saitama.json";
 import { toast } from "../../components/Toast/Toast";
+import Timer from "../../components/Timer/Timer";
 const Staking = () => {
   const contractAddress = "0xd9bcc6474499B397707D3379595f2d27f47B3629";
   const tokenAddress = "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C";
@@ -201,6 +202,7 @@ const Staking = () => {
   console.log("lastFinalArray", dataArray);
   console.log("rewar------------d", reward);
   localStorage.setItem("Transaction details", dataArray);
+
   return (
     // referral_page
     <div className="container_wrap stakePage py-40">
@@ -278,7 +280,6 @@ const Staking = () => {
                   <Table responsive className="duration_bits">
                     <thead>
                       <tr>
-                        <th>Timer</th>
                         <th>Stake Amount:</th>
                         <th>Lock In Until</th>
                         <th>Lock In Period</th>
@@ -289,9 +290,13 @@ const Staking = () => {
                       ? dataArray?.map((item) => (
                         <tbody>
                           <tr>
-                            <td><h3>{item.time}</h3></td>
                             <td>{item.amount / 10 ** 9}</td>
-                            <td>{item.lockInUntil}</td>
+                            <td>
+                              {/* {item.lockInUntil} */}
+                            <div className="timerBox">
+                                <Timer />
+                              </div>
+                            </td>
                             <td>{item.lockInPeriod + "Seconds"}</td>
                             <td>
                               {item.isClaimed === true ? (
