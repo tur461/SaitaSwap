@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BigNumber } from "bignumber.js";
 import {
   Container,
@@ -22,6 +22,8 @@ import ABISTAKING from "../../assets/ABI/SaitaABI.json";
 import TOKENABI from "../../assets/ABI/abi.saitama.json";
 import { toast } from "../../components/Toast/Toast";
 import Loader from "react-loader-spinner";
+import Timer from "../../components/Timer/Timer";
+import { startLoading, stopLoading } from "../../redux/actions";
 const Staking = () => {
   const contractAddress = "0xd9bcc6474499B397707D3379595f2d27f47B3629";
   const tokenAddress = "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C";
@@ -36,7 +38,13 @@ const Staking = () => {
   const [contract, setContract] = useState();
   const [userAddress, setUserAddress] = useState("");
   const [isDisabled, setIsDisabled] = useState(false);
+  const [timerDays, setTimerDays] = useState();
+  const [timerHours, setTimerHours] = useState();
+  const [timerMinutes, setTimerMinutes] = useState();
+  const [timerSeconds, setTimerSeconds] = useState();
+  let daysLeft;
   let daataarray = [];
+  const dispatch = useDispatch();
   // const [dataObj, setDataObj] = useState({
   //   amount: "",
   //   lockInUntil: "",
@@ -55,11 +63,11 @@ const Staking = () => {
       ABISTAKING
     );
     setContract(contract);
-    console.log("real contract", contract.methods);
-    console.log("useEffect days input", days);
-    let rewardPercent = await contract.methods.rewardPercent(days).call();
+
+    let rewardPercent = await contract.methods
+      .rewardPercent(days * totalSeconds)
+      .call();
     setReward(rewardPercent);
-    console.log("reward", rewardPercent);
 
     let userAddress = await ContractServices.isMetamaskInstalled();
     setUserAddress(userAddress);
@@ -67,7 +75,7 @@ const Staking = () => {
       tokenAddress,
       userAddress
     );
-    console.log("tokenbalace", TokenBalance);
+
     setTokenBalance(TokenBalance);
   }, [days]);
   const handleChange = (e) => {
@@ -76,6 +84,26 @@ const Staking = () => {
       setIsDisabled(false);
     }
   };
+
+  const startTimer = (timer) => {
+    const countDownDate = new Date(timer * 1000);
+    const now = new Date().getTime();
+    const difference = countDownDate - now;
+    const days = Math.floor(difference / (24 * 60 * 60 * 1000));
+    const hours = Math.floor(
+      (difference % (24 * 60 * 60 * 1000)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((difference % (60 * 60 * 1000)) / (1000 * 60));
+    const seconds = Math.floor((difference % (60 * 1000)) / 1000);
+
+    if (difference < 0) {
+      daysLeft = false;
+      return <>{"Lockin period is over"}</>;
+    } else {
+      return <>{days + ":" + hours + ":" + minutes}</>;
+    }
+  };
+
   const destructure = async (array, i) => {
     daataarray.push({
       amount: array[0],
@@ -84,23 +112,19 @@ const Staking = () => {
       isClaimed: array[3],
       transactionNo: i,
     });
-    console.log("ydaataarraye hai dataObj", array, daataarray);
   };
 
-  console.log("ye hai main array", dataArray);
   const letsCallContract = async () => {
     if (isTheUserConnected) {
       if (inputAmount) {
         try {
-          console.log(inputAmount);
-          console.log(userAddress, "gggg");
           // let userAddress = await ContractServices.isMetamaskInstalled();
           // let gasPrice = await Contractservices.calculateGasPrice();
           let tokenInstance = await ContractServices.callContract(
             tokenAddress,
             TOKENABI
           );
-          console.log("tokenInstance", tokenInstance);
+
           let estimateGas = await tokenInstance.methods
             .approve(contractAddress, MAX_AMT)
             .estimateGas({ from: userAddress });
@@ -117,41 +141,35 @@ const Staking = () => {
             contractAddress,
             ABISTAKING
           );
-          console.log("contract", contract.methods);
-          console.log("userAddress", userAddress);
-          console.log("nnncnbcnc", days);
-          console.log("++++++++++++++++before stake");
+
           let gas = await contract.methods
-            .stake(days, inputAmount * 10 ** 9)
+            .stake(days * totalSeconds, BigNumber(inputAmount) * 10 ** 9)
             .estimateGas({ from: userAddress });
-          console.log("before stake");
+
           let result = await contract.methods
-            .stake(days, BigNumber(inputAmount) * 10 ** 9)
+            .stake(days * totalSeconds, BigNumber(inputAmount) * 10 ** 9)
             .send({ from: userAddress, gas: gas });
-          console.log("gas", gas);
-          console.log("tokeninstance", tokenInstance);
-          console.log("result", result);
+
           let data = await contract.methods.stakingTx(userAddress);
           // setfinaldays(days * totalSeconds);
           const transactionNo = await contract.methods
             .stakingTx(userAddress)
             .call();
-          console.log("transactionNo", transactionNo);
+
           setTransNo(transactionNo);
           let totalTransactions = transactionNo.txNo;
-          console.log("totalTransactions", totalTransactions);
+
           let transactionDetails;
           for (let i = 1; i <= totalTransactions; i++) {
             transactionDetails = await contract.methods
               .userTransactions(userAddress, i)
               .call();
-            // console.log("transactionDetails", transactionDetails);
+
             await destructure(transactionDetails, i);
           }
 
           setDataArray(daataarray);
           setIsDisabled(false);
-          // console.log("transactionDetails2", transactionDetails);
         } catch (error) {
           console.log(error);
         }
@@ -162,16 +180,7 @@ const Staking = () => {
       toast.error("Please Connect your wallet first");
     }
   };
-  // const disableButton = () => {
-  //   const btn = document.getElementById("myBtn");
-  //   function myFunction() {
-  //     btn.disabled = true;
-  //     setTimeout(() => {
-  //       btn.disabled = false;
-  //       console.log("Button Activated");
-  //     }, 5000);
-  //   }
-  // };
+
   const letsUnstake = async (trans) => {
     if (isTheUserConnected) {
       try {
@@ -186,16 +195,14 @@ const Staking = () => {
         let result = contract.methods
           .claim(trans)
           .send({ from: userAddress, gas: gas });
-        console.log("real contract", contract.methods);
-        console.log("xxxxxxxxxxccccccccccccc", trans);
-        console.log("claim result", result);
+
         const transactionNo = await contract.methods
           .stakingTx(userAddress)
           .call();
-        console.log("transactionNo", transactionNo);
+
         setTransNo(transactionNo);
         let totalTransactions = transactionNo.txNo;
-        console.log("totalTransactions", totalTransactions);
+
         let transactionDetails;
         for (let i = 1; i <= totalTransactions; i++) {
           transactionDetails = await contract.methods
@@ -215,6 +222,7 @@ const Staking = () => {
     if (isTheUserConnected) {
       try {
         setIsDisabled(true);
+        dispatch(startLoading());
         const transactionNo = await contract.methods
           .stakingTx(userAddress)
           .call();
@@ -230,9 +238,9 @@ const Staking = () => {
           // console.log("transactionDetails", transactionDetails);
           await destructure(transactionDetails, i);
         }
-
         setDataArray(daataarray);
         setIsDisabled(false);
+        dispatch(stopLoading());
       } catch (error) {
         alert(error);
       }
@@ -240,10 +248,7 @@ const Staking = () => {
       toast.error("Please connect your wallet first");
     }
   };
-  console.log("inputamount", inputAmount, "days", days);
-  console.log("lastFinalArray", dataArray);
-  console.log("rewar------------d", reward);
-  localStorage.setItem("Transaction details", dataArray);
+
   return (
     // referral_page
     <div className="container_wrap stakePage py-40">
@@ -302,14 +307,6 @@ const Staking = () => {
                           <span className="ms-2">{finalRewards} Saitama</span>
                         </p>
                       </div>
-                      <div>
-                        <p className="d-flex">
-                          <span>Daily Rewards:</span>{" "}
-                          <span className="ms-2">
-                            {finalRewards / days?.toFixed(4) + " Saitama"}
-                          </span>
-                        </p>
-                      </div>
                     </div>
                     <Button
                       className="stake_btn"
@@ -321,16 +318,6 @@ const Staking = () => {
                     </Button>
                   </form>
 
-                  {isDisabled && (
-                    <Loader
-                      type="Circles"
-                      color="#FFFFFF"
-                      height={15}
-                      width={15}
-                      visible={true}
-                      // timeout={5000} //3 secs
-                    />
-                  )}
                   <Button className="stake_btn" onClick={getTheStake}>
                     Get your stakings
                   </Button>
@@ -340,29 +327,33 @@ const Staking = () => {
                   <Table responsive className="duration_bits">
                     <thead>
                       <tr>
-                        <th>Timer</th>
-                        <th>Stake Amount:</th>
-                        <th>Lock In Until</th>
+                        <th>Stake Amount</th>
+                        <th>
+                          Locked in Until<br></br> (DD:HH:MM)
+                        </th>
                         <th>Lock In Period</th>
                         <th>Action</th>
                       </tr>
                     </thead>
-                    {dataArray
+                    {dataArray.length > 0
                       ? dataArray?.map((item) => (
                           <tbody>
                             <tr>
+                              <td>{item.amount / 10 ** 9} Saitama</td>
                               <td>
-                                <h3>{item.time}</h3>
+                                {/* {item.lockInUntil} */}
+                                {startTimer(item.lockInUntil)}
+                                <div className="timerBox"></div>
                               </td>
-                              <td>{item.amount / 10 ** 9}</td>
-                              <td>{item.lockInUntil}</td>
-                              <td>{item.lockInPeriod + "Seconds"}</td>
+                              <td>
+                                {item.lockInPeriod / totalSeconds + " Days"}
+                              </td>
                               <td>
                                 {item.isClaimed === true ? (
                                   <Button className="unstake_btn">
                                     Claimed
                                   </Button>
-                                ) : (
+                                ) : daysLeft === false ? (
                                   <Button
                                     className="unstake_btn"
                                     onClick={() => {
@@ -372,6 +363,13 @@ const Staking = () => {
                                         alert("nnn");
                                       }
                                     }}
+                                  >
+                                    Unstake
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    className="unstake_btn"
+                                    disabled={true}
                                   >
                                     Unstake
                                   </Button>
