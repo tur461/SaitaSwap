@@ -79,7 +79,7 @@ const Liquidity = ({ handleAddLiquidity, handleRemove }) => {
 
           <div className="add_liq text-center">
             <ButtonLink
-              title="Add liquidity"
+              title="Add Liquidity"
               className="add_liquidity_btn"
               icon={Plusicon}
               link="/trade/liquidity/addLiquidity"
@@ -122,7 +122,7 @@ const Liquidity = ({ handleAddLiquidity, handleRemove }) => {
                       </div>
                       <div className="remove_liq d-flex text-center mb-2">
                         <ButtonPrimary
-                          title="Add liquidity"
+                          title="Add Liquidity"
                           className="remove_liq_btn w-50 me-2"
                           // onClick={() =>  removehandleShow(true)}
                           onClick={() => handleAddLiquidity(lp)}
@@ -133,7 +133,7 @@ const Liquidity = ({ handleAddLiquidity, handleRemove }) => {
                           }}
                         />
                         <ButtonPrimary
-                          title="Remove liquidity"
+                          title="Remove Liquidity"
                           className="remove_liq_btn w-50 ms-2"
                           onClick={() => {
                             setLptoken(lp);
@@ -152,8 +152,8 @@ const Liquidity = ({ handleAddLiquidity, handleRemove }) => {
               ))}
             </>
           ) : (
-            <div className="liquidity_list">
-              <h3>No liquidity found.</h3>
+            <div className="liquidity_list text-center">
+              <h3>No Liquidity found.</h3>
             </div>
           )}
 
