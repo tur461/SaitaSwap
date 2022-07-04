@@ -13,8 +13,8 @@ const Footer = (props) => {
   useEffect(() => {}, []);
   const handelToken = async () => {
     const { ethereum } = window;
-    const tokenAddress = "0x5ac5e6Af46Ef285B3536833E65D245c49b608d9b";
-    const tokenSymbol = "NIOB";
+    const tokenAddress = "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C";
+    const tokenSymbol = "SAITAMA";
     const tokenDecimals = 18;
     //const tokenImage = 'http://placekitten.com/200/300';
     try {
@@ -45,16 +45,18 @@ const Footer = (props) => {
     <div className={`footer_style ${props.className}`}>
       <div className="footer_align">
         <div className="niob_price">
-          <img src={NIOB} alt={"img"} />
-          <div className="flex">
-            <span>SAITAMA</span>
-            {/* <span className="vlue">${footerValues?.niobValue?.toFixed(2)}</span> */}
-          </div>
+          {/* <img src={NIOB} alt={"img"} /> */}
+          {/* <div className="flex"> */}
+          {/* <span>SAITAMA</span> */}
+          {/* <span className="vlue">${footerValues?.niobValue?.toFixed(2)}</span> */}
+          {/* </div> */}
         </div>
         <div className="buy_niob">
-          <img src={MetaMask} alt={"icon"} onClick={() => handelToken()} />
+          <img src={NIOB} alt={"icon"} onClick={() => handelToken()} />
           <Link to="/trade/exchange">
-            <Button className="cm_btn">Buy SAITAMA</Button>
+            <Button className="cm_btn" onClick={() => handelToken()}>
+              Buy SAITAMA
+            </Button>
           </Link>
         </div>
         <div className="noib_info">

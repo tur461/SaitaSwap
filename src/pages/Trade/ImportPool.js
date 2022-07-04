@@ -147,10 +147,11 @@ const AddLiquidity = (props) => {
 
         const result = await dispatch(addLpToken(lpdata));
         if (result) {
+          console.log("this is the result", result);
           setLpTokenBalance(result.balance);
           setCurrentPairAddress(currentPairAddress);
-          setTokenOneValue(result.token0Deposit);
-          setTokenTwoValue(result.token1Deposit);
+          setTokenOneValue(result.token1Deposit);
+          setTokenTwoValue(result.token0Deposit);
         }
       } else {
         setLpTokenBalance(0);
@@ -229,7 +230,7 @@ const AddLiquidity = (props) => {
               </div>
             ) : (
               <div className="importpooldetails">
-                <p>No pool found</p>
+                <p style={{ textAlign: "center" }}>No pool found</p>
                 {/* <p>
                                     <Link to="#" onClick={() => props.addBtn()}>Create pool</Link>
                                 </p> */}
