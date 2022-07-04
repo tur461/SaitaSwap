@@ -18,6 +18,7 @@ import { BigNumber } from "bignumber.js";
 import { toast } from "../Toast/Toast";
 import { addTransaction, startLoading, stopLoading } from "../../redux/actions";
 import { addCommas } from "../../constant";
+import defaultImg from "../../assets/images/token_icons/default.svg";
 
 const PlanetCard = (props) => {
   const [classToggle, setClassToggle] = useState(false);
@@ -432,7 +433,7 @@ const PlanetCard = (props) => {
               src={
                 handleIcon(lpTokenDetails?.symbol0)
                   ? handleIcon(lpTokenDetails?.symbol0)
-                  : ""
+                  : defaultImg
               }
             />
           </span>
@@ -441,7 +442,7 @@ const PlanetCard = (props) => {
               src={
                 handleIcon(lpTokenDetails?.symbol1)
                   ? handleIcon(lpTokenDetails?.symbol1)
-                  : ""
+                  : defaultImg
               }
             />
           </span>

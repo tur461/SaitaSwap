@@ -59,29 +59,7 @@ const Footer = (props) => {
             </Button>
           </Link>
         </div>
-        <div className="noib_info">
-          <ul className="ps-0">
-            <li>
-              Total supply:{" "}
-              <span>
-                {footerValues?.totalSupply
-                  ? addCommas(footerValues?.totalSupply)
-                  : "loading"}{" "}
-                SAITAMA
-              </span>
-            </li>
-            <li>
-              Max supply: <span>600,000,000 SAITAMA</span>
-            </li>
-          </ul>
-          <ul>
-            <li>
-              {/* {console.log('sssssssss', footerValues?.tvl)} */}
-              Total Value Locked (TVL):{" "}
-              <p>${isNaN(footerValues?.tvl) ? "0.00" : footerValues?.tvl}</p>
-            </li>
-          </ul>
-        </div>
+
         <div className="scrollUp">
           <ScrollTop />
         </div>
