@@ -19,7 +19,6 @@ import { toast } from "../Toast/Toast";
 import { addTransaction, startLoading, stopLoading } from "../../redux/actions";
 import { addCommas } from "../../constant";
 
-
 const PlanetCard = (props) => {
   const [classToggle, setClassToggle] = useState(false);
 
@@ -36,7 +35,7 @@ const PlanetCard = (props) => {
     status,
   } = props;
 
-  console.log("PoolInfo:", poolInfo)
+  console.log("PoolInfo:", poolInfo);
   const [lpTokenDetails, setLpTokenDetails] = useState(null);
   const [showIncrease, setShowIncrease] = useState(false);
   const [totalSupply, setTotalSupply] = useState(0);
@@ -123,6 +122,7 @@ const PlanetCard = (props) => {
         const lpWorth = liquidity / tokenStaked;
         setWorth(lpWorth);
         const lpTokenDetailsTemp = await FarmService.getLpTokenDetails(lpToken);
+        console.log("Jai mata di", lpTokenDetailsTemp);
         setLpTokenDetails(lpTokenDetailsTemp);
 
         const a = await calculateAPR(
@@ -165,8 +165,7 @@ const PlanetCard = (props) => {
 
           const rewards = Number(
             Number(
-              (await FarmService.pendingSaitama(pid, isUserConnected)) /
-              10 ** 9
+              (await FarmService.pendingSaitama(pid, isUserConnected)) / 10 ** 9
             ).toFixed(9)
           );
           if (!check && amount > 0) {
@@ -483,7 +482,7 @@ const PlanetCard = (props) => {
             <p>
               ${" "}
               {earnedSaitaValue(dollarValue, stakeAmounts.rewards) === "NaN" ||
-                NaN
+              NaN
                 ? 0
                 : earnedSaitaValue(dollarValue, stakeAmounts.rewards)}
             </p>

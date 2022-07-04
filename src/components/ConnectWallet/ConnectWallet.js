@@ -106,12 +106,57 @@ const ConnectWallet = ({ show, handleClose }) => {
                   </span>{" "}
                 </Button>
               </li>
-              {/* <li><Button>CoinBase Wallet<span><img src={iconCoinbase} /></span> </Button></li>
-                            <li><Button>WalletConnect<span><img src={iconWallet} /></span> </Button></li>
-                            <li><Button>TrustWallet<span><img src={TrustWallet} /></span> </Button></li>
-                            <li><Button>MathWallet<span><img src={MathWallet} /></span> </Button></li>
-                            <li><Button>TokenPocket<span><img src={TokenPocket} /></span> </Button></li>
-                            <li><Button>Binance Chain Wallet<span><img src={Binance} /></span> </Button></li> */}
+              {/* <li>
+                <Button>
+                  CoinBase Wallet
+                  <span>
+                    <img src={iconCoinbase} />
+                  </span>{" "}
+                </Button>
+              </li> */}
+              <li>
+                <Button
+                  onClick={() => loginCall("Walletconnect", "Walletconnect")}
+                >
+                  WalletConnect
+                  <span>
+                    <img src={iconWallet} />
+                  </span>{" "}
+                </Button>
+              </li>
+
+              {/* <li>
+                <Button>
+                  TrustWallet
+                  <span>
+                    <img src={TrustWallet} />
+                  </span>{" "}
+                </Button>
+              </li>
+              <li>
+                <Button>
+                  MathWallet
+                  <span>
+                    <img src={MathWallet} />
+                  </span>{" "}
+                </Button>
+              </li>
+              <li>
+                <Button>
+                  TokenPocket
+                  <span>
+                    <img src={TokenPocket} />
+                  </span>{" "}
+                </Button>
+              </li>
+              <li>
+                <Button>
+                  Binance Chain Wallet
+                  <span>
+                    <img src={Binance} />
+                  </span>{" "}
+                </Button>
+              </li> */}
             </ul>
           </Col>
         </Row>

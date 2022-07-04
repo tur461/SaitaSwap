@@ -50,6 +50,7 @@ export const ANCHOR_BUSD_LP = "0xe59099067708C3030332CbEAE91e420D588E109C";
 export const BNB_BUSD_LP = "0xE5799D95Ac7ECCbAf672777eDb516D29c030f5a9";
 export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
 export const USD = "0x2Dd65fFe5F1B2D8a745b7194cCa59B451C5986D2";
+export const Saitama="0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C"
 
 export const AUDIT = "https://docs.niob.finance/audits";
 export const LOTTERY = "https://docs.niob.finance/products/#niob-lottery";
@@ -65,15 +66,15 @@ export const DOCS = "https://docs.niob.finance";
 
 // ******** BSC_MAIN_NET Token List **********
 export const TOKEN_LIST = [
-  // {
-  //   icon: USDT,
-  //   name: "wrapped ether token",
-  //   address: "0x5ac5e6Af46Ef285B3536833E65D245c49b608d9b",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "WETH",
-  // },
+  {
+    icon: USDT,
+    name: "wrapped ether token",
+    address: "0x5ac5e6Af46Ef285B3536833E65D245c49b608d9b",
+    isAdd: true,
+    isDel: false,
+    decimals: 18,
+    symbol: "WETH",
+  },
   // {
   //   icon: USDT,
   //   name: "ether token",
