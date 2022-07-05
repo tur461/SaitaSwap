@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import "./PlanetCard.scss";
 import RightArrow from "../../assets/images/right-arrow.png";
 import DownArrow from "../../assets/images/down-arrow.png";
@@ -422,48 +422,48 @@ const PlanetCard = (props) => {
   }, [isUserConnected]);
   return (
     <>
-      <Button
-        className={`planet_bar`}
-        onClick={() => setClassToggle(!classToggle)}
-      >
-        <div className="cions">
-          <span className="coin_imgs uppr">
-            <img
-              src={
-                handleIcon(lpTokenDetails?.symbol0)
-                  ? handleIcon(lpTokenDetails?.symbol0)
-                  : ""
-              }
-            />
-          </span>
-          <span className="coin_imgs dwn">
-            <img
-              src={
-                handleIcon(lpTokenDetails?.symbol1)
-                  ? handleIcon(lpTokenDetails?.symbol1)
-                  : ""
-              }
-            />
-          </span>
-          <span className="coin_title">{lpTokenDetails?.lpTokenName}</span>
-        </div>
-        {poolInfo.depositFeeBP && Number(poolInfo.depositFeeBP) === 0 && (
-          <div className="info_about_card_feeinfo">
-            {" "}
-            <img src={props.fee_icon} alt="" /> No Fee
+      <tr className={`planet_bar`}
+        onClick={() => setClassToggle(!classToggle)}>
+        <td className="d-flex flex-wrap flex-md-nowrap align-items-start">
+          <div className="cions col">
+            <span className="coin_imgs uppr">
+              <img
+                src={
+                  handleIcon(lpTokenDetails?.symbol0)
+                    ? handleIcon(lpTokenDetails?.symbol0)
+                    : ""
+                }
+              />
+            </span>
+            <span className="coin_imgs dwn">
+              <img
+                src={
+                  handleIcon(lpTokenDetails?.symbol1)
+                    ? handleIcon(lpTokenDetails?.symbol1)
+                    : ""
+                }
+              />
+            </span>
+            <span className="coin_title">{lpTokenDetails?.lpTokenName}</span>
           </div>
-        )}
-        <div className="prcentx">{poolInfo?.allocPoint}X</div>
-        <div className="coin_detail">
-          {status && (
-            <div className="apr">
-              <span>APR</span>
-              {/* <span className="token-icon" onClick={() => handleRoiModal(roi, lpTokenDetails)}> */}
-              {/* <svg viewBox="0 0 25 24" color="text" width="20px" xmlns="http://www.w3.org/2000/svg" className="sc-bdfBwQ dhaIlc"><path d="M19.2 3H5.19995C4.09995 3 3.19995 3.9 3.19995 5V19C3.19995 20.1 4.09995 21 5.19995 21H19.2C20.3 21 21.2 20.1 21.2 19V5C21.2 3.9 20.3 3 19.2 3ZM19.2 19H5.19995V5H19.2V19Z" fill="#1FC7D4"></path><path d="M11.45 7.72021H6.44995V9.22022H11.45V7.72021Z" fill="#1FC7D4"></path><path d="M18.2 15.75H13.2V17.25H18.2V15.75Z" fill="#1FC7D4"></path><path d="M18.2 13.25H13.2V14.75H18.2V13.25Z" fill="#1FC7D4"></path><path d="M8.19995 18H9.69995V16H11.7V14.5H9.69995V12.5H8.19995V14.5H6.19995V16H8.19995V18Z" fill="#1FC7D4"></path><path d="M14.29 10.95L15.7 9.54L17.11 10.95L18.17 9.89L16.76 8.47L18.17 7.06L17.11 6L15.7 7.41L14.29 6L13.23 7.06L14.64 8.47L13.23 9.89L14.29 10.95Z" fill="#1FC7D4"></path></svg></span> */}
-              <p>{addCommas(apr) === "NaN" || NaN ? 0 : addCommas(apr)}%</p>
-            </div>
-          )}
-          <div className="lqdty">
+          <div className="fee col">
+            {poolInfo.depositFeeBP && Number(poolInfo.depositFeeBP) === 0 && (
+              <div className="info_about_card_feeinfo">
+                {" "}
+                <img src={props.fee_icon} alt="" /> No Fee
+              </div>
+            )}
+            <div className="prcentx">{poolInfo?.allocPoint}X</div>
+          </div>
+          <div className="coin_detail col">
+            {status && (
+              <div className="apr">
+                <span>APR</span>
+                <p>{addCommas(apr) === "NaN" || NaN ? 0 : addCommas(apr)}%</p>
+              </div>
+            )}
+          </div>
+          <div className="lqdty col">
             <span>Liquidity</span>
             <p>
               $
@@ -472,7 +472,7 @@ const PlanetCard = (props) => {
                 : addCommas(Number(liquidity.toFixed(2)))}
             </p>
           </div>
-          <div className="erndniob">
+          <div className="erndniob col">
             <span>Earned Saita</span>
             <p>
               {addCommas(stakeAmounts.rewards) === "NaN" || NaN
@@ -487,18 +487,19 @@ const PlanetCard = (props) => {
                 : earnedSaitaValue(dollarValue, stakeAmounts.rewards)}
             </p>
           </div>
-        </div>
-        <div className="dtl_btn">
-          <p>
-            Details{" "}
-            <span>
-              <img src={DownArrow} />
-            </span>
-          </p>
-        </div>
-      </Button>
-      <div className={classToggle ? "planet_strip" : "d-none"}>
-        <div className="available_funds">
+          <div className="dtl_btn col">
+            <p>
+              Details{" "}
+              <span>
+                <img src={DownArrow} />
+              </span>
+            </p>
+          </div>
+        </td>
+
+      </tr>
+      <tr className={classToggle ? "planet_strip" : "d-none"}>
+        <td className="available_funds">
           <div className="funds">
             {isUserConnected ? (
               <>
@@ -558,7 +559,6 @@ const PlanetCard = (props) => {
             </span>
           </div>
           <div className="funds">
-            {/* <Button disabled={!showApproveButton} onClick={() => handleTokenApproval()} className="funds_btn">Enable Farm</Button> */}
             <div className="count_funds">
               <span>{lpTokenDetails?.lpTokenName} STAKED</span>
               {showIncrease ? (
@@ -623,8 +623,83 @@ const PlanetCard = (props) => {
               </span>
             </div>
           </div>
+        </td>
+      </tr>
+      {/* <Button
+        className={`planet_bar`}
+        onClick={() => setClassToggle(!classToggle)}
+      >
+        <div className="cions">
+          <span className="coin_imgs uppr">
+            <img
+              src={
+                handleIcon(lpTokenDetails?.symbol0)
+                  ? handleIcon(lpTokenDetails?.symbol0)
+                  : ""
+              }
+            />
+          </span>
+          <span className="coin_imgs dwn">
+            <img
+              src={
+                handleIcon(lpTokenDetails?.symbol1)
+                  ? handleIcon(lpTokenDetails?.symbol1)
+                  : ""
+              }
+            />
+          </span>
+          <span className="coin_title">{lpTokenDetails?.lpTokenName}</span>
         </div>
-      </div>
+        {poolInfo.depositFeeBP && Number(poolInfo.depositFeeBP) === 0 && (
+          <div className="info_about_card_feeinfo">
+            {" "}
+            <img src={props.fee_icon} alt="" /> No Fee
+          </div>
+        )}
+        <div className="prcentx">{poolInfo?.allocPoint}X</div>
+        <div className="coin_detail">
+          {status && (
+            <div className="apr">
+              <span>APR</span>
+              <p>{addCommas(apr) === "NaN" || NaN ? 0 : addCommas(apr)}%</p>
+            </div>
+          )}
+          <div className="lqdty">
+            <span>Liquidity</span>
+            <p>
+              $
+              {addCommas(Number(liquidity.toFixed(2))) === "NaN" || NaN
+                ? 0
+                : addCommas(Number(liquidity.toFixed(2)))}
+            </p>
+          </div>
+          <div className="erndniob">
+            <span>Earned Saita</span>
+            <p>
+              {addCommas(stakeAmounts.rewards) === "NaN" || NaN
+                ? 0
+                : addCommas(stakeAmounts.rewards)}
+            </p>
+            <p>
+              ${" "}
+              {earnedSaitaValue(dollarValue, stakeAmounts.rewards) === "NaN" ||
+                NaN
+                ? 0
+                : earnedSaitaValue(dollarValue, stakeAmounts.rewards)}
+            </p>
+          </div>
+        </div>
+        <div className="dtl_btn">
+          <p>
+            Details{" "}
+            <span>
+              <img src={DownArrow} />
+            </span>
+          </p>
+        </div>
+      </Button> */}
+
+
     </>
   );
 };

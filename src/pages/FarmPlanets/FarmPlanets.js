@@ -7,6 +7,7 @@ import {
   Form,
   InputGroup,
   FormControl,
+  Table,
 } from "react-bootstrap";
 import {
   addTransaction,
@@ -430,47 +431,56 @@ const FarmPlanets = (props) => {
                         <Col xl={12}>
                           {checked && (
                             <div className="planet_list_view">
-                              {stakingOnly.map((farm, index) => (
-                                <PlanetCard
-                                  key={index}
-                                  index={index}
-                                  harvestOnClick={harvest}
-                                  currentIndex={currentIndex}
-                                  handleChange={() => handleIndex(index)}
-                                  stakeHandle={stakeHandle}
-                                  handleRoiModal={handleRoiModal}
-                                  status={true}
-                                  farm={farm}
-                                  icon1={NIOB}
-                                  icon2={BUSD}
-                                  title={`NIOB`}
-                                  title1={`BUSD`}
-                                />
-                              ))}
+                              <Table responsive>
+                                <tbody>
+                                  {stakingOnly.map((farm, index) => (
+                                    <PlanetCard
+                                      key={index}
+                                      index={index}
+                                      harvestOnClick={harvest}
+                                      currentIndex={currentIndex}
+                                      handleChange={() => handleIndex(index)}
+                                      stakeHandle={stakeHandle}
+                                      handleRoiModal={handleRoiModal}
+                                      status={true}
+                                      farm={farm}
+                                      icon1={NIOB}
+                                      icon2={BUSD}
+                                      title={`NIOB`}
+                                      title1={`BUSD`}
+                                    />
+                                  ))}
+                                </tbody>
+                              </Table>
                             </div>
                           )}
 
                           {!checked && (
                             <div className="planet_list_view">
-                              {farms.map((farm, index) => (
-                                <PlanetCard
-                                  key={index}
-                                  index={index}
-                                  harvestOnClick={harvest}
-                                  currentIndex={currentIndex}
-                                  handleChange={() => handleIndex(index)}
-                                  stakeHandle={stakeHandle}
-                                  handleRoiModal={handleRoiModal}
-                                  status={true}
-                                  farm={farm}
-                                  icon1={NIOB}
-                                  icon2={BUSD}
-                                  title={`NIOB`}
-                                  title1={`BUSD`}
-                                />
-                              ))}
+                              <Table responsive>
+                                <tbody>
+                                  {farms.map((farm, index) => (
+                                    <PlanetCard
+                                      key={index}
+                                      index={index}
+                                      harvestOnClick={harvest}
+                                      currentIndex={currentIndex}
+                                      handleChange={() => handleIndex(index)}
+                                      stakeHandle={stakeHandle}
+                                      handleRoiModal={handleRoiModal}
+                                      status={true}
+                                      farm={farm}
+                                      icon1={NIOB}
+                                      icon2={BUSD}
+                                      title={`NIOB`}
+                                      title1={`BUSD`}
+                                    />
+                                  ))}
+                                </tbody>
+                              </Table>
                             </div>
                           )}
+
                         </Col>
                       </Row>
                     </div>
