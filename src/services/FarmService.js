@@ -283,7 +283,8 @@ const pantherPerBlock = async () => {
       MAIN_CONTRACT_LIST.farm.address,
       MAIN_CONTRACT_LIST.farm.abi
     );
-    return await contractFarm.methods.niobPerBlock().call();
+    // console.log("jiiiiiiiiiiiiiiiiiiiiiii", contractFarm.methods);
+    return await contractFarm.methods.SaitamaPerBlock().call();
   } catch (err) {
     return err;
   }

@@ -36,7 +36,7 @@ const PlanetCard = (props) => {
     status,
   } = props;
 
-  console.log("PoolInfo:", poolInfo);
+  // console.log("PoolInfo:", poolInfo);
   const [lpTokenDetails, setLpTokenDetails] = useState(null);
   const [showIncrease, setShowIncrease] = useState(false);
   const [totalSupply, setTotalSupply] = useState(0);
@@ -261,7 +261,14 @@ const PlanetCard = (props) => {
       return (price =
         (reserve[0] * 10 ** decimalOne) / (reserve[1] * 10 ** decimalZero));
     }
-
+    console.log(
+      tokenZero,
+      tokenOne,
+      reserve,
+      decimalZero,
+      decimalOne,
+      "token k baare m jaankari"
+    );
     if (tokenOne.toLowerCase() === TOKEN_LIST[2]?.address.toLowerCase()) {
       return (price =
         (reserve[1] * 10 ** decimalZero) / (reserve[0] * 10 ** decimalOne));
@@ -280,20 +287,22 @@ const PlanetCard = (props) => {
       return price * 0.002;
     }
   };
-
+  // console.log("anchorPrice::", BigNumber(anchorPrice));
   const calculateAPR = async (allocPoint, lpToken, lpWorth) => {
     const anchorPrice = await calPrice(ANCHOR_BUSD_LP);
     const totalAllcationPoint = Number(
       await FarmService.totalAllocationPoint()
     );
+
     const anchorPerBlock = Number(await FarmService.pantherPerBlock());
     //need to calculate usd price.
     const liquidity = await handleLiquidity(lpToken);
     // console.log("liquidity: ", liquidity);
+    console.log("anchorPrice", anchorPrice);
     if (liquidity != 0) {
       const apr =
         ((allocPoint / totalAllcationPoint) *
-          ((anchorPerBlock / 10 ** 18) * 28800 * 365 * 100 * anchorPrice)) /
+          ((anchorPerBlock / 10 ** 18) * 5760 * 365 * 100 * anchorPrice)) /
         liquidity;
       setROI({
         allocPoint,
@@ -334,7 +343,7 @@ const PlanetCard = (props) => {
       //let priceB = 0.002;
       let priceA = await getDollarAPR(tokenZero);
       let priceB = await getDollarAPR(tokenOne);
-
+      console.log("priceA", "priceB", priceA, priceB);
       // if (tokenZero.toLowerCase() == TOKEN_LIST[2].address.toLowerCase()) {
       //   priceA = 1;
       // } else if (tokenZero.toLowerCase() == WETH.toLowerCase()) {

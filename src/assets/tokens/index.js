@@ -46,7 +46,7 @@ export const LIQUIDITY_PROVIDER_FEE = 0.2;
 export const pancakeFactory = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f";
 
 // ******** BSC_TEST_NET LP's, WETH and USD **********
-export const ANCHOR_BUSD_LP = "0xe59099067708C3030332CbEAE91e420D588E109C";
+export const ANCHOR_BUSD_LP = "0xD50Ec4dE8d3f3A63F886860B261E9e560CF02053";
 export const BNB_BUSD_LP = "0xE5799D95Ac7ECCbAf672777eDb516D29c030f5a9";
 export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
 export const USD = "0x2Dd65fFe5F1B2D8a745b7194cCa59B451C5986D2";
@@ -156,15 +156,15 @@ export const TOKEN_LIST = [
     decimals: 18,
     symbol: "Shaman",
   },
-  {
-    icon: USDT,
-    name: "wrapped ether token",
-    address: "0x5ac5e6Af46Ef285B3536833E65D245c49b608d9b",
-    isAdd: true,
-    isDel: false,
-    decimals: 18,
-    symbol: "WETH",
-  },
+  // {
+  //   icon: USDT,
+  //   name: "wrapped ether token",
+  //   address: "0x5ac5e6Af46Ef285B3536833E65D245c49b608d9b",
+  //   isAdd: true,
+  //   isDel: false,
+  //   decimals: 18,
+  //   symbol: "WETH",
+  // },
   // {
   //   icon: BUSD,
   //   name: "BUSD",

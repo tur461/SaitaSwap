@@ -41,7 +41,7 @@ const Staking = () => {
   const [timerDays, setTimerDays] = useState();
   const [timerHours, setTimerHours] = useState();
   const [timerMinutes, setTimerMinutes] = useState();
-  const [timerSeconds, setTimerSeconds] = useState();
+  // const [, setDaysLeft] = useState(true);
   let daysLeft;
   let daataarray = [];
   const dispatch = useDispatch();
@@ -95,15 +95,16 @@ const Staking = () => {
     );
     const minutes = Math.floor((difference % (60 * 60 * 1000)) / (1000 * 60));
     const seconds = Math.floor((difference % (60 * 1000)) / 1000);
-
+    console.log("the difference", difference);
     if (difference < 0) {
       daysLeft = false;
+
       return <>{"Lockin period is over"}</>;
     } else {
       return <>{days + ":" + hours + ":" + minutes}</>;
     }
   };
-
+  console.log("the days left", daysLeft);
   const destructure = async (array, i) => {
     daataarray.push({
       amount: array[0],
@@ -364,11 +365,11 @@ const Staking = () => {
                                       }
                                     }}
                                   >
-                                    Unstake
+                                    Unstake5
                                   </Button>
                                 ) : (
                                   <Button
-                                    className="unstake_btn"
+                                    // className="unstake_btn"
                                     disabled={true}
                                   >
                                     Unstake
