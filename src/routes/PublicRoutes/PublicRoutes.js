@@ -80,20 +80,20 @@ const PublicRoutes = () => {
         <Route path={"/"} component={Trade} exact={true} />
         <Route path={"/home"} component={Trade} exact={true} />
         <Route path={"/r/:ref"} component={Home} />
-        <Route path={"/referral"} component={Referral} exact={true} />
+        {/* <Route path={"/referral"} component={Referral} exact={true} /> */}
         <Route path={"/staking"} component={Staking} exact={true} />
-        <Route
+        {/* <Route
           path={"/farmplanets/:tab"}
           component={FarmPlanets}
           exact={true}
-        />
+        /> */}
         <Route path={"/trade/:tab/:fillter?"} component={Trade} exact={true} />
         {/* <Route
               path={'/trade/addLiquidity'}
               component={AddLiquidity}
               exact={true} 
           /> */}
-        <Route path={"/poolgalaxy"} component={PoolGalaxy} exact={true} />
+        {/* <Route path={"/poolgalaxy"} component={PoolGalaxy} exact={true} /> */}
       </Switch>
       <Footer />
     </>

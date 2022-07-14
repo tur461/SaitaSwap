@@ -99,8 +99,6 @@ const getAmountsOut = async (amountIn, pair) => {
   }
 };
 
-
-
 const getAmountsIn = async (amountOut, pair) => {
   try {
     const decimals1 = await ContractServices.getDecimals(pair[1]);
@@ -727,34 +725,85 @@ const swapTokensForExactTokens = async (data) => {
   });
 };
 
-const swapExactETHForTokens = async (data, handleBalance) => {
+const swapExactETHForTokens = async (data, handleBalance, a1, a2) => {
   return new Promise(async (resolve, reject) => {
     try {
+      // debugger;
+      console.log("isUserConnected");
       let { amountOutMin, path, to, deadline, value } = data;
+      console.log(",,,,,,,,,,--------", data);
       const web3 = await ContractServices.callWeb3();
       const contract = await ContractServices.callContract(
         MAIN_CONTRACT_LIST.router.address,
         MAIN_CONTRACT_LIST.router.abi
       );
-      const gasPrice = await ContractServices.calculateGasPrice();
-      const gas = await contract.methods
-        .swapExactETHForTokens(amountOutMin, path, to, deadline)
-        .estimateGas({ from: to, value });
-
-      value = await web3.utils.toHex(value);
-      contract.methods
-        .swapExactETHForTokens(amountOutMin, path, to, deadline)
-        .send({ from: to, gasPrice, gas, value })
-        .on("transactionHash", (hash) => {
-          resolve(hash);
-        })
-        .on("receipt", (receipt) => {
-          handleBalance();
-          toast.success("Swap transaction executed successfully");
-        })
-        .on("error", (error, receipt) => {
+      const checkDeflationnaryTokens = DEFLATIONNARY_TOKENS.find(
+        (element) => element.toLowerCase() === a2.toLowerCase()
+      );
+      console.log("checkDeflationnaryTokens", checkDeflationnaryTokens);
+      if (checkDeflationnaryTokens) {
+        console.log("hello", to);
+        try {
+          
+          const gasPrice = await ContractServices.calculateGasPrice();
+          const gas = await contract.methods
+            .swapExactETHForTokensSupportingFeeOnTransferTokens(
+              amountOutMin,
+              path,
+              to,
+              deadline
+            )
+            .estimateGas({ from: to, value });
+          console.log("bbbbbbbbb", value, amountOutMin, path, to, deadline);
+          contract.methods
+            .swapExactETHForTokensSupportingFeeOnTransferTokens(
+              amountOutMin,
+              path,
+              to,
+              deadline
+            )
+            .send({ from: to, gasPrice, gas, value })
+            .on("transactionHash", (hash) => {
+              resolve(hash);
+            })
+            .on("receipt", (receipt) => {
+              console.log(receipt, "in service add liquidity");
+              toast.success("Liquidity added successfully.");
+            })
+            .on("error", (error, receipt) => {
+              reject(error);
+            });
+        } catch (error) {
+          alert("hello");
           reject(error);
-        });
+        }
+      } else {
+        try {
+          const gasPrice = await ContractServices.calculateGasPrice();
+          const gas = await contract.methods
+            .swapExactETHForTokens(amountOutMin, path, to, deadline)
+            .estimateGas({ from: to, value });
+          console.log("est gas---------", gas);
+          console.log("----------", contract.methods);
+          value = await web3.utils.toHex(value);
+          contract.methods
+            .swapExactETHForTokens(amountOutMin, path, to, deadline)
+            .send({ from: to, gasPrice, gas, value })
+            .on("transactionHash", (hash) => {
+              resolve(hash);
+            })
+            .on("receipt", (receipt) => {
+              handleBalance();
+              toast.success("Swap transaction executed successfully");
+            })
+            .on("error", (error, receipt) => {
+              reject(error);
+            });
+        } catch (error) {
+          toast.error(error);
+        }
+      }
+      //=====================
     } catch (error) {
       reject(error);
     }
@@ -1339,19 +1388,18 @@ const swapExactTokensForETH = async (data, a1, a2) => {
 
 const getAmountsOutForDValue = async (amountIn, pair) => {
   try {
-
     const contract = await ContractServices.callContract(
       MAIN_CONTRACT_LIST.router.address,
       MAIN_CONTRACT_LIST.router.abi
     );
 
     return await contract.methods.getAmountsOut(amountIn, pair).call();
-
   } catch (error) {
     return error;
   }
 };
-//exporting functions
+//exporting functions vckoiiiii
+
 export const ExchangeService = {
   getPair,
   getAmountsOut,
@@ -1375,5 +1423,5 @@ export const ExchangeService = {
   getBurnedToken,
   getAmountsIn,
   getPairFromPancakeFactory,
-  getAmountsOutForDValue
+  getAmountsOutForDValue,
 };

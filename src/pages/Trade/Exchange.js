@@ -302,30 +302,47 @@ const Exchange = (props) => {
   };
 
   const checkPairWithBNBOrUSDT = async (token1, token2) => {
-    const pair1 = await ExchangeService.getPair(token1, WETH);
-    const pair2 = await ExchangeService.getPair(token2, WETH);
-    if (
-      pair1 !== "0x0000000000000000000000000000000000000000" &&
-      pair2 !== "0x0000000000000000000000000000000000000000"
-    ) {
-      return [token1, WETH, token2];
-    }
-    const pairOne = await ExchangeService.getPair(token1, USD);
-    const pairTwo = await ExchangeService.getPair(token2, USD);
-    if (
-      pairOne !== "0x0000000000000000000000000000000000000000" &&
-      pairTwo !== "0x0000000000000000000000000000000000000000"
-    ) {
-      return [token1, USD, token2];
-    }
+    // const pOne = await ExchangeService.getPair(token1, Saitama);
+    // const pTwo = await ExchangeService.getPair(token2, Saitama);
+    // if (
+    //   pOne !== "0x0000000000000000000000000000000000000000" &&
+    //   pTwo !== "0x0000000000000000000000000000000000000000"
+    // ) {
+    //   return [token1, Saitama, token2];
+    // }
+    // const pair1 = await ExchangeService.getPair(token1, WETH);
+    // const pair2 = await ExchangeService.getPair(token2, WETH);
+    // if (
+    //   pair1 !== "0x0000000000000000000000000000000000000000" &&
+    //   pair2 !== "0x0000000000000000000000000000000000000000"
+    // ) {
+    //   return [token1, WETH, token2];
+    // }
+    // const pairOne = await ExchangeService.getPair(token1, USD);
+    // const pairTwo = await ExchangeService.getPair(token2, USD);
+    // if (
+    //   pairOne !== "0x0000000000000000000000000000000000000000" &&
+    //   pairTwo !== "0x0000000000000000000000000000000000000000"
+    // ) {
+    //   return [token1, USD, token2];
+    // }
     const pOne = await ExchangeService.getPair(token1, Saitama);
     const pTwo = await ExchangeService.getPair(token2, Saitama);
+    const pair1 = await ExchangeService.getPair(token1, WETH);
+    const pair2 = await ExchangeService.getPair(token2, WETH);
+    const pairOne = await ExchangeService.getPair(token1, USD);
+    const pairTwo = await ExchangeService.getPair(token2, USD);
     if (
       pOne !== "0x0000000000000000000000000000000000000000" &&
       pTwo !== "0x0000000000000000000000000000000000000000"
     ) {
       return [token1, Saitama, token2];
+    } else if (
+      pair1 !== "0x0000000000000000000000000000000000000000" &&
+      pair2 !== "0x0000000000000000000000000000000000000000"
+    ) {
     }
+
     return false;
   };
 
@@ -346,7 +363,10 @@ const Exchange = (props) => {
       //   toast.error("One token should be either Eth or Saitama");
       //   return;
       // }
-      const acc = await ContractServices.getDefaultAccount();
+      // const acc = await ContractServices.getDefaultAccount();
+
+      const acc = isUserConnected;
+      console.log("ASDAC", acc);
       if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
         return toast.error("Wallet address doesn`t match!");
       }
@@ -382,6 +402,16 @@ const Exchange = (props) => {
             tokenTwoAddress
           );
           if (checkPair !== "0x0000000000000000000000000000000000000000") {
+            console.log("checkPair", checkPair);
+            // alert("c");
+            console.log(
+              "tokenOneAddress",
+              tokenOneAddress,
+              "tokenTwoAddress",
+              tokenTwoAddress,
+              "amount",
+              amount
+            );
             result = await ExchangeService.getAmountsOut(amount, [
               tokenOneAddress,
               tokenTwoAddress,
@@ -393,12 +423,20 @@ const Exchange = (props) => {
               tokenOneAddress,
               tokenTwoAddress
             );
+            console.log("pair", pair);
             if (pair) {
-              result = await ExchangeService.getAmountsOut(amount, pair);
+              if (result) {
+                alert("x");
+                try {
+                  result = await ExchangeService.getAmountsOut(amount, pair);
 
-              add1ForPriceImpact = pair[0];
-              add2ForPriceImpact = pair[1];
-              isPriceImpact = true;
+                  add1ForPriceImpact = pair[0];
+                  add2ForPriceImpact = pair[1];
+                  isPriceImpact = true;
+                } catch (err) {
+                  console.log("this iiiiii", err);
+                }
+              }
             }
           }
           console.log("resultresultresult", result);
@@ -605,7 +643,8 @@ const Exchange = (props) => {
     }
   };
   const handleSwap = async () => {
-    const acc = await ContractServices.getDefaultAccount();
+    // const acc = await ContractServices.getDefaultAccount();
+    const acc = isUserConnected;
     if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
       return toast.error("Wallet address doesn`t match!");
     }
@@ -637,9 +676,17 @@ const Exchange = (props) => {
       dispatch(startLoading());
       const data = await handleBNBSwapForTK1(dl, value);
       try {
+        debugger;
+        // console.log("ww", isUserConnected.toString());
+
         const result =
           amountIn === "TK1"
-            ? await ExchangeService.swapExactETHForTokens(data, handleBalance)
+            ? await ExchangeService.swapExactETHForTokens(
+                data,
+                handleBalance,
+                a1,
+                a2
+              )
             : await ExchangeService.swapETHForExactTokens(data);
 
         dispatch(stopLoading());
@@ -652,6 +699,7 @@ const Exchange = (props) => {
             message: `Swap ${tokenOne.symbol} and ${tokenTwo.symbol}`,
             tx: result,
           };
+
           dispatch(addTransaction(data));
         }
         setLiquidityConfirmation(false);

@@ -20,6 +20,56 @@ let currentTokenAddress;
 let walletTypeObject = "Metamask";
 let walletConnectProvider;
 
+const callWeb3ForWalletConnect = async (provider) => {
+  provider = new WalletConnectProvider({
+    rpc: {
+      // 97: "https://data-seed-prebsc-2-s3.binance.org:8545/",
+      // 56: "https://bsc-dataseed.binance.org/",
+      4: "https://rinkeby.infura.io/v3/1eef3e361aac42f79167464a2e0d6564",
+    },
+    chainId: 4,
+    network: "rinkeby",
+    qrcode: true,
+    qrcodeModalOptions: {
+      mobileLinks: ["metamask"],
+      desktopLinks: ["encrypted ink"],
+    },
+  });
+  provider.on("accountsChanged", (accounts) => {
+    console.log(accounts);
+  });
+
+  provider.on("chainChanged", (chainId) => {
+    console.log(chainId);
+  });
+
+  provider.on("disconnect", (code, reason) => {
+    console.log(code, reason);
+  });
+
+  const results = await provider.enable();
+  console.log("results:", results);
+  web3Object = new Web3(provider);
+  // const contract = new web3Object.eth.Contract(
+  //   TOKEN_ABI,
+  //   "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C"
+  // );
+  // const txHash = await contract.methods
+  //   .approve(provider.accounts[0], "1000000000000000000000")
+  //   .send({
+  //     from: provider.accounts[0],
+  //   });
+  // const txHash = await web3Object.eth.sendTransaction({
+  //   from: provider.accounts[0],
+  //   data: web3Object.eth.abi.encodeFunctionCall(
+  //     TOKEN_ABI.filter((o) => o.type === "function" && o.name === "approve")[0],
+  //     [provider.accounts[0], "1000000000000000000000"]
+  //   ),
+  // });
+  // console.log("got an web3 instance and called approve:", txHash);
+  return { provider, web3: web3Object };
+};
+
 //only for lp tokens
 const convertToDecimals = async (value) => {
   const decimals = 18;
@@ -117,7 +167,7 @@ const walletWindowListener = async () => {
                 ],
               });
               window.location.reload();
-            } catch (error) { }
+            } catch (error) {}
           }
         }
       }
@@ -150,7 +200,7 @@ const walletWindowListener = async () => {
                     },
                   ],
                 });
-              } catch (error) { }
+              } catch (error) {}
             }
           }
         }
@@ -178,8 +228,10 @@ const walletWindowListener = async () => {
 
 const callWeb3 = async () => {
   if (web3Object) {
+    console.log("we already have web3Object", web3Object);
     return web3Object;
   }
+  console.log("web3Objectweb3Object", web3Object);
   const { ethereum, web3, BinanceChain } = window;
   if (walletTypeObject === "Metamask") {
     if (ethereum && ethereum.isMetaMask) {
@@ -242,6 +294,7 @@ const calculateGasPrice = async () => {
 const getDefaultAccount = async () => {
   const web3 = await callWeb3();
   const accounts = await web3.eth.getAccounts();
+  console.log("accounts sss", accounts);
   return accounts[0];
 };
 
@@ -365,7 +418,7 @@ const web3ErrorHandle = async (err) => {
   if (err.message.indexOf("Rejected") > -1) {
     message = "User denied the transaction!";
   } else if (err.message && err.message.indexOf("User denied") > -1) {
-    message = "User denied the transaction!";
+    message = "User denied the tra nsaction!";
   } else if (err.message && err.message.indexOf("INSUFFICIENT_B") > -1) {
     message = "Insufficient value of second token!";
   } else if (err.message && err.message.indexOf("INSUFFICIENT_A") > -1) {
@@ -385,36 +438,6 @@ const getLiquidity100Value = async (tokenAddress, address) => {
     console.log("Error:", error);
     return error;
   }
-};
-
-const callWeb3ForWalletConnect = async (provider) => {
-  const provide = new WalletConnectProvider({
-    //infuraId: "8570afa4d18b4c5d9cb3a629b08de069",
-    rpc: {
-      // 97: "https://data-seed-prebsc-2-s3.binance.org:8545/",
-      // 56: "https://bsc-dataseed.binance.org/",
-      4: "https://rinkeby.infura.io/v3/",
-    },
-    chainId: 4,
-    network: "rinkeby",
-    qrcode: true,
-    qrcodeModalOptions: {
-      mobileLinks: [
-        "rainbow",
-        "metamask",
-        "argent",
-        "trust",
-        "imtoken",
-        "pillar",
-      ],
-      desktopLinks: ["encrypted ink"],
-    },
-  });
-  const results = await provide.enable();
-  walletConnectProvider = provide;
-  web3Object = new Web3(provide);
-
-  // return instance;
 };
 
 //exporting functions

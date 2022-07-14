@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Row, Modal, Button } from "react-bootstrap";
 import "./ConnectWallet.scss";
 import { useDispatch } from "react-redux";
@@ -29,41 +29,24 @@ const ConnectWallet = ({ show, handleClose }) => {
         }
       } else if (walletType === "Walletconnect") {
         try {
-          const provider = new WalletConnectProvider({
-            //infuraId: "8570afa4d18b4c5d9cb3a629b08de069",
-            rpc: {
-              97: "https://data-seed-prebsc-2-s3.binance.org:8545/",
-              56: "https://bsc-dataseed.binance.org/",
-            },
-            chainId: 56,
-            network: "binance",
-            qrcode: true,
-            qrcodeModalOptions: {
-              mobileLinks: [
-                "rainbow",
-                "metamask",
-                "argent",
-                "trust",
-                "imtoken",
-                "pillar",
-              ],
-              desktopLinks: ["encrypted ink"],
-            },
-          });
-          const results = await provider.enable();
-
-          provider.on("accountsChanged", async (accounts) => {
+          const d = await ContractServices.callWeb3ForWalletConnect();
+          const account = d.provider.accounts[0];
+          console.log("in connect wallet", account, d);
+          d.provider.on("connect", (_) =>
+            console.log("congrats u r connected..")
+          );
+          d.provider.on("accountsChanged", async (accounts) => {
+            console.log("account changed on remote");
             setTimeout(function () {
               window.location.reload();
             }, 500);
             let account = accounts[0];
+            console.log("in connect wallet1", account);
             dispatch(login({ account, walletType }));
             handleClose(false);
             //return;
             // window.location.reload();
           });
-          await ContractServices.callWeb3ForWalletConnect(provider);
-          const account = await provider.accounts[0];
           dispatch(login({ account, walletType }));
           handleClose(false);
           //  window.location.reload();
@@ -82,6 +65,12 @@ const ConnectWallet = ({ show, handleClose }) => {
       toast.error(err.message);
     }
   };
+  useEffect(() => {
+    (async () => {
+      if (!localStorage.getItem("walletconnect"))
+        loginCall("Walletconnect", "Walletconnect");
+    })();
+  }, []);
 
   return (
     <Modal

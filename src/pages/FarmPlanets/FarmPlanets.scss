@@ -5,13 +5,14 @@
   background-size: cover;
   height: 100%;
   padding-bottom: 50px;
+  padding-top: 40px;
   .upper_text {
     background: $dimbg;
     padding: 50px 20px;
     border-radius: 20px;
-    margin-top: 20px;
+    // margin-top: 20px;
     @media (max-width: 1199px) {
-      padding: 30px 0 55px;
+      padding: 30px 20px;
     }
     .farm_title {
       display: flex;
@@ -48,7 +49,7 @@
       background: $baseColor;
       display: flex;
       align-items: center;
-      padding: 13px 70px;
+      padding: 13px 30px;
       border-radius: 50px;
       margin-top: 20px;
       justify-content: space-between;
@@ -292,6 +293,9 @@
     color: $white;
     line-height: 21px;
     font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    word-break: break-word;
     @media (max-width: 1199px) {
       font-size: 12px;
       line-height: 17px;

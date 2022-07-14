@@ -26,6 +26,7 @@ import {
 import { BigNumber } from "bignumber.js";
 import SupplyModal from "../../components/SupplyModal/SupplyModal";
 import RecentTransactions from "../../components/RecentTransactions/RecentTransactions";
+import { ConsoleView } from "react-device-detect";
 
 const AddLiquidity = (props) => {
   const tokenList = useSelector((state) => state.persist.tokenList);
@@ -107,11 +108,14 @@ const AddLiquidity = (props) => {
       setTokenOneBalance(oneBalance);
 
       const { lptoken } = props;
+
       if (lptoken) {
+        console.log(lptoken, "Lpztoken");
         setCurrentPairAddress(lptoken.pair);
         setLpTokenBalance(lptoken.balance);
         setSharePoolValue(lptoken.poolShare);
         if (lptoken.token0Obj) {
+          console.log("hahah", lptoken);
           setTokenOne(lptoken.token0Obj);
           setCurrencyNameForTokenOne(lptoken.token0Obj.symbol);
           setTokenOneDeposit(lptoken.token0Deposit);
@@ -244,6 +248,7 @@ const AddLiquidity = (props) => {
         const d1 = await ContractServices.getDecimals(a1);
         const d2 = await ContractServices.getDecimals(a2);
         const reserves = await ExchangeService.getReserves(currentPairAddress);
+        console.log("d1", d1, "d2", d2);
         calculateLiquidityPercentageWithSelectCurrency(
           reserves,
           d1,
@@ -358,6 +363,7 @@ const AddLiquidity = (props) => {
                   (reserves[1] / 10 ** token1Decimal))
               ).toFixed(5);
             }
+            console.log("a", Number(a));
             setTokenTwoValue(a);
             amt2 = a;
             if (!tokenTwoApproval) {
@@ -452,10 +458,11 @@ const AddLiquidity = (props) => {
   };
   //call web3 approval function
   const handleTokenApproval = async (tokenType) => {
-    const acc = await ContractServices.getDefaultAccount();
-    if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
-      return toast.error("Wallet address doesn`t match!");
-    }
+    const acc = isUserConnected;
+    console.log("isUserConnected", isUserConnected);
+    // if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
+    //   return toast.error("Wallet address doesn`t match!");
+    // }
     if (approvalConfirmation) {
       return toast.info("Token approval is processing");
     }
@@ -471,6 +478,7 @@ const AddLiquidity = (props) => {
     }
     try {
       dispatch(startLoading());
+
       const r = await ContractServices.approveToken(
         isUserConnected,
         value,
@@ -501,6 +509,8 @@ const AddLiquidity = (props) => {
       }
       dispatch(stopLoading());
     } catch (err) {
+      console.log("***********err*", err);
+
       setApprovalConfirmation(false);
       dispatch(stopLoading());
       console.log(err);
@@ -551,8 +561,9 @@ const AddLiquidity = (props) => {
     lpBalance,
     currentPairAddress
   ) => {
-    const _reserve0 = Number(reserve["_reserve0"]) / 10 ** d1;
-    const _reserve1 = Number(reserve["_reserve1"]) / 10 ** d2;
+    console.log("HIIIIIIIIIIIIIIIIIIIIII", d1, d2);
+    const _reserve0 = Number(reserve["_reserve0"]) / 10 ** d2;
+    const _reserve1 = Number(reserve["_reserve1"]) / 10 ** d1;
 
     let _totalSupply = await ContractServices.getTotalSupply(
       currentPairAddress
@@ -560,13 +571,15 @@ const AddLiquidity = (props) => {
 
     let ratio = lpBalance / _totalSupply;
     const t0 = (ratio * _reserve0).toFixed(5);
+    console.log("tototo", t0);
     setTokenOneDeposit(t0);
     const t1 = (ratio * _reserve1).toFixed(5);
     setTokenTwoDeposit(t1);
+    console.log("ratio", ratio, "reserve0", _reserve0, "reserve1", _reserve1);
   };
   const calculateLiquidityPercentage = async (reserve, amount0, amount1) => {
-    const _reserve0 = Number(reserve["_reserve0"]) / 10 ** tokenOne.decimals;
-    const _reserve1 = Number(reserve["_reserve1"]) / 10 ** tokenTwo.decimals;
+    const _reserve0 = reserve["_reserve0"] / 10 ** tokenOne.decimals;
+    const _reserve1 = reserve["_reserve1"] / 10 ** tokenTwo.decimals;
 
     let liquidity = 0;
     let _totalSupply = await ContractServices.getTotalSupply(
@@ -590,21 +603,24 @@ const AddLiquidity = (props) => {
     }
 
     liquidity = ((liquidity / (_totalSupply + liquidity)) * 100).toFixed(2);
-    return liquidity;
   };
+
   const checkAddLiquidity = async () => {
+    debugger;
     if (!isUserConnected) {
       handleShow1();
     } else {
       let address;
       if (walletType === "Metamask") {
         address = await ContractServices.isMetamaskInstalled("");
+        // address = await isUserConnected;
+        console.log(address, "address");
       }
       if (walletType === "BinanceChain") {
         address = await ContractServices.isBinanceChainInstalled();
       }
 
-      if (isUserConnected.toLowerCase() !== address.toLowerCase()) {
+      if (isUserConnected?.toLowerCase() !== address?.toLowerCase()) {
         return toast.error("Mismatch wallet address!");
       }
       if (!tokenOne.address) {
@@ -645,7 +661,7 @@ const AddLiquidity = (props) => {
   };
 
   const addLiquidity = async () => {
-    const acc = await ContractServices.getDefaultAccount();
+    const acc = isUserConnected;
     if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
       return toast.error("Wallet address doesn`t match!");
     }
@@ -685,7 +701,7 @@ const AddLiquidity = (props) => {
           Math.floor(
             (amountTokenDesired -
               (amountTokenDesired * slippagePercentage) / 100) *
-            10 ** tokenTwo.decimals
+              10 ** tokenTwo.decimals
           )
         ).toFixed();
         amountTokenDesired = BigNumber(
@@ -698,7 +714,7 @@ const AddLiquidity = (props) => {
           Math.floor(
             (amountTokenDesired -
               (amountTokenDesired * slippagePercentage) / 100) *
-            10 ** tokenOne.decimals
+              10 ** tokenOne.decimals
           )
         ).toFixed();
         amountTokenDesired = BigNumber(
@@ -806,6 +822,12 @@ const AddLiquidity = (props) => {
   const calculateFraction = (tokenType) => {
     let r = 0;
     if (tokenOneValue && tokenTwoValue) {
+      console.log(
+        "tokenOneValue",
+        tokenOneValue,
+        "tokenTwoValue",
+        tokenTwoValue
+      );
       if (tokenType === "TK1") {
         if (tokenOneValue === 0) return 0;
         r = tokenTwoValue / tokenOneValue;
@@ -905,7 +927,7 @@ const AddLiquidity = (props) => {
                 <h6>PRICES AND POOL SHARE</h6>
                 <div className="poolDiv">
                   <span>
-                    {calculateFraction("TK1")} per
+                    {calculateFraction("TK1")}
                     <br />
                     <small>
                       {" "}

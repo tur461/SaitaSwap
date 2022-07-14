@@ -58,7 +58,11 @@ const Sidebar = (props) => {
   };
 
   const getNiobDollarValue = async () => {
-    const res = await ExchangeService.getAmountsOutForDValue(1000000000, ["0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C", "0xc778417E063141139Fce010982780140Aa0cD5Ab", "0xe185DB528FAfCBceb3bF00687E5aaFDC6DB17089"])
+    const res = await ExchangeService.getAmountsOutForDValue(1000000000, [
+      "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
+      "0xc778417E063141139Fce010982780140Aa0cD5Ab",
+      "0xe185DB528FAfCBceb3bF00687E5aaFDC6DB17089",
+    ]);
     setNiobBusdValue(res[2] / 10 ** 18);
   };
 
@@ -117,7 +121,7 @@ const Sidebar = (props) => {
         >
           <Link to="/staking">Stake</Link>
         </MenuItem>
-        <MenuItem
+        {/* <MenuItem
           onClick={() => {
             closeSidebar();
             setSideBarOption("");
@@ -126,7 +130,7 @@ const Sidebar = (props) => {
           icon={<i className="farm_nav_icon"></i>}
         >
           <Link to="/farmplanets/active">Farm Planets</Link>
-        </MenuItem>
+        </MenuItem> */}
         {/* <MenuItem
           onClick={() => {
             closeSidebar();

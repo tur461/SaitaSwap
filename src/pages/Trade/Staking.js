@@ -69,7 +69,7 @@ const Staking = () => {
       .call();
     setReward(rewardPercent);
 
-    let userAddress = await ContractServices.isMetamaskInstalled();
+    let userAddress = isTheUserConnected;
     setUserAddress(userAddress);
     const TokenBalance = await ContractServices.getTokenBalanceFull(
       tokenAddress,
@@ -116,6 +116,7 @@ const Staking = () => {
   };
 
   const letsCallContract = async () => {
+    // debugger;
     if (isTheUserConnected) {
       if (inputAmount) {
         try {
@@ -150,7 +151,7 @@ const Staking = () => {
           let result = await contract.methods
             .stake(days * totalSeconds, BigNumber(inputAmount) * 10 ** 9)
             .send({ from: userAddress, gas: gas });
-
+          console.log("uuuu result", result);
           let data = await contract.methods.stakingTx(userAddress);
           // setfinaldays(days * totalSeconds);
           const transactionNo = await contract.methods
@@ -329,6 +330,7 @@ const Staking = () => {
                     <thead>
                       <tr>
                         <th>Stake Amount</th>
+                        {/* <th>Rewards</th> */}
                         <th>
                           Locked in Until<br></br> (DD:HH:MM)
                         </th>
@@ -341,6 +343,7 @@ const Staking = () => {
                           <tbody>
                             <tr>
                               <td>{item.amount / 10 ** 9} Saitama</td>
+                              {/* <td>{finalRewards} Saitama</td> */}
                               <td>
                                 {/* {item.lockInUntil} */}
                                 {startTimer(item.lockInUntil)}
@@ -365,16 +368,15 @@ const Staking = () => {
                                       }
                                     }}
                                   >
-                                    Unstake5
-                                  </Button>
-                                ) : (
-                                  <Button
-                                    // className="unstake_btn"
-                                    disabled={true}
-                                  >
                                     Unstake
                                   </Button>
-                                )}
+                                ) : // <Button
+                                //   className="unstake_btn"
+                                //   disabled={true}
+                                // >
+                                //   Unstake
+                                // </Button>
+                                null}
                               </td>
                             </tr>
                           </tbody>

@@ -100,7 +100,7 @@ export const TOKEN_LIST = [
     isAdd: false,
     isDel: false,
     decimals: 9,
-    symbol: "SAITAMA",
+    symbol: "SAITAMA..",
   },
   {
     icon: LP,
@@ -267,18 +267,18 @@ export const TOKEN_LIST = [
 // ********* BSC_MAIN_NET Contract Address **********
 export const MAIN_CONTRACT_LIST = {
   router: {
-    address: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
-    blockNumber: 6810080,
+    address: "0xfDd1a163518E7ee5e98b60c87E93e2881dbFfCd0",
+    Block: 6615558,
     abi: routerABI,
   },
   panCakeRouter: {
-    address: "0x10ED43C718714eb63d5aA57B78B54704E256024E",
+    address: "0xfDd1a163518E7ee5e98b60c87E93e2881dbFfCd0",
     blockNumber: 6810080,
     abi: routerABI,
   },
   factory: {
     address: "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
-    blockNumber: 6809737,
+    blockNumber: 6430279,
     abi: factoryABI,
   },
   pair: {

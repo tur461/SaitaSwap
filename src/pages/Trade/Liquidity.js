@@ -138,7 +138,6 @@ const Liquidity = ({ handleAddLiquidity, handleRemove }) => {
                           onClick={() => {
                             setLptoken(lp);
                             removehandleShow();
-                          
                           }}
                           style={{
                             display: "inline",

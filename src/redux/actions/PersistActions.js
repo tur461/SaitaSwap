@@ -46,7 +46,7 @@ export const login = (data) => {
 };
 export const logout = () => {
   ContractServices.setWalletType("Metamask");
-  localStorage.removeItem("persist:root");
+  localStorage.removeItem("persist:root, walletconnect");
   window.location.reload();
   return {
     type: actionTypes.LOGOUT,

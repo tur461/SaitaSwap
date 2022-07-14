@@ -197,6 +197,7 @@ export const addLpToken = (lp) => {
               (d) => d.address.toLowerCase() === lp.token1.toLowerCase()
             );
           }
+          console.log(token0Obj, token1Obj);
           //lp deposit
           token0Deposit =
             ratio * (reserves["_reserve0"] / 10 ** token0Obj.decimals);
