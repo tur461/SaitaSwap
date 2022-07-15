@@ -7,6 +7,7 @@ import register from "./register";
 import persist from "./persist";
 import security from "./security";
 import farmReducer from './farm';
+import constantsReducer from './constants';
 export const history = createBrowserHistory();
 const appReducer = combineReducers({
  
@@ -15,6 +16,7 @@ const appReducer = combineReducers({
   persist:persist,
   security:security,
   farm: farmReducer,
+  constants: constantsReducer,
   router: connectRouter(history)
 });
 

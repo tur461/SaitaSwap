@@ -43,7 +43,7 @@ export const LIQUIDITY_PROVIDER_FEE = 0.2;
 // export const BNB_BUSD_LP = "0xe2466652a46e47fa278be0a2ad8dce7c8445be41";
 // export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
 // export const USD = "0xe9e7cea3dedca5984780bafc599bd69add087d56";
-export const pancakeFactory = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f";
+export const pancakeFactory = "0xae6d1ee7B117BFAD762A14B4B80311cB8F5d7e35";
 
 // ******** BSC_TEST_NET LP's, WETH and USD **********
 export const ANCHOR_BUSD_LP = "0xD50Ec4dE8d3f3A63F886860B261E9e560CF02053";
@@ -267,17 +267,17 @@ export const TOKEN_LIST = [
 // ********* BSC_MAIN_NET Contract Address **********
 export const MAIN_CONTRACT_LIST = {
   router: {
-    address: "0xfDd1a163518E7ee5e98b60c87E93e2881dbFfCd0",
+    address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
     Block: 6615558,
     abi: routerABI,
   },
   panCakeRouter: {
-    address: "0xfDd1a163518E7ee5e98b60c87E93e2881dbFfCd0",
+    address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
     blockNumber: 6810080,
     abi: routerABI,
   },
   factory: {
-    address: "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f",
+    address: "0xae6d1ee7B117BFAD762A14B4B80311cB8F5d7e35",
     blockNumber: 6430279,
     abi: factoryABI,
   },

@@ -7,7 +7,7 @@ export const actionTypes = {
   };
   
   /*
-   * Action creators for loading
+   * Action creators for Constants
    */
   
   export function getEthethereumMainNetContracts() {
