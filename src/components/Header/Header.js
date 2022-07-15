@@ -94,14 +94,12 @@ const Header = props => {
                 </div>
                 <Link to="/home" className="header_logo"></Link>
             </div>
-            { currentNetwork && <div className="">
-                <span style={{color: "whitesmoke"}}>{`You are on ${currentNetwork} Network`}</span>
-            </div> }
-            <div className="">
-                <Button onClick={() => handleNetworkModal()} title={`${currentNetwork !== null ? "Switch Network" : "Select Network"}`} />
-            </div> 
+            <div className="d-flex gap-3">
+                <Button className="px-2" onClick={() => handleNetworkModal()} title={`${currentNetwork !== null ? `${currentNetwork} Network` : "Select Network"}`} />
+            
             <div className="header_right_style">
                 <Button onClick={() => connectCall()} title={isUserConnected ? `${isUserConnected.substring(1, 6)}...${isUserConnected.substr(isUserConnected.length - 4)}` : 'Connect'} />
+            </div>
             </div>
             {isUserConnected === "" && <ConnectWallet show={show} handleShow={handleShow} handleClose={handleClose} />}
             {isUserConnected !== "" && <ProfileModal show={show} handleClose={handleClose} logout={logoutCall} />}

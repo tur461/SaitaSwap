@@ -28,9 +28,11 @@ const SwitchNetworkModal = ({ show, handleClose, logout }) => {
       onHide={handleClose}
     >
       <Modal.Header closeButton>
-        <Modal.Title>Switch Network
-          <span onClick={() => handleSelectNetwork("ETHEREUM")} className={selectedNetwork === "ETHEREUM" ? "network_eth active_network" : "network_eth"}> Ethereum </span>
-          <span onClick={() => handleSelectNetwork("BSC")} className={selectedNetwork === "BSC" ? "network_bsc active_network" : "network_bsc"}> BSC </span>
+        <Modal.Title className="text-center">Switch Network
+          <div className="d-flex mt-3 gap-2">
+            <Button onClick={() => handleSelectNetwork("ETHEREUM")}  title="Etherium"><span className={selectedNetwork === "ETHEREUM" ? "network_eth active_network" : "network_eth"}> Ethereum </span></Button>
+            <Button onClick={() => handleSelectNetwork("BSC")} title="BSC"><span  className={selectedNetwork === "BSC" ? "network_bsc active_network" : "network_bsc"}> BSC </span></Button>
+          </div>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -57,7 +59,7 @@ const SwitchNetworkModal = ({ show, handleClose, logout }) => {
                   </CopyToClipboard>
                 </div>
               </div>
-             </div>
+            </div>
           </Col>
         </Row>
       </Modal.Body>

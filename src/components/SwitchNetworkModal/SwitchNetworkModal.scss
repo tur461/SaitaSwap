@@ -12,27 +12,33 @@
       padding: 20px ​15px 5px;
       flex-direction: column;
     }
+
     .modal-content {
       background: #1c1c2d;
       color: $white;
       border: 1px solid $boderColor;
       border-radius: 19px;
+
       .modal-header {
-        padding: 30px 45px;
+        padding: 20px 40px 30px;
+        align-items: baseline;
         border: 1px solid #7868E6;
+
         @media (max-width: 767px) {
           padding: 20px;
         }
+
         .modal-title {
           font-size: 20px;
           font-weight: 400;
+
           @media (max-width: 767px) {
             font-size: 16px;
           }
         }
+
         .btn-close {
-          background: url(../../assets/images/icon_close_modal.png) center
-            no-repeat;
+          background: url(../../assets/images/icon_close_modal.png) center no-repeat;
           outline: none;
           background-size: 13px;
           background-color: #7868E6;
@@ -40,20 +46,26 @@
           border-radius: 50px;
         }
       }
+
       .baseToken_style {
         padding-top: 20px;
+
         @media (max-width: 767px) {
           padding-top: 0;
         }
+
         ul {
           padding: 0 25px;
+
           @media (max-width: 767px) {
             padding: 0;
             margin-bottom: 0;
           }
+
           li {
             display: block;
             margin-bottom: 10px;
+
             button.btn {
               padding: 15px 20px;
               border-radius: 30px;
@@ -69,13 +81,16 @@
               background: #323245;
               position: relative;
               border: 0;
+
               @media (max-width: 767px) {
                 padding: 12px 20px;
                 font-size: 13px;
               }
+
               &:focus {
                 box-shadow: none;
               }
+
               img {
                 width: 38px;
                 position: absolute;
@@ -85,6 +100,7 @@
                 background: #fff;
                 border-radius: 50%;
                 padding: 1px;
+
                 @media (max-width: 767px) {
                   width: 34px;
                   right: 6px;
@@ -102,6 +118,7 @@
 
 .profileModal_sec {
   padding: 0 20px;
+
   p {
     font-size: 16px;
     font-weight: 600;
@@ -113,6 +130,7 @@
     margin-bottom: 40px;
     justify-content: center;
     align-items: center;
+
     a,
     span {
       text-decoration: none;
