@@ -7,16 +7,18 @@ import register from "./register";
 import persist from "./persist";
 import security from "./security";
 import farmReducer from './farm';
-import constantsReducer from './constants';
+import bscConstantsReducer from './BSCConstants';
+import ethereumConstantsReducer from './EthereumConstants';
 export const history = createBrowserHistory();
+
 const appReducer = combineReducers({
- 
   loading: loading,
   register: register,
-  persist:persist,
-  security:security,
+  persist: persist,
+  security: security,
   farm: farmReducer,
-  constants: constantsReducer,
+  bscConstants: bscConstantsReducer,
+  ethereumConstants: ethereumConstantsReducer,
   router: connectRouter(history)
 });
 

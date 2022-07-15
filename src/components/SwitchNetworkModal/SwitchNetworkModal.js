@@ -30,7 +30,7 @@ const SwitchNetworkModal = ({ show, handleClose, logout }) => {
       <Modal.Header closeButton>
         <Modal.Title className="text-center">Switch Network
           <div className="d-flex mt-3 gap-2">
-            <Button onClick={() => handleSelectNetwork("ETHEREUM")}  title="Etherium"><span className={selectedNetwork === "ETHEREUM" ? "network_eth active_network" : "network_eth"}> Ethereum </span></Button>
+            <Button onClick={() => handleSelectNetwork("ETHEREUM")}  title="Ethereum"><span className={selectedNetwork === "ETHEREUM" ? "network_eth active_network" : "network_eth"}> Ethereum </span></Button>
             <Button onClick={() => handleSelectNetwork("BSC")} title="BSC"><span  className={selectedNetwork === "BSC" ? "network_bsc active_network" : "network_bsc"}> BSC </span></Button>
           </div>
         </Modal.Title>
