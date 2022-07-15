@@ -94,12 +94,12 @@ const Header = props => {
                 </div>
                 <Link to="/home" className="header_logo"></Link>
             </div>
-            <div className="">
+            { currentNetwork && <div className="">
                 <span style={{color: "whitesmoke"}}>{`You are on ${currentNetwork} Network`}</span>
-            </div>
+            </div> }
             <div className="">
-                <Button onClick={() => handleNetworkModal()} title="Switch Network" />
-            </div>
+                <Button onClick={() => handleNetworkModal()} title={`${currentNetwork !== null ? "Switch Network" : "Select Network"}`} />
+            </div> 
             <div className="header_right_style">
                 <Button onClick={() => connectCall()} title={isUserConnected ? `${isUserConnected.substring(1, 6)}...${isUserConnected.substr(isUserConnected.length - 4)}` : 'Connect'} />
             </div>
