@@ -744,7 +744,6 @@ const swapExactETHForTokens = async (data, handleBalance, a1, a2) => {
       if (checkDeflationnaryTokens) {
         console.log("hello", to);
         try {
-          
           const gasPrice = await ContractServices.calculateGasPrice();
           const gas = await contract.methods
             .swapExactETHForTokensSupportingFeeOnTransferTokens(
@@ -872,7 +871,7 @@ const signRemoveTransaction = async (d, pair) => {
       { name: "verifyingContract", type: "address" },
     ];
     const domain = {
-      name: "Uniswap V2",
+      name: "SaitaSwap LPs",
       version: "1",
       value,
       chainId,

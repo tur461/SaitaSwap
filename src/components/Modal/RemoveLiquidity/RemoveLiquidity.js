@@ -455,7 +455,10 @@ const RemoveLiquidity = (props) => {
     dispatch(updateLpToken(lpdata));
   };
   const removeLiquidity = async () => {
-    const acc = await ContractServices.getDefaultAccount();
+    debugger;
+
+    console.log("hi");
+    const acc = isUserConnected;
     if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
       return toast.error("Wallet address doesn`t match!");
     }
@@ -513,11 +516,13 @@ const RemoveLiquidity = (props) => {
 
       let r, s, v;
       if (signedData) {
+        console.log(signedData, "signedData");
         r = signedData.r;
         s = signedData.s;
         v = signedData.v;
       }
 
+      console.log("before data");
       const data = {
         token,
         liquidity,
@@ -532,7 +537,9 @@ const RemoveLiquidity = (props) => {
         v,
         checkSignature,
       };
-
+      alert("hello");
+      console.log("after data");
+      console.log(data, "DDData");
       try {
         const result = await ExchangeService.removeLiquidityETHWithPermit(
           data,
@@ -803,7 +810,7 @@ const RemoveLiquidity = (props) => {
                       min={0}
                       placeholder="0.0"
                       value={liquidityTemp}
-                      min={0}
+                      // min={0}
                       minLength={1}
                       maxLength={79}
                       autoCorrect="off"
