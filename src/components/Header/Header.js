@@ -9,12 +9,16 @@ import ConnectWallet from "../ConnectWallet/ConnectWallet";
 import ProfileModal from "../ProfileModal/ProfileModal";
 import { login, logout, versionManager } from "../../redux/actions"
 import { ContractServices } from "../../services/ContractServices";
+import SwitchNetworkModal from "../SwitchNetworkModal/SwitchNetworkModal";
 
 const Header = props => {
     const dispatch = useDispatch();
     const isUserConnected = useSelector(state => state.persist.isUserConnected);
     const walletType = useSelector(state => state.persist.walletType);
     const [show, setShow] = useState(false);
+    const [showNetworkModal, setShowNetworkModal] = useState(false);
+    const [currentNetwork, setCurrentNetwork] = useState(localStorage.getItem("CURRENT NETWORK"));
+    
     useEffect(() => {
         const init = async () => {
             await dispatch(versionManager());
@@ -27,6 +31,7 @@ const Header = props => {
         init();
         addListeners();
     }, []);
+
     const handleClose = () => setShow(false);
 
     const handleShow = () => setShow(true);
@@ -34,6 +39,13 @@ const Header = props => {
     const connectCall = () => {
         isUserConnected ? setShow(!show) : setShow(true);
     }
+
+    window.addEventListener('storage', () => setCurrentNetwork(localStorage.getItem("CURRENT NETWORK")));
+
+    const handleNetworkModal = () => {
+         setShowNetworkModal(!showNetworkModal);
+    }
+
     const addListeners = async () => {
         let address;
         if (walletType === 'Metamask') {
@@ -82,11 +94,18 @@ const Header = props => {
                 </div>
                 <Link to="/home" className="header_logo"></Link>
             </div>
+            <div className="">
+                <span style={{color: "whitesmoke"}}>{`You are on ${currentNetwork} Network`}</span>
+            </div>
+            <div className="">
+                <Button onClick={() => handleNetworkModal()} title="Switch Network" />
+            </div>
             <div className="header_right_style">
                 <Button onClick={() => connectCall()} title={isUserConnected ? `${isUserConnected.substring(1, 6)}...${isUserConnected.substr(isUserConnected.length - 4)}` : 'Connect'} />
             </div>
             {isUserConnected === "" && <ConnectWallet show={show} handleShow={handleShow} handleClose={handleClose} />}
             {isUserConnected !== "" && <ProfileModal show={show} handleClose={handleClose} logout={logoutCall} />}
+            {isUserConnected !== "" && <SwitchNetworkModal show={showNetworkModal} handleClose={handleNetworkModal} />}
         </div>
 
     )
