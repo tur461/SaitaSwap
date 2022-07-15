@@ -67,7 +67,7 @@ const ConnectWallet = ({ show, handleClose }) => {
   };
   useEffect(() => {
     (async () => {
-      if (!localStorage.getItem("walletconnect"))
+      if (localStorage.getItem("walletconnect"))
         loginCall("Walletconnect", "Walletconnect");
     })();
   }, []);

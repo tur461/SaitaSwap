@@ -132,6 +132,7 @@ const AddLiquidity = (props) => {
         currentPairAddress = await ExchangeService.getPair(a1, a2);
       }
       if (currentPairAddress !== "0x0000000000000000000000000000000000000000") {
+        console.log("currentPairAddress", currentPairAddress);
         const tk0 = await ExchangeService.getTokenZero(currentPairAddress);
         const tk1 = await ExchangeService.getTokenOne(currentPairAddress);
 
@@ -215,7 +216,7 @@ const AddLiquidity = (props) => {
                       <img src={tokenTwo.icon} alt="icon" /> {tokenOne.symbol}/
                       {tokenTwo?.symbol}
                     </span>{" "}
-                    <span>{lpTokenBalance?.toFixed(5)}</span>
+                    <span>{lpTokenBalance?.toFixed(12)}</span>
                   </li>
                   <br />
                   <li>

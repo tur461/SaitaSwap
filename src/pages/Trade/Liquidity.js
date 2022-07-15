@@ -114,7 +114,7 @@ const Liquidity = ({ handleAddLiquidity, handleRemove }) => {
                           <li>Your pool share:</li>
                         </ul>
                         <ul className="text-end">
-                          <li>{lp.balance.toFixed(5)}</li>
+                          <li>{lp.balance.toFixed(10)}</li>
                           <li>{lp.token0Deposit.toFixed(5)}</li>
                           <li>{lp.token1Deposit.toFixed(5)}</li>
                           <li>{lp.poolShare}%</li>
