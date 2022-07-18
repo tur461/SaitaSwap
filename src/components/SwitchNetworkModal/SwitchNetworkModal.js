@@ -2,16 +2,37 @@ import React, { useState } from "react";
 import { Col, Row, Modal } from "react-bootstrap";
 import CopyIcon from "../../assets/images/copy.png";
 import "./SwitchNetworkModal.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BSC_SCAN } from "../../constant";
 import { toast } from "../Toast/Toast";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import TolerenceIcon from "../../assets/images/tolerence.png";
 import Button from "../Button/Button";
+import { useEffect } from "react";
+import { getBSCMainNetContracts, getBSCTestNetContracts, getEthethereumMainNetContracts, getEthethereumTestNetContracts } from "../../redux/actions";
 
 const SwitchNetworkModal = ({ show, handleClose, logout }) => {
+  const dispatch = useDispatch();
+
   const isUserConnected = useSelector((state) => state.persist.isUserConnected);
   const [selectedNetwork, setSelectedNetwork] = useState("ETHEREUM");
+
+  useEffect(() => { 
+    const currentNetwork = localStorage.getItem("CURRENT NETWORK");
+    if (currentNetwork === "ETHEREUM") {
+      dispatch(getEthethereumMainNetContracts());
+    }
+    if (currentNetwork === "ETHEREUM TESTNET") {
+      dispatch(getEthethereumTestNetContracts());
+    }
+    if (currentNetwork === "BSC") {
+      dispatch(getBSCMainNetContracts());
+    }
+    if (currentNetwork === "BSC TESTNET") {
+      dispatch(getBSCTestNetContracts());
+    }
+        
+  }, [])
 
   const handleSelectNetwork = (networkName) => {
     setSelectedNetwork(networkName);
@@ -30,8 +51,12 @@ const SwitchNetworkModal = ({ show, handleClose, logout }) => {
       <Modal.Header closeButton>
         <Modal.Title className="text-center">Switch Network
           <div className="d-flex mt-3 gap-2">
-            <Button onClick={() => handleSelectNetwork("ETHEREUM")}  title="Ethereum"><span className={selectedNetwork === "ETHEREUM" ? "network_eth active_network" : "network_eth"}> Ethereum </span></Button>
-            <Button onClick={() => handleSelectNetwork("BSC")} title="BSC"><span  className={selectedNetwork === "BSC" ? "network_bsc active_network" : "network_bsc"}> BSC </span></Button>
+            <Button onClick={() => handleSelectNetwork("ETHEREUM")}  title="Ethereum"><span className={selectedNetwork === "ETHEREUM" ? "network_eth active_network" : "network_eth"}></span></Button>
+            <Button onClick={() => handleSelectNetwork("BSC")} title="BSC"><span  className={selectedNetwork === "BSC" ? "network_bsc active_network" : "network_bsc"}></span></Button>
+          </div>
+          <div className="d-flex mt-3 gap-2">
+            <Button onClick={() => handleSelectNetwork("ETHEREUM TESTNET")}  title="Eth (Testnet) "><span className={selectedNetwork === "ETHEREUM" ? "network_eth active_network" : "network_eth"}></span></Button>
+            <Button onClick={() => handleSelectNetwork("BSC TESTNET")} title="BSC (Testnet)"><span  className={selectedNetwork === "BSC" ? "network_bsc active_network" : "network_bsc"}></span></Button>
           </div>
         </Modal.Title>
       </Modal.Header>

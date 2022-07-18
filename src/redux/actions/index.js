@@ -5,6 +5,6 @@ export * from './PersistActions';
 export * from './RegisterActions';
 export * from './SecurityActions';
 export * from './tokenActions';
-export * from './ExchangeActions'
-export * from './BSCActions'
-export * from './EthereumActions'
+export * from './ExchangeActions';
+export * from './BSCActions';
+export * from './EthereumActions';
