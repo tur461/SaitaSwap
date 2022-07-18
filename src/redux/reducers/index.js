@@ -17,8 +17,8 @@ const appReducer = combineReducers({
   persist: persist,
   security: security,
   farm: farmReducer,
-  bscConstants: bscConstantsReducer,
-  ethereumConstants: ethereumConstantsReducer,
+  bscContractsData: bscConstantsReducer,
+  ethereumContractsData: ethereumConstantsReducer,
   router: connectRouter(history)
 });
 

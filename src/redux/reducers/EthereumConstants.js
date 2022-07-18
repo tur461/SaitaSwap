@@ -1,11 +1,14 @@
 import { actionTypes } from "../actions/EthereumActions";
 
+/** Empty State Initially  */
+const initialState = { };
+
 /** Ethereum MainNet TokenList & Contract Addresses  */
 const Ethereum_MainNet_Contracts = {
   tokenList: [
     {
       // icon: ETH,
-      name: "ETH",
+      name: "ETH-MainNet",
       address: "BNB",
       isAdd: false,
       isDel: false,
@@ -112,14 +115,13 @@ const Ethereum_MainNet_Contracts = {
     // abi: referralsABI,
   },
 };
-
 
 /** Ethereum Testnet TokenList & Contract Addresses  */
 const Ethereum_TestNet_Contracts = {
   tokenList: [
     {
       // icon: ETH,
-      name: "ETH",
+      name: "ETH-TestNet",
       address: "BNB",
       isAdd: false,
       isDel: false,
@@ -227,7 +229,7 @@ const Ethereum_TestNet_Contracts = {
   },
 };
 
-const constants = (state = Ethereum_TestNet_Contracts, action) => {
+const constants = (state = initialState, action) => {
   switch (action.type) {
 
     case actionTypes.ETHEREUM_MAINNET_CONTRACTS:

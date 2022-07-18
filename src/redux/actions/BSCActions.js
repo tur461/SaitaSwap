@@ -16,7 +16,6 @@ export function getBSCMainNetContracts() {
 }
  
 export function getBSCTestNetContracts() {
-  console.log('reachedddddd');
   return {
     type: actionTypes.BSC_TESTNET_CONTRACTS
   };

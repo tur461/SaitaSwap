@@ -1,10 +1,14 @@
 import { actionTypes } from "../actions/BSCActions";
 
+/** Empty State Initially  */
+const initialState = { };
+
+/** BSC MainNet TokenList & Contract Addresses  */
 const BSC_MainNet_Contracts = {
   tokenList: [
     {
       // icon: ETH,
-      name: "ETH",
+      name: "BNB-Mainnet",
       address: "BNB",
       isAdd: false,
       isDel: false,
@@ -112,11 +116,12 @@ const BSC_MainNet_Contracts = {
   },
 };
 
+/** BSC TestNEt TokenList & Contract Addresses  */
 const BSC_TestNet_Contracts = {
   tokenList: [
     {
       // icon: BNB,
-      name: "BNB",
+      name: "BNB-Testnet",
       address: "BNB",
       isAdd: false,
       isDel: false,
@@ -224,13 +229,13 @@ const BSC_TestNet_Contracts = {
   },
 };
 
-const constants = (state = BSC_TestNet_Contracts, action) => {
+const constants = (state = initialState, action) => {
   switch (action.type) {
 
-    case actionTypes.ETHEREUM_MAINNET_CONTRACTS:
+    case actionTypes.BSC_MAINNET_CONTRACTS:
       return BSC_MainNet_Contracts;
 
-    case actionTypes.ETHEREUM_TESTNET_CONTRACTS:
+    case actionTypes.BSC_TESTNET_CONTRACTS:
       return BSC_TestNet_Contracts;
 
     default:

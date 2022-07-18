@@ -25,6 +25,8 @@ import farmABI from "../ABI/farmABI.json";
 import anchorABI from "../ABI/anchor.ABI.json";
 import referralsABI from "../ABI/referrals.ABI.json";
 import shaman from "../images/token_icons/saitamaIcons/shaman.png";
+import { storeInstance } from '../../App';
+
 export const NIOB1 = "0x035781918b7221293B6938c9c0037cDf1dB183dE";
 export const NIOB2 = "0xADdcE6c9Dd30a6b252eAB252a11aBe518381132C";
 export const BURN_ADDRESS = "0x000000000000000000000000000000000000dEaD";
@@ -63,6 +65,11 @@ export const INSURANCE_FUND =
 export const TRADING_FEE_CASHBACK =
   "https://docs.niob.finance/products/#trading-fee-cashback";
 export const DOCS = "https://docs.niob.finance";
+
+// const importedTokenList = storeInstance;
+// const importedContracts = storeInstance;
+// console.log('RRR', importedTokenList);
+// console.log('VVV', importedContracts);
 
 // ******** BSC_MAIN_NET Token List **********
 export const TOKEN_LIST = [
