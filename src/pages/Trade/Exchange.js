@@ -1118,7 +1118,7 @@ const Exchange = (props) => {
           <div className="card_style card_style_bottom">
             <ul>
               <li>
-                Minimum received:<sapn>{minimumReceived / 10 ** 18}</sapn>
+                Minimum received:<sapn>{minimumReceived / 10 ** 9}</sapn>
               </li>
               <li>
                 Price impact:<sapn>{priceImpact}%</sapn>

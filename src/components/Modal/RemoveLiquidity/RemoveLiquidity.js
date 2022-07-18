@@ -457,7 +457,7 @@ const RemoveLiquidity = (props) => {
   const removeLiquidity = async () => {
     debugger;
 
-    console.log("hi");
+    // console.log("hi");
     const acc = isUserConnected;
     if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
       return toast.error("Wallet address doesn`t match!");
@@ -537,9 +537,7 @@ const RemoveLiquidity = (props) => {
         v,
         checkSignature,
       };
-      alert("hello");
-      console.log("after data");
-      console.log(data, "DDData");
+
       try {
         const result = await ExchangeService.removeLiquidityETHWithPermit(
           data,

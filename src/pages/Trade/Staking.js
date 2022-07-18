@@ -25,7 +25,7 @@ import Loader from "react-loader-spinner";
 import Timer from "../../components/Timer/Timer";
 import { startLoading, stopLoading } from "../../redux/actions";
 const Staking = () => {
-  const contractAddress = "0xd9bcc6474499B397707D3379595f2d27f47B3629";
+  const contractAddress = "0xf764E560efE64A3706bf66AFa04AD14B302ef57B";
   const tokenAddress = "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C";
   const MAX_AMT = "0xffffffffffffffffffffffffffffffffffffffff";
   const [inputAmount, setInputAmount] = useState();

@@ -12,6 +12,7 @@ import Twitter from "../../assets/images/twitter-icon.svg";
 import NIOBtoken from "../../assets/images/saitaswap.png";
 import Telegram from "../../assets/images/telegram-icon.svg";
 import Docs from "../../assets/images/docs-icon.svg";
+import Youtube from "../../assets/images/token_icons/saitamaIcons/youtube.svg";
 import Medium from "../../assets/images/medium-icon.svg";
 import Github from "../../assets/images/git.svg";
 import Globe from "../../assets/images/language-switcher-icon.svg";
@@ -264,38 +265,41 @@ const Sidebar = (props) => {
       <SidebarFooter className="sidebar_footer">
         <ul className="token-language">
           <li className="token_list">
-            <Link>
-              <img src={NIOBtoken} />{" "}
-              <span>${NiobBusdValue ? NiobBusdValue.toFixed(4) : "0"}</span>
-            </Link>
+            <img src={NIOBtoken} />{" "}
+            <span style={{ color: "white" }}>
+              ${NiobBusdValue ? NiobBusdValue.toFixed(4) : "0"}
+            </span>
           </li>
-          <li className="lang_list">
+          {/* <li className="lang_list">
             <img src={Globe} /> <span className="lang_text">EN</span>
-          </li>
+          </li> */}
         </ul>
         <ul className="social_links">
-          <li>
+          {/* <li>
             <Link>
               <img src={Github} />
             </Link>
-          </li>
+          </li> */}
           <li>
-            <a href="https://docs.niob.finance" target="_blank">
-              <img src={Docs} />
+            <a
+              href="https://www.youtube.com/channel/UCcgXSwHloSMeXygKx8bTGBA"
+              target="_blank"
+            >
+              <img src={Youtube} />
             </a>
           </li>
-          <li>
+          {/* <li>
             <Link>
               <img src={Medium} />
             </Link>
-          </li>
+          </li> */}
           <li>
-            <a href="https://twitter.com/niobfinance" target="_blank">
+            <a href="https://twitter.com/wearesaitama" target="_blank">
               <img src={Twitter} />
             </a>
           </li>
           <li>
-            <a href="https://t.me/niobofficial" target="_blank">
+            <a href="https://t.me/+PjupkZhaJSc1Mjhh" target="_blank">
               <img src={Telegram} />
             </a>
           </li>
