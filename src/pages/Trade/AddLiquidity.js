@@ -736,6 +736,7 @@ const AddLiquidity = (props) => {
         dispatch(startLoading());
         console.log(data, "ye hai data");
         const result = await ExchangeService.addLiquidityETH(data);
+        alert("ddd");
         // console.log(result, "add liquidity transaction");
         dispatch(stopLoading());
 

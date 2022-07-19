@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/static/css/main.e9699287.chunk.css",
-    "main.js": "/static/js/main.ab6ac80c.chunk.js",
-    "main.js.map": "/static/js/main.ab6ac80c.chunk.js.map",
+    "main.js": "/static/js/main.a0582032.chunk.js",
+    "main.js.map": "/static/js/main.a0582032.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.e55afe93.js",
     "runtime-main.js.map": "/static/js/runtime-main.e55afe93.js.map",
     "static/css/2.06e7cc2f.chunk.css": "/static/css/2.06e7cc2f.chunk.css",
-    "static/js/2.9ba874e7.chunk.js": "/static/js/2.9ba874e7.chunk.js",
-    "static/js/2.9ba874e7.chunk.js.map": "/static/js/2.9ba874e7.chunk.js.map",
+    "static/js/2.f7273bee.chunk.js": "/static/js/2.f7273bee.chunk.js",
+    "static/js/2.f7273bee.chunk.js.map": "/static/js/2.f7273bee.chunk.js.map",
     "static/js/3.4fa1e3cf.chunk.js": "/static/js/3.4fa1e3cf.chunk.js",
     "static/js/3.4fa1e3cf.chunk.js.map": "/static/js/3.4fa1e3cf.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.06e7cc2f.chunk.css.map": "/static/css/2.06e7cc2f.chunk.css.map",
     "static/css/main.e9699287.chunk.css.map": "/static/css/main.e9699287.chunk.css.map",
-    "static/js/2.9ba874e7.chunk.js.LICENSE.txt": "/static/js/2.9ba874e7.chunk.js.LICENSE.txt",
+    "static/js/2.f7273bee.chunk.js.LICENSE.txt": "/static/js/2.f7273bee.chunk.js.LICENSE.txt",
     "static/media/ADA.c38a951f.svg": "/static/media/ADA.c38a951f.svg",
     "static/media/ANCHOR-Token.svg": "/static/media/ANCHOR-Token.e6a7dd37.svg",
     "static/media/Arrow-Down-Icon.4c6bf5e2.svg": "/static/media/Arrow-Down-Icon.4c6bf5e2.svg",
@@ -57,13 +57,14 @@
     "static/media/swap-icon.svg": "/static/media/swap-icon.e43ae7de.svg",
     "static/media/telegram-icon.ca23cef3.svg": "/static/media/telegram-icon.ca23cef3.svg",
     "static/media/twitter-icon.9e90a515.svg": "/static/media/twitter-icon.9e90a515.svg",
-    "static/media/wallet_icon.304e3277.svg": "/static/media/wallet_icon.304e3277.svg"
+    "static/media/wallet_icon.304e3277.svg": "/static/media/wallet_icon.304e3277.svg",
+    "static/media/youtube.85c2f09d.svg": "/static/media/youtube.85c2f09d.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.e55afe93.js",
     "static/css/2.06e7cc2f.chunk.css",
-    "static/js/2.9ba874e7.chunk.js",
+    "static/js/2.f7273bee.chunk.js",
     "static/css/main.e9699287.chunk.css",
-    "static/js/main.ab6ac80c.chunk.js"
+    "static/js/main.a0582032.chunk.js"
   ]
 }

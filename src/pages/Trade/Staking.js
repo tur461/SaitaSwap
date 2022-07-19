@@ -25,7 +25,8 @@ import Loader from "react-loader-spinner";
 import Timer from "../../components/Timer/Timer";
 import { startLoading, stopLoading } from "../../redux/actions";
 const Staking = () => {
-  const contractAddress = "0xf764E560efE64A3706bf66AFa04AD14B302ef57B";
+  const stakingProxy = "0xaC0D7aF6B796B9c46f10483C6F7d859265834Fa8";
+  const stakingContract = "0xE6A55671c1b863b73cCd8ECAcf4fa8Db3D6FF1b7";
   const tokenAddress = "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C";
   const MAX_AMT = "0xffffffffffffffffffffffffffffffffffffffff";
   const [inputAmount, setInputAmount] = useState();
@@ -53,13 +54,14 @@ const Staking = () => {
   // })
 
   let totalSeconds = 86400;
-  let finalRewards = inputAmount && reward ? (inputAmount * reward) / 100 : 0;
+  let finalRewards =
+    inputAmount && reward ? (inputAmount * ((reward * days) / 365)) / 100 : 0;
   const isTheUserConnected = useSelector(
     (state) => state.persist.isUserConnected
   );
   useEffect(async () => {
     let contract = await ContractServices.callContract(
-      contractAddress,
+      stakingProxy,
       ABISTAKING
     );
     setContract(contract);
@@ -67,7 +69,7 @@ const Staking = () => {
     let rewardPercent = await contract.methods
       .rewardPercent(days * totalSeconds)
       .call();
-    setReward(rewardPercent);
+    setReward(rewardPercent / 100);
 
     let userAddress = isTheUserConnected;
     setUserAddress(userAddress);
@@ -105,21 +107,24 @@ const Staking = () => {
     }
   };
   console.log("the days left", daysLeft);
-  const destructure = async (array, i) => {
+  const destructure = async (array, i, stakingRewards) => {
+    console.log("stakingRewards", stakingRewards);
     daataarray.push({
       amount: array[0],
       lockInPeriod: array[1],
-      lockInUntil: array[2],
-      isClaimed: array[3],
+      lockInUntil: array[3],
+      isClaimed: array[4],
       transactionNo: i,
+      stakingRewards: stakingRewards,
     });
   };
 
   const letsCallContract = async () => {
-    // debugger;
+    debugger;
     if (isTheUserConnected) {
       if (inputAmount) {
         try {
+          dispatch(startLoading());
           // let userAddress = await ContractServices.isMetamaskInstalled();
           // let gasPrice = await Contractservices.calculateGasPrice();
           let tokenInstance = await ContractServices.callContract(
@@ -128,19 +133,19 @@ const Staking = () => {
           );
 
           let estimateGas = await tokenInstance.methods
-            .approve(contractAddress, MAX_AMT)
+            .approve(stakingProxy, MAX_AMT)
             .estimateGas({ from: userAddress });
           setIsDisabled(true);
           let approveToken = await tokenInstance.methods
-            .allowance(userAddress, contractAddress)
+            .allowance(userAddress, stakingProxy)
             .call();
           if (approveToken == 0) {
             await tokenInstance.methods
-              .approve(contractAddress, MAX_AMT)
+              .approve(stakingProxy, MAX_AMT)
               .send({ from: userAddress, gas: estimateGas });
           }
           let contract = await ContractServices.callContract(
-            contractAddress,
+            stakingProxy,
             ABISTAKING
           );
 
@@ -152,26 +157,31 @@ const Staking = () => {
             .stake(days * totalSeconds, BigNumber(inputAmount) * 10 ** 9)
             .send({ from: userAddress, gas: gas });
           console.log("uuuu result", result);
-          let data = await contract.methods.stakingTx(userAddress);
+          // let data = await contract.methods.stakingTx(userAddress);
           // setfinaldays(days * totalSeconds);
           const transactionNo = await contract.methods
             .stakingTx(userAddress)
             .call();
 
-          setTransNo(transactionNo);
+          // setTransNo(transactionNo);
           let totalTransactions = transactionNo.txNo;
 
           let transactionDetails;
+          let stakingRewards;
           for (let i = 1; i <= totalTransactions; i++) {
             transactionDetails = await contract.methods
               .userTransactions(userAddress, i)
               .call();
-
-            await destructure(transactionDetails, i);
+            stakingRewards = await contract.methods
+              .rewards(userAddress, i)
+              .call();
+            console.log("transactionDetails", transactionDetails);
+            await destructure(transactionDetails, i, stakingRewards);
           }
 
           setDataArray(daataarray);
           setIsDisabled(false);
+          dispatch(stopLoading());
         } catch (error) {
           console.log(error);
         }
@@ -182,12 +192,12 @@ const Staking = () => {
       toast.error("Please Connect your wallet first");
     }
   };
-
+  console.log("99999", contract?.methods);
   const letsUnstake = async (trans) => {
     if (isTheUserConnected) {
       try {
         let contract = await ContractServices.callContract(
-          contractAddress,
+          stakingProxy,
           ABISTAKING
         );
         let userAddress = await ContractServices.isMetamaskInstalled();
@@ -221,6 +231,7 @@ const Staking = () => {
     }
   };
   const getTheStake = async () => {
+    // alert("in gettheStake");
     if (isTheUserConnected) {
       try {
         setIsDisabled(true);
@@ -233,12 +244,16 @@ const Staking = () => {
         let totalTransactions = transactionNo.txNo;
         console.log("totalTransactions", totalTransactions);
         let transactionDetails;
+        let stakingRewards;
         for (let i = 1; i <= totalTransactions; i++) {
           transactionDetails = await contract.methods
             .userTransactions(userAddress, i)
             .call();
-          // console.log("transactionDetails", transactionDetails);
-          await destructure(transactionDetails, i);
+          stakingRewards = await contract.methods
+            .rewards(userAddress, i)
+            .call();
+          console.log("transactionDetails", transactionDetails);
+          await destructure(transactionDetails, i, stakingRewards);
         }
         setDataArray(daataarray);
         setIsDisabled(false);
@@ -250,7 +265,7 @@ const Staking = () => {
       toast.error("Please connect your wallet first");
     }
   };
-
+  console.log("daysLeft", daysLeft);
   return (
     // referral_page
     <div className="container_wrap stakePage py-40">
@@ -277,6 +292,12 @@ const Staking = () => {
                     <div className="duration_sec">
                       <Button
                         className="time_duration"
+                        onClick={() => setDays(30)}
+                      >
+                        30 days
+                      </Button>
+                      <Button
+                        className="time_duration"
                         onClick={() => setDays(60)}
                       >
                         60 days
@@ -286,12 +307,6 @@ const Staking = () => {
                         onClick={() => setDays(90)}
                       >
                         90 days
-                      </Button>
-                      <Button
-                        className="time_duration"
-                        onClick={() => setDays(120)}
-                      >
-                        120 days
                       </Button>
                     </div>
                     <div className="text_area text-white">
@@ -331,6 +346,7 @@ const Staking = () => {
                       <tr>
                         <th>Stake Amount</th>
                         {/* <th>Rewards</th> */}
+                        <th>Rewards</th>
                         <th>
                           Locked in Until<br></br> (DD:HH:MM)
                         </th>
@@ -343,6 +359,7 @@ const Staking = () => {
                           <tbody>
                             <tr>
                               <td>{item.amount / 10 ** 9} Saitama</td>
+                              <td>{item.stakingRewards / 10 ** 9} Saitama</td>
                               {/* <td>{finalRewards} Saitama</td> */}
                               <td>
                                 {/* {item.lockInUntil} */}
@@ -370,13 +387,14 @@ const Staking = () => {
                                   >
                                     Unstake
                                   </Button>
-                                ) : // <Button
-                                //   className="unstake_btn"
-                                //   disabled={true}
-                                // >
-                                //   Unstake
-                                // </Button>
-                                null}
+                                ) : (
+                                  <Button
+                                    className="unstake_btn"
+                                    disabled={true}
+                                  >
+                                    Unstake
+                                  </Button>
+                                )}
                               </td>
                             </tr>
                           </tbody>

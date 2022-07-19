@@ -253,6 +253,7 @@ const addLiquidity = async (data) => {
   });
 };
 const addLiquidityETH = async (data) => {
+  alert("in add liquidity")
   return new Promise(async (resolve, reject) => {
     try {
       let {
@@ -419,6 +420,7 @@ const removeLiquidityWithPermit = async (data) => {
   });
 };
 const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
+  alert("removeLiquidityETHWithPermit");
   return new Promise(async (resolve, reject) => {
     try {
       let {
@@ -450,6 +452,7 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
         );
 
         if (supportingCheck) {
+          alert("removeLiquidityETHWithPermitSupportingFeeOnTransferTokens");
           const gas = await contract.methods
             .removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(
               token,
@@ -491,6 +494,7 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
               reject(error);
             });
         } else {
+          alert("removeLiquidityETHWithPermit");
           const gas = await contract.methods
             .removeLiquidityETHWithPermit(
               token,

@@ -1,16 +1,5 @@
 [
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_time",
-        "type": "uint256"
-      }
-    ],
-    "name": "timeNotSpecified",
-    "type": "error"
-  },
-  {
     "anonymous": false,
     "inputs": [
       {
@@ -85,6 +74,12 @@
       {
         "indexed": false,
         "internalType": "uint256",
+        "name": "_percent",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
         "name": "_lockPeriod",
         "type": "uint256"
       },
@@ -96,37 +91,6 @@
       }
     ],
     "name": "StakeDeposit",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "time",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "lockedUntil",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "bool",
-        "name": "stakingOver",
-        "type": "bool"
-      }
-    ],
-    "name": "userTx",
     "type": "event"
   },
   {
@@ -147,6 +111,11 @@
       {
         "internalType": "contract IERC20",
         "name": "_token",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "owner_",
         "type": "address"
       }
     ],
@@ -197,6 +166,11 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "_user",
+        "type": "address"
+      },
+      {
         "internalType": "uint256",
         "name": "_txNo",
         "type": "uint256"
@@ -217,12 +191,12 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "_days",
+        "name": "_time",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "_percent",
+        "name": "_percentInBP",
         "type": "uint256"
       }
     ],
@@ -328,6 +302,11 @@
           },
           {
             "internalType": "uint256",
+            "name": "percent",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
             "name": "lockedUntil",
             "type": "uint256"
           },
@@ -342,7 +321,7 @@
         "type": "tuple"
       }
     ],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   }
 ]
