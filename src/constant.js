@@ -3,15 +3,16 @@ export const HOME_ROUTE = process.env.REACT_APP_HOME_ROUTE;
 export const API_HOST = process.env.REACT_APP_API_URL;
 export const CAPTCHA_KEY = process.env.REACT_APP_GOOGLE_CAPTCHA_KEY;
 export const BSC_SCAN = "https://rinkeby.etherscan.io";
-export const NETWORK_CHAIN_NAME = process.env.REACT_APP_NETWORK_CHAIN_NAME;
-export const NETWORK_RPC_URL = process.env.REACT_APP_NETWORK_RPC_URL;
-export const NETWORK_LINK = process.env.REACT_APP_NETWORK_LINK;
+export const NETWORK_CHAIN_NAME = localStorage.getItem("REACT_APP_NETWORK_CHAIN_NAME");
+export const NETWORK_RPC_URL = localStorage.getItem("REACT_APP_NETWORK_RPC_URL");
+export const NETWORK_LINK = localStorage.getItem("REACT_APP_NETWORK_LINK");
 export const NETWORK_VERSION = process.env.REACT_APP_NETWORK_VERSION;
-export const NETWORK_CHAIN_ID = process.env.REACT_APP_NETWORK_CHAIN_ID;
+export const NETWORK_CHAIN_ID = localStorage.getItem("REACT_APP_NETWORK_CHAIN_ID");
+export const NETWORK_CHAIN_ID_NUMBER = localStorage.getItem("REACT_APP_NETWORK_CHAIN_ID_NUMBER");
 export const NETWORK_NATIVE_CURRENCY_NAME =
-  process.env.REACT_APP_NETWORK_NATIVE_CURRENCY_NAME;
+localStorage.getItem("REACT_APP_NETWORK_NATIVE_CURRENCY_NAME");
 export const NETWORK_NATIVE_CURRENCY_SYMBOL =
-  process.env.REACT_APP_NETWORK_NATIVE_CURRENCY_SYMBOL;
+localStorage.getItem("REACT_APP_NETWORK_NATIVE_CURRENCY_SYMBOL");
 export const NETWORK_NATIVE_CURRENCY_DECIMALS =
   process.env.REACT_APP_NETWORK_NATIVE_CURRENCY_DECIMALS;
 export const globalResErrMsg = "Woops something went wrong, Please try again.";

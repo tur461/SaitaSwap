@@ -9,6 +9,7 @@ import {
   NETWORK_NATIVE_CURRENCY_NAME,
   NETWORK_NATIVE_CURRENCY_SYMBOL,
   NETWORK_RPC_URL,
+  NETWORK_CHAIN_ID_NUMBER
 } from "../constant";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
@@ -20,15 +21,20 @@ let currentTokenAddress;
 let walletTypeObject = "Metamask";
 let walletConnectProvider;
 
+console.log('xxx', Number(NETWORK_CHAIN_ID_NUMBER));
 const callWeb3ForWalletConnect = async (provider) => {
+  const chainIdNumber =  Number(NETWORK_CHAIN_ID_NUMBER);
+  const configured_rpc = { 1: NETWORK_RPC_URL }
   provider = new WalletConnectProvider({
-    rpc: {
-      // 97: "https://data-seed-prebsc-2-s3.binance.org:8545/",
-      // 56: "https://bsc-dataseed.binance.org/",
-      4: "https://rinkeby.infura.io/v3/1eef3e361aac42f79167464a2e0d6564",
-    },
-    chainId: 4,
-    network: "rinkeby",
+    rpc: configured_rpc,
+    // rpc: {
+    //   chainIdNumber: NETWORK_RPC_URL
+    //   // 97: "https://data-seed-prebsc-2-s3.binance.org:8545/",
+    //   // 56: "https://bsc-dataseed.binance.org/",
+    //   // 4: "https://rinkeby.infura.io/v3/1eef3e361aac42f79167464a2e0d6564",
+    // },
+    chainId:  Number(NETWORK_CHAIN_ID_NUMBER),
+    network: NETWORK_CHAIN_NAME,
     qrcode: true,
     qrcodeModalOptions: {
       mobileLinks: ["metamask"],
@@ -136,11 +142,19 @@ const isBinanceChainInstalled = async () => {
 };
 
 const walletWindowListener = async () => {
+  console.log('called 1');
   const { BinanceChain, ethereum } = window;
+  console.log('called 2');
   if (walletTypeObject === "Metamask") {
+    console.log('called 3');
     const result = Boolean(ethereum && ethereum.isMetaMask);
+    console.log('called 4');
     if (result) {
+      console.log('called 5');
+      console.log('ttttttt', ethereum.chainId);
+      console.log(NETWORK_CHAIN_ID);
       if (ethereum.chainId !== NETWORK_CHAIN_ID) {
+        console.log('called 6');
         try {
           const chain = await ethereum.request({
             method: "wallet_switchEthereumChain",
@@ -150,6 +164,7 @@ const walletWindowListener = async () => {
           console.log("metamask error", error);
           if (error?.code === 4902) {
             try {
+              console.log('called 7');
               const addChain = await ethereum.request({
                 method: "wallet_addEthereumChain",
                 params: [
@@ -171,11 +186,16 @@ const walletWindowListener = async () => {
           }
         }
       }
-
+      console.log('called 8');
       ethereum.on("chainChanged", async (chainId) => {
+        console.log('called 9');
+
         if (chainId !== NETWORK_CHAIN_ID) {
+        console.log('called 10');
+          
           // toast.error('Select Binance Smart Chain Mainnet Network in wallet!')
           try {
+            console.log('called 11');
             const chain = await ethereum.request({
               method: "wallet_switchEthereumChain",
               params: [{ chainId: NETWORK_CHAIN_ID }],
