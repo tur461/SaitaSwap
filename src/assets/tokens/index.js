@@ -996,6 +996,82 @@ let TOKEN_LIST = [
   // },
 ];
 
+let TOKEN_LIST_BSC = [
+  {
+    icon: BNB,
+    name: "BNB",
+    address: "BNB",
+    isAdd: false,
+    isDel: false,
+    decimals: 18,
+    symbol: "BNB",
+  },
+  {
+    icon: SAITA,
+    name: "SAITAMA",
+    address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "SAITAMA..",
+  },
+  {
+    icon: LP,
+    name: "LP",
+    address: "0xdF334150FFe9Bc4989a7F3FD5db378d0eD60f0A0",
+    isAdd: false,
+    isDel: false,
+    decimals: 18,
+    symbol: "LP",
+  },
+  {
+    icon: SHRIYO,
+    name: "Shiryo-Inu",
+    address: "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "Shiryo-Inu",
+  },
+  {
+    icon: IMPACTXP,
+    name: "ImpactXP",
+    address: "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "ImpactXP",
+  },
+  {
+    icon: Kishimoto,
+    name: "Kishimoto",
+    address: "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "Kishimoto",
+  },
+  {
+    icon: MANDOX,
+    name: "Mandox",
+    address: "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
+    isAdd: false,
+    isDel: false,
+    decimals: 9,
+    symbol: "Mandox",
+  },
+  {
+    icon: shaman,
+    name: "Shaman",
+    address: "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
+    isAdd: false,
+    isDel: false,
+    decimals: 18,
+    symbol: "Shaman",
+  },
+];
+
+
 let MAIN_CONTRACT_LIST = [];
 
 if (currentNetwork === "BSC") {
