@@ -56,7 +56,6 @@ const Liquidity = ({ handleAddLiquidity, handleRemove }) => {
       setCurrentIndex(index);
     }
   };
-
   console.log("userLpTokens", userLpTokens);
   return (
     <>

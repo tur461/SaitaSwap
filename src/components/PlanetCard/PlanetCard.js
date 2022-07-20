@@ -86,8 +86,21 @@ const PlanetCard = (props) => {
   const getDollarAPR = async (address) => {
     try {
       if (address.toLowerCase() === TOKEN_LIST[1].address.toLowerCase()) {
+        const tokenZero = await ExchangeService.getTokenZero(ANCHOR_BUSD_LP);
+        const tokenOne = await ExchangeService.getTokenOne(ANCHOR_BUSD_LP);
+
+        const decimalZero = await ContractServices.getDecimals(tokenZero);
+        const decimalOne = await ContractServices.getDecimals(tokenOne);
         const reserves = await ExchangeService.getReserves(ANCHOR_BUSD_LP);
-        let val = reserves[1] / reserves[0];
+
+        let val;
+        if (tokenZero.toLowerCase() == TOKEN_LIST[1].address.toLowerCase()) {
+          val =
+            reserves[1] / 10 ** decimalOne / (reserves[0] / 10 ** decimalZero);
+        } else {
+          val =
+            reserves[0] / 10 ** decimalZero / (reserves[1] / 10 ** decimalOne);
+        }
         val = val || 0;
         setAnchorDollarValue(val.toFixed(3));
         return val.toFixed(3);
@@ -96,13 +109,38 @@ const PlanetCard = (props) => {
       ) {
         return 1;
       } else if (address.toLowerCase() != TOKEN_LIST[2].address.toLowerCase()) {
-        const pair = await ExchangeService.getPairFromPancakeFactory(
+        const pair = await ExchangeService.getPair(
           address,
           TOKEN_LIST[2].address
         );
+        const tokenZero = await ExchangeService.getTokenZero(pair);
+        const tokenOne = await ExchangeService.getTokenOne(pair);
+
+        const decimalZero = await ContractServices.getDecimals(tokenZero);
+        const decimalOne = await ContractServices.getDecimals(tokenOne);
         const reserves = await ExchangeService.getReserves(pair);
-        let val = reserves[1] / reserves[0];
+        let val;
+        if (tokenZero.toLowerCase() == TOKEN_LIST[0].address.toLowerCase()) {
+          console.log(
+            "HERE:",
+            reserves[1] / 10 ** decimalOne,
+            reserves[0] / 10 ** decimalZero
+          );
+          val =
+            reserves[1] / 10 ** decimalOne / (reserves[0] / 10 ** decimalZero);
+        } else {
+          console.log(
+            "HERE: else ",
+            reserves[1] / 10 ** decimalOne,
+            reserves[0] / 10 ** decimalZero
+          );
+          const resA = reserves[1] / 10 ** decimalZero;
+          const resB = reserves[0] / 10 ** decimalOne;
+          val = resA / resB;
+        }
         val = val || 0;
+
+        console.log("VAlue:", val);
         setAnchorDollarValue(val.toFixed(3));
         return val.toFixed(3);
       }
@@ -118,14 +156,23 @@ const PlanetCard = (props) => {
         const totalSupplyTemp = await ContractServices.getTotalSupply(lpToken);
         setTotalSupply(totalSupplyTemp);
         const liquidity = await handleLiquidity(lpToken);
+
         setLiquidity(liquidity);
         const tokenStaked = await ExchangeService.getTokenStaked(lpToken);
-        const lpWorth = liquidity / tokenStaked;
+        // const tokenStakedbypiyush = await
+        const lpWorth = liquidity*balance;
         setWorth(lpWorth);
         const lpTokenDetailsTemp = await FarmService.getLpTokenDetails(lpToken);
-        console.log("Jai mata di", lpTokenDetailsTemp);
+        console.log("balance",balance);
         setLpTokenDetails(lpTokenDetailsTemp);
-
+        console.log(
+          "liquidity",
+          liquidity,
+          "tokenStaked",
+          tokenStaked,
+          "lpToken",
+          lpToken
+        );
         const a = await calculateAPR(
           Number(poolInfo.allocPoint),
           lpToken,
@@ -261,14 +308,14 @@ const PlanetCard = (props) => {
       return (price =
         (reserve[0] * 10 ** decimalOne) / (reserve[1] * 10 ** decimalZero));
     }
-    console.log(
-      tokenZero,
-      tokenOne,
-      reserve,
-      decimalZero,
-      decimalOne,
-      "token k baare m jaankari"
-    );
+    // console.log(
+    //   tokenZero,
+    //   tokenOne,
+    //   reserve,
+    //   decimalZero,
+    //   decimalOne,
+    //   "token k baare m jaankari"
+    // );
     if (tokenOne.toLowerCase() === TOKEN_LIST[2]?.address.toLowerCase()) {
       return (price =
         (reserve[1] * 10 ** decimalZero) / (reserve[0] * 10 ** decimalOne));
@@ -294,15 +341,20 @@ const PlanetCard = (props) => {
       await FarmService.totalAllocationPoint()
     );
 
-    const anchorPerBlock = Number(await FarmService.pantherPerBlock());
+    const anchorPerBlock =
+      Number(await FarmService.pantherPerBlock()) /
+      10 ** TOKEN_LIST[1].decimals;
+    console.log("anchorPerBlock", anchorPerBlock);
     //need to calculate usd price.
     const liquidity = await handleLiquidity(lpToken);
     // console.log("liquidity: ", liquidity);
-    console.log("anchorPrice", anchorPrice);
+    // console.log("anchorPrice", anchorPrice);
+    // console.log("totalAllcationPoint", totalAllcationPoint);
+    // console.log("anchorPerBlock", anchorPerBlock);
     if (liquidity != 0) {
       const apr =
         ((allocPoint / totalAllcationPoint) *
-          ((anchorPerBlock / 10 ** 18) * 5760 * 365 * 100 * anchorPrice)) /
+          (anchorPerBlock * 5760 * 365 * 100 * anchorPrice)) /
         liquidity;
       setROI({
         allocPoint,
@@ -324,20 +376,22 @@ const PlanetCard = (props) => {
       const tokenOne = await ExchangeService.getTokenOne(pairAddress);
       const reserve = await ExchangeService.getReserves(pairAddress);
 
-      const tokenZeroPairUSDT = await ExchangeService.getPair(
-        tokenZero,
-        TOKEN_LIST[2]?.address
-      );
-      const tokenOnePairUSDT = await ExchangeService.getPair(
-        tokenOne,
-        TOKEN_LIST[2]?.address
-      );
+      // const tokenZeroPairUSDT = await ExchangeService.getPair(
+      //   tokenZero,
+      //   TOKEN_LIST[2]?.address
+      // );
+      // const tokenOnePairUSDT = await ExchangeService.getPair(
+      //   tokenOne,
+      //   TOKEN_LIST[2]?.address
+      // );
 
-      const tokenZeroPairBNB = await ExchangeService.getPair(tokenZero, WETH);
-      const tokenOnePairBNB = await ExchangeService.getPair(tokenOne, WETH);
+      // const tokenZeroPairBNB = await ExchangeService.getPair(tokenZero, WETH);
+      // const tokenOnePairBNB = await ExchangeService.getPair(tokenOne, WETH);
 
       const decimalZero = await ContractServices.getDecimals(tokenZero);
       const decimalOne = await ContractServices.getDecimals(tokenOne);
+      console.log("tokenZero", tokenZero, "tokenOne", tokenOne);
+      console.log("decimalZero", decimalZero, "decimalOne", decimalOne);
 
       //let priceA = 0.001;
       //let priceB = 0.002;
@@ -387,14 +441,14 @@ const PlanetCard = (props) => {
       const totalSupply = await ExchangeService.getTotalSupply(pairAddress);
       const tokenStaked = await ExchangeService.getTokenStaked(pairAddress);
       const liquidity =
-        (((reserve[0] / 10 ** decimalZero) * priceA +
+        ((reserve[0] / 10 ** decimalZero) * priceA +
           (reserve[1] / 10 ** decimalOne) * priceB) /
-          totalSupply) *
-        tokenStaked;
-
+        totalSupply;
+      console.log("liquidity", liquidity, "totalSupply", totalSupply);
       return liquidity;
+    } else {
+      return 0;
     }
-    return 0;
   };
   const handleIcon = (symbol) => {
     if (symbol != undefined) {

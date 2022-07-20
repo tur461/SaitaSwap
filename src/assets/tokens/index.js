@@ -46,7 +46,7 @@ export const LIQUIDITY_PROVIDER_FEE = 0.2;
 export const pancakeFactory = "0xae6d1ee7B117BFAD762A14B4B80311cB8F5d7e35";
 
 // ******** BSC_TEST_NET LP's, WETH and USD **********
-export const ANCHOR_BUSD_LP = "0xD50Ec4dE8d3f3A63F886860B261E9e560CF02053";
+export const ANCHOR_BUSD_LP = "0xE49d2CE0157D43941F05E969793aAFa71D90BaA4";
 export const BNB_BUSD_LP = "0xE5799D95Ac7ECCbAf672777eDb516D29c030f5a9";
 export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
 export const USD = "0x2Dd65fFe5F1B2D8a745b7194cCa59B451C5986D2";
@@ -100,7 +100,16 @@ export const TOKEN_LIST = [
     isAdd: false,
     isDel: false,
     decimals: 9,
-    symbol: "SAITAMA..",
+    symbol: "SAITAMA",
+  },
+  {
+    icon: "",
+    name: "USDT",
+    address: "0xe185DB528FAfCBceb3bF00687E5aaFDC6DB17089",
+    isAdd: false,
+    isDel: false,
+    decimals: 18,
+    symbol: "USDT",
   },
   {
     icon: LP,
@@ -287,7 +296,7 @@ export const MAIN_CONTRACT_LIST = {
     abi: pairABI,
   },
   farm: {
-    address: "0x642A34f580FBA0D9b82ae8caD9112aAf36B34c1A",
+    address: "0xD2aC89e85Dd0c7c4ef62E5448F6eD8c1d98547F4",
     blockNumber: 10889234,
     abi: farmABI,
   },

@@ -284,6 +284,8 @@ const pantherPerBlock = async () => {
       MAIN_CONTRACT_LIST.farm.abi
     );
     // console.log("jiiiiiiiiiiiiiiiiiiiiiii", contractFarm.methods);
+    let bbb= await contractFarm.methods.SaitamaPerBlock().call();
+    console.log("bbb",bbb)
     return await contractFarm.methods.SaitamaPerBlock().call();
   } catch (err) {
     return err;

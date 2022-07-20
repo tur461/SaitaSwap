@@ -122,7 +122,7 @@ const Sidebar = (props) => {
         >
           <Link to="/staking">Stake</Link>
         </MenuItem>
-        {/* <MenuItem
+        <MenuItem
           onClick={() => {
             closeSidebar();
             setSideBarOption("");
@@ -131,7 +131,7 @@ const Sidebar = (props) => {
           icon={<i className="farm_nav_icon"></i>}
         >
           <Link to="/farmplanets/active">Farm Planets</Link>
-        </MenuItem> */}
+        </MenuItem>
         {/* <MenuItem
           onClick={() => {
             closeSidebar();

@@ -130,31 +130,6 @@
 			},
 			{
 				"indexed": true,
-				"internalType": "address",
-				"name": "referrer",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"internalType": "uint256",
-				"name": "commissionAmount",
-				"type": "uint256"
-			}
-		],
-		"name": "ReferralCommissionPaid",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "user",
-				"type": "address"
-			},
-			{
-				"indexed": true,
 				"internalType": "uint256",
 				"name": "pid",
 				"type": "uint256"
@@ -195,6 +170,80 @@
 		"type": "event"
 	},
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_allocPoint",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "contract IBEP20",
+				"name": "_lpToken",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint16",
+				"name": "_depositFeeBP",
+				"type": "uint16"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_harvestInterval",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "_withUpdate",
+				"type": "bool"
+			}
+		],
+		"name": "addPool",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_pid",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_allocPoint",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint16",
+				"name": "_depositFeeBP",
+				"type": "uint16"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "_harvestInterval",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "bool",
+				"name": "_withUpdate",
+				"type": "bool"
+			}
+		],
+		"name": "setPool",
+		"type": "event"
+	},
+	{
 		"inputs": [],
 		"name": "BONUS_MULTIPLIER",
 		"outputs": [
@@ -202,6 +251,25 @@
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "contract IBEP20",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "LpPool",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -222,12 +290,12 @@
 	},
 	{
 		"inputs": [],
-		"name": "MAXIMUM_REFERRAL_COMMISSION_RATE",
+		"name": "RewardWalletAddress",
 		"outputs": [
 			{
-				"internalType": "uint16",
+				"internalType": "address",
 				"name": "",
-				"type": "uint16"
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -254,19 +322,6 @@
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "SaitamaReferral",
-		"outputs": [
-			{
-				"internalType": "contract ISaitamaReferral",
-				"name": "",
-				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -340,11 +395,6 @@
 				"internalType": "uint256",
 				"name": "_amount",
 				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "_referrer",
-				"type": "address"
 			}
 		],
 		"name": "deposit",
@@ -518,19 +568,6 @@
 	},
 	{
 		"inputs": [],
-		"name": "referralCommissionRate",
-		"outputs": [
-			{
-				"internalType": "uint16",
-				"name": "",
-				"type": "uint16"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "renounceOwnership",
 		"outputs": [],
 		"stateMutability": "nonpayable",
@@ -591,32 +628,6 @@
 			}
 		],
 		"name": "setFeeAddress",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint16",
-				"name": "_referralCommissionRate",
-				"type": "uint16"
-			}
-		],
-		"name": "setReferralCommissionRate",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "contract ISaitamaReferral",
-				"name": "_SaitamaReferral",
-				"type": "address"
-			}
-		],
-		"name": "setSaitamaReferral",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -695,6 +706,19 @@
 			}
 		],
 		"name": "updatePool",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_rewardWalletAddress",
+				"type": "address"
+			}
+		],
+		"name": "updateRewardWallet",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
