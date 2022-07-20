@@ -227,37 +227,19 @@ const BSC_MAINNET_TOKEN_LIST = [
 
 /** BSC TEST NET Token List */
 const BSC_TESTNET_TOKEN_LIST = [
-  // {
-  //   icon: USDT,
-  //   name: "ether token",
-  //   address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "ETH",
-  // },
-  // {
-  //   icon: USDT,
-  //   name: "saitama token",
-  //   address: "0x4aac18De824eC1b553dbf342829834E4FF3F7a9F",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "SAITAMA",
-  // },
   {
-    icon: ETH,
-    name: "BSC-TESTNET",
+    icon: BNB,
+    name: "BNB",
     address: "BNB",
     isAdd: false,
     isDel: false,
     decimals: 18,
-    symbol: "BSC-TESTNET",
+    symbol: "BNB",
   },
   {
     icon: SAITA,
     name: "SAITAMA",
-    address: "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
+    address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
     isAdd: false,
     isDel: false,
     decimals: 9,
@@ -702,17 +684,17 @@ const ETHEREUM_TESTNET_TOKEN_LIST = [
 /** BSC MAIN-NET CONTRACTS LIST*/
 const BSC_MAINNET_CONTRACT_LIST = {
   router: {
-    address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
+    address: "",
     Block: 6615558,
     abi: routerABI,
   },
   panCakeRouter: {
-    address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
+    address: "",
     blockNumber: 6810080,
     abi: routerABI,
   },
   factory: {
-    address: "0xae6d1ee7B117BFAD762A14B4B80311cB8F5d7e35",
+    address: "",
     blockNumber: 6430279,
     abi: factoryABI,
   },
@@ -722,17 +704,17 @@ const BSC_MAINNET_CONTRACT_LIST = {
     abi: pairABI,
   },
   farm: {
-    address: "0x642A34f580FBA0D9b82ae8caD9112aAf36B34c1A",
+    address: "",
     blockNumber: 10889234,
     abi: farmABI,
   },
   anchorNew: {
-    address: "0x5ac5e6Af46Ef285B3536833E65D245c49b608d9b",
+    address: "",
     blockNumber: 10350461,
     abi: anchorABI,
   },
   referrals: {
-    address: "0xe25e719d59574E5eA1F681e49da5207bc56916fB",
+    address: "",
     blockNumber: 10004593,
     abi: referralsABI,
   },
@@ -741,7 +723,7 @@ const BSC_MAINNET_CONTRACT_LIST = {
 /** BSC TEST-NET CONTRACTS */
 const BSC_TESTNET_CONTRACT_LIST = {
   router: {
-    address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
+    address: "0x6B3cc5c352647B6a9fdEBc0BDE187ca457d0c25c",
     Block: 6615558,
     abi: routerABI,
   },
@@ -751,7 +733,7 @@ const BSC_TESTNET_CONTRACT_LIST = {
     abi: routerABI,
   },
   factory: {
-    address: "0xae6d1ee7B117BFAD762A14B4B80311cB8F5d7e35",
+    address: "0x6E201B30835033855125bdCfc06Bf5efFD4b75E8",
     blockNumber: 6430279,
     abi: factoryABI,
   },
@@ -761,17 +743,17 @@ const BSC_TESTNET_CONTRACT_LIST = {
     abi: pairABI,
   },
   farm: {
-    address: "0x642A34f580FBA0D9b82ae8caD9112aAf36B34c1A",
+    address: "0xf539187098368B02915D0d8aB538a30D7Bc66147",
     blockNumber: 10889234,
     abi: farmABI,
   },
   anchorNew: {
-    address: "0x5ac5e6Af46Ef285B3536833E65D245c49b608d9b",
+    address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
     blockNumber: 10350461,
     abi: anchorABI,
   },
   referrals: {
-    address: "0xe25e719d59574E5eA1F681e49da5207bc56916fB",
+    address: "",
     blockNumber: 10004593,
     abi: referralsABI,
   },
