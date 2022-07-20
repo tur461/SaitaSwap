@@ -103,8 +103,11 @@ const getAmountsIn = async (amountOut, pair) => {
   try {
     const decimals1 = await ContractServices.getDecimals(pair[1]);
     const addAmountOut = amountOut * 10 ** decimals1;
+    let calAmount = addAmountOut.toLocaleString("fullwide", {
+      useGrouping: !1,
+    });
 
-    let calAmount = BigNumber(addAmountOut).toFixed();
+    // let calAmount = BigNumber(addAmountOut).toFixed();
     calAmount.toString();
 
     const contract = await ContractServices.callContract(
@@ -253,7 +256,7 @@ const addLiquidity = async (data) => {
   });
 };
 const addLiquidityETH = async (data) => {
-  alert("in add liquidity")
+  alert("in add liquidity");
   return new Promise(async (resolve, reject) => {
     try {
       let {
