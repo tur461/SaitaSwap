@@ -11,7 +11,6 @@ import Button from "../Button/Button";
 import { useEffect } from "react";
 import { getBSCMainNetContracts, getBSCTestNetContracts, getEthethereumMainNetContracts, getEthethereumTestNetContracts } from "../../redux/actions";
 import { ContractServices } from "../../services/ContractServices";
-console.log('vvvvv', window.ethereum.chainID);
 const SwitchNetworkModal = ({ show, handleClose, logout }) => {
   const dispatch = useDispatch();
 
@@ -37,13 +36,13 @@ const SwitchNetworkModal = ({ show, handleClose, logout }) => {
 
   const handleSelectNetwork = (networkName, chainID, chainId_NUMBER, symbol, networkChainName, rpcUrl, explorerUrl) => {
     setSelectedNetwork(networkName);
-    localStorage.removeItem("CURRENT NETWORK");
-    localStorage.removeItem("REACT_APP_NETWORK_CHAIN_NAME");
-    localStorage.removeItem("REACT_APP_NETWORK_CHAIN_ID");
-    localStorage.removeItem("REACT_APP_NETWORK_CHAIN_ID_NUMBER");
-    localStorage.removeItem("REACT_APP_NETWORK_NATIVE_CURRENCY_SYMBOL");
-    localStorage.removeItem("REACT_APP_NETWORK_RPC_URL");
-    localStorage.removeItem("REACT_APP_NETWORK_LINK");
+    // localStorage.removeItem("CURRENT NETWORK");
+    // localStorage.removeItem("REACT_APP_NETWORK_CHAIN_NAME");
+    // localStorage.removeItem("REACT_APP_NETWORK_CHAIN_ID");
+    // localStorage.removeItem("REACT_APP_NETWORK_CHAIN_ID_NUMBER");
+    // localStorage.removeItem("REACT_APP_NETWORK_NATIVE_CURRENCY_SYMBOL");
+    // localStorage.removeItem("REACT_APP_NETWORK_RPC_URL");
+    // localStorage.removeItem("REACT_APP_NETWORK_LINK");
     
     localStorage.setItem("CURRENT NETWORK", networkName);
     localStorage.setItem("REACT_APP_NETWORK_CHAIN_NAME", networkChainName);
@@ -70,6 +69,7 @@ const SwitchNetworkModal = ({ show, handleClose, logout }) => {
             <Button onClick={() => handleSelectNetwork("ETHEREUM", "0x1", 1, "ETH", "Ethereum", "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161", "https://etherscan.io")}  title="Ethereum"><span className={selectedNetwork === "ETHEREUM" ? "network_eth active_network" : "network_eth"}></span></Button>
             <Button onClick={() => handleSelectNetwork("BSC", "0x38", 38, "BNB", "Smart Chain", "https://bsc-dataseed.binance.org", "https://bscscan.com")} title="BSC"><span  className={selectedNetwork === "BSC" ? "network_bsc active_network" : "network_bsc"}></span></Button>
           </div>
+          {/* Hide below buttons before preparing build */}
           <div className="d-flex mt-3 gap-2">
             <Button onClick={() => handleSelectNetwork("ETHEREUM TESTNET", "0x4", 4, "ETH", "Ethereum Testnet", "https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161", "https://rinkey.etherscan.io")}  title="Eth (Testnet) "><span className={selectedNetwork === "ETHEREUM" ? "network_eth active_network" : "network_eth"}></span></Button>
             <Button onClick={() => handleSelectNetwork("BSC TESTNET", "0x61", 61, "BNB", "Smart Chain - Testnet", "https://data-seed-prebsc-1-s1.binance.org:8545/", "https://testnet.bscscan.com")} title="BSC (Testnet)"><span  className={selectedNetwork === "BSC" ? "network_bsc active_network" : "network_bsc"}></span></Button>
