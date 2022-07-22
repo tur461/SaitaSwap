@@ -160,10 +160,10 @@ const PlanetCard = (props) => {
         setLiquidity(liquidity);
         const tokenStaked = await ExchangeService.getTokenStaked(lpToken);
         // const tokenStakedbypiyush = await
-        const lpWorth = liquidity*balance;
+        const lpWorth = liquidity * balance;
         setWorth(lpWorth);
         const lpTokenDetailsTemp = await FarmService.getLpTokenDetails(lpToken);
-        console.log("balance",balance);
+        console.log("balance", balance);
         setLpTokenDetails(lpTokenDetailsTemp);
         console.log(
           "liquidity",
@@ -441,9 +441,10 @@ const PlanetCard = (props) => {
       const totalSupply = await ExchangeService.getTotalSupply(pairAddress);
       const tokenStaked = await ExchangeService.getTokenStaked(pairAddress);
       const liquidity =
-        ((reserve[0] / 10 ** decimalZero) * priceA +
+        (((reserve[0] / 10 ** decimalZero) * priceA +
           (reserve[1] / 10 ** decimalOne) * priceB) /
-        totalSupply;
+          totalSupply) *
+        tokenStaked;
       console.log("liquidity", liquidity, "totalSupply", totalSupply);
       return liquidity;
     } else {

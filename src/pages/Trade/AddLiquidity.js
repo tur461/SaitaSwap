@@ -110,12 +110,13 @@ const AddLiquidity = (props) => {
       const { lptoken } = props;
 
       if (lptoken) {
-        console.log(lptoken, "Lpztoken");
+        // console.log(lptoken, "Lpztoken");
+
         setCurrentPairAddress(lptoken.pair);
         setLpTokenBalance(lptoken.balance);
         setSharePoolValue(lptoken.poolShare);
         if (lptoken.token0Obj) {
-          console.log("hahah", lptoken);
+          // console.log("hahah", lptoken);
           setTokenOne(lptoken.token0Obj);
           setCurrencyNameForTokenOne(lptoken.token0Obj.symbol);
           setTokenOneDeposit(lptoken.token0Deposit);
@@ -248,7 +249,7 @@ const AddLiquidity = (props) => {
         const d1 = await ContractServices.getDecimals(a1);
         const d2 = await ContractServices.getDecimals(a2);
         const reserves = await ExchangeService.getReserves(currentPairAddress);
-        console.log("d1", d1, "d2", d2);
+        // console.log("d1", d1, "d2", d2);
         calculateLiquidityPercentageWithSelectCurrency(
           reserves,
           d1,
@@ -285,7 +286,7 @@ const AddLiquidity = (props) => {
           isUserConnected
         );
         allowance = Number(allowance) / 10 ** Number(tokenOne.decimals);
-        console.log(tokenOne.decimals, "token 1 decimals---------------");
+        // console.log(tokenOne.decimals, "token 1 decimals---------------");
         if (amount > allowance) {
           setTokenOneApproval(true);
         } else {
@@ -336,7 +337,7 @@ const AddLiquidity = (props) => {
         if (tokenOne.address === "BNB") {
           tokenAddress = WETH;
         }
-        console.log("EEEEEE", currentPairAddress);
+        // console.log("EEEEEE", currentPairAddress);
         if (currentPairAddress) {
           const tk0 = await ExchangeService.getTokenZero(currentPairAddress);
           const tk1 = await ExchangeService.getTokenOne(currentPairAddress);
@@ -363,7 +364,7 @@ const AddLiquidity = (props) => {
                   (reserves[1] / 10 ** token1Decimal))
               ).toFixed(5);
             }
-            console.log("a", Number(a));
+            // console.log("a", Number(a));
             setTokenTwoValue(a);
             amt2 = a;
             if (!tokenTwoApproval) {
@@ -459,7 +460,7 @@ const AddLiquidity = (props) => {
   //call web3 approval function
   const handleTokenApproval = async (tokenType) => {
     const acc = isUserConnected;
-    console.log("isUserConnected", isUserConnected);
+    // console.log("isUserConnected", isUserConnected);
     // if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
     //   return toast.error("Wallet address doesn`t match!");
     // }
@@ -561,7 +562,7 @@ const AddLiquidity = (props) => {
     lpBalance,
     currentPairAddress
   ) => {
-    console.log("HIIIIIIIIIIIIIIIIIIIIII", d1, d2);
+    // console.log("HIIIIIIIIIIIIIIIIIIIIII", d1, d2);
     const _reserve0 = Number(reserve["_reserve0"]) / 10 ** d2;
     const _reserve1 = Number(reserve["_reserve1"]) / 10 ** d1;
 
@@ -571,11 +572,11 @@ const AddLiquidity = (props) => {
 
     let ratio = lpBalance / _totalSupply;
     const t0 = (ratio * _reserve0).toFixed(5);
-    console.log("tototo", t0);
+    // console.log("tototo", t0);
     setTokenOneDeposit(t0);
     const t1 = (ratio * _reserve1).toFixed(5);
     setTokenTwoDeposit(t1);
-    console.log("ratio", ratio, "reserve0", _reserve0, "reserve1", _reserve1);
+    // console.log("ratio", ratio, "reserve0", _reserve0, "reserve1", _reserve1);
   };
   const calculateLiquidityPercentage = async (reserve, amount0, amount1) => {
     const _reserve0 = reserve["_reserve0"] / 10 ** tokenOne.decimals;
@@ -614,7 +615,7 @@ const AddLiquidity = (props) => {
       if (walletType === "Metamask") {
         address = await ContractServices.isMetamaskInstalled("");
         // address = await isUserConnected;
-        console.log(address, "address");
+        // console.log(address, "address");
       }
       if (walletType === "BinanceChain") {
         address = await ContractServices.isBinanceChainInstalled();
@@ -641,11 +642,11 @@ const AddLiquidity = (props) => {
       if (!tokenTwoApproved) {
         return toast.error("Second Token approval is pending!");
       }
-      console.log(
-        tokenOneBalance < tokenOneValue,
-        tokenOneBalance,
-        tokenOneValue
-      );
+      // console.log(
+      //   tokenOneBalance < tokenOneValue,
+      //   tokenOneBalance,
+      //   tokenOneValue
+      // );
       if (tokenOneBalance < tokenOneValue) {
         return toast.error(
           `Wallet have insufficient ${tokenOne.symbol} balance!`
@@ -734,9 +735,9 @@ const AddLiquidity = (props) => {
       };
       try {
         dispatch(startLoading());
-        console.log(data, "ye hai data");
+        // console.log(data, "ye hai data");
         const result = await ExchangeService.addLiquidityETH(data);
-        alert("ddd");
+        // alert("ddd");
         // console.log(result, "add liquidity transaction");
         dispatch(stopLoading());
 
@@ -824,12 +825,12 @@ const AddLiquidity = (props) => {
   const calculateFraction = (tokenType) => {
     let r = 0;
     if (tokenOneValue && tokenTwoValue) {
-      console.log(
-        "tokenOneValue",
-        tokenOneValue,
-        "tokenTwoValue",
-        tokenTwoValue
-      );
+      // console.log(
+      //   "tokenOneValue",
+      //   tokenOneValue,
+      //   "tokenTwoValue",
+      //   tokenTwoValue
+      // );
       if (tokenType === "TK1") {
         if (tokenOneValue === 0) return 0;
         r = tokenTwoValue / tokenOneValue;

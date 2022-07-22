@@ -72,7 +72,7 @@ const PublicRoutes = () => {
         }}
         tradeDropdown={!tradeDropdown}
         onOpenChange={(open) => {
-          alert("fd");
+          ;
           openCloseTradeDropdown(!open);
         }}
       />
@@ -82,11 +82,11 @@ const PublicRoutes = () => {
         <Route path={"/r/:ref"} component={Home} />
         {/* <Route path={"/referral"} component={Referral} exact={true} /> */}
         <Route path={"/staking"} component={Staking} exact={true} />
-        <Route
+        {/* <Route
           path={"/farmplanets/:tab"}
           component={FarmPlanets}
           exact={true}
-        />
+        /> */}
         <Route path={"/trade/:tab/:fillter?"} component={Trade} exact={true} />
         {/* <Route
               path={'/trade/addLiquidity'}

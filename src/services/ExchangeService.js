@@ -256,7 +256,7 @@ const addLiquidity = async (data) => {
   });
 };
 const addLiquidityETH = async (data) => {
-  alert("in add liquidity");
+  // alert("in add liquidity");
   return new Promise(async (resolve, reject) => {
     try {
       let {
@@ -423,7 +423,7 @@ const removeLiquidityWithPermit = async (data) => {
   });
 };
 const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
-  alert("removeLiquidityETHWithPermit");
+  // alert("removeLiquidityETHWithPermit");
   return new Promise(async (resolve, reject) => {
     try {
       let {
@@ -455,7 +455,7 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
         );
 
         if (supportingCheck) {
-          alert("removeLiquidityETHWithPermitSupportingFeeOnTransferTokens");
+          // alert("removeLiquidityETHWithPermitSupportingFeeOnTransferTokens");
           const gas = await contract.methods
             .removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(
               token,
@@ -497,7 +497,7 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
               reject(error);
             });
         } else {
-          alert("removeLiquidityETHWithPermit");
+          // alert("removeLiquidityETHWithPermit");
           const gas = await contract.methods
             .removeLiquidityETHWithPermit(
               token,
@@ -780,7 +780,7 @@ const swapExactETHForTokens = async (data, handleBalance, a1, a2) => {
               reject(error);
             });
         } catch (error) {
-          alert("hello");
+          // alert("hello");
           reject(error);
         }
       } else {
@@ -789,8 +789,8 @@ const swapExactETHForTokens = async (data, handleBalance, a1, a2) => {
           const gas = await contract.methods
             .swapExactETHForTokens(amountOutMin, path, to, deadline)
             .estimateGas({ from: to, value });
-          console.log("est gas---------", gas);
-          console.log("----------", contract.methods);
+          // console.log("est gas---------", gas);
+          // console.log("----------", contract.methods);
           value = await web3.utils.toHex(value);
           contract.methods
             .swapExactETHForTokens(amountOutMin, path, to, deadline)
@@ -827,7 +827,7 @@ const swapETHForExactTokens = async (data) => {
       );
       const gasPrice = await ContractServices.calculateGasPrice();
       value = await web3.utils.toHex(value);
-      console.log("Checking here:", data);
+      // console.log("Checking here:", data);
       const gas = await contract.methods
         .swapETHForExactTokens(amountOutMin, path, to, deadline)
         .estimateGas({ from: to, value });
@@ -838,7 +838,7 @@ const swapETHForExactTokens = async (data) => {
           resolve(hash);
         })
         .on("receipt", (receipt) => {
-          console.log(receipt, "in service add liquidity");
+          // console.log(receipt, "in service add liquidity");
           toast.success("Swap transaction executed successfully");
         })
         .on("error", (error, receipt) => {

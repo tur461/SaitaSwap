@@ -383,8 +383,9 @@ const FarmPlanets = (props) => {
                     <h1 className="title_hd">Farm Planets</h1>
                     <p>
                       There is so much to explore! SaitaSwap offers multiple
-                      farming oppurtunities to you. Get amazing rewards by staking
-                      your LP tokens in return for additional SAITAMA Tokens.
+                      farming oppurtunities to you. Get amazing rewards by
+                      staking your LP tokens in return for additional SAITAMA
+                      Tokens.
                     </p>
                   </div>
                 </div>
@@ -480,7 +481,6 @@ const FarmPlanets = (props) => {
                               </Table>
                             </div>
                           )}
-
                         </Col>
                       </Row>
                     </div>
