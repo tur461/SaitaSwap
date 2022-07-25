@@ -44,7 +44,7 @@ export const LIQUIDITY_PROVIDER_FEE = 0.2;
 // export const BNB_BUSD_LP = "0xe2466652a46e47fa278be0a2ad8dce7c8445be41";
 // export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
 // export const USD = "0xe9e7cea3dedca5984780bafc599bd69add087d56";
-export const pancakeFactory = "0xae6d1ee7B117BFAD762A14B4B80311cB8F5d7e35";
+export const pancakeFactory = "0x6E201B30835033855125bdCfc06Bf5efFD4b75E8";
 
 // ******** BSC_TEST_NET LP's, WETH and USD **********
 export const ANCHOR_BUSD_LP = "0xD50Ec4dE8d3f3A63F886860B261E9e560CF02053";
@@ -728,7 +728,7 @@ const BSC_TESTNET_CONTRACT_LIST = {
     abi: routerABI,
   },
   panCakeRouter: {
-    address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
+    address: "0x6B3cc5c352647B6a9fdEBc0BDE187ca457d0c25c",
     blockNumber: 6810080,
     abi: routerABI,
   },
@@ -840,7 +840,7 @@ const ETHEREUM_TESTNET_CONTRACT_LIST = {
 const currentNetwork = localStorage.getItem("CURRENT NETWORK");
 
 /** Default Token List Set this accoriding to default network */
-let TOKEN_LIST = [
+let TOKEN_LIST_Old = [
   // {
   //   icon: USDT,
   //   name: "ether token",
@@ -996,7 +996,7 @@ let TOKEN_LIST = [
   // },
 ];
 
-let TOKEN_LIST_BSC = [
+let TOKEN_LIST = [
   {
     icon: BNB,
     name: "BNB",
