@@ -380,7 +380,7 @@ const FarmPlanets = (props) => {
                     <img src={FarmIcon} />
                   </div>
                   <div className="desc">
-                    <h1 className="title_hd">Farm Planets</h1>
+                    <h1 className="title_hd">Farms</h1>
                     <p>
                       There is so much to explore! SaitaSwap offers multiple
                       farming oppurtunities to you. Get amazing rewards by

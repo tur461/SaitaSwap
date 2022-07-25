@@ -43,14 +43,14 @@ export const LIQUIDITY_PROVIDER_FEE = 0.2;
 // export const BNB_BUSD_LP = "0xe2466652a46e47fa278be0a2ad8dce7c8445be41";
 // export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
 // export const USD = "0xe9e7cea3dedca5984780bafc599bd69add087d56";
-export const pancakeFactory = "0xae6d1ee7B117BFAD762A14B4B80311cB8F5d7e35";
+export const pancakeFactory = "0x35113a300ca0D7621374890ABFEAC30E88f214b1";
 
 // ******** BSC_TEST_NET LP's, WETH and USD **********
 export const ANCHOR_BUSD_LP = "0xE49d2CE0157D43941F05E969793aAFa71D90BaA4";
 export const BNB_BUSD_LP = "0xE5799D95Ac7ECCbAf672777eDb516D29c030f5a9";
-export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
+export const WETH = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"; //mainNet weth
 export const USD = "0x2Dd65fFe5F1B2D8a745b7194cCa59B451C5986D2";
-export const Saitama = "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C";
+export const Saitama = "0xce3f08e664693ca792cace4af1364d5e220827b2"; //mainnet Saita
 
 export const AUDIT = "https://docs.niob.finance/audits";
 export const LOTTERY = "https://docs.niob.finance/products/#niob-lottery";
@@ -96,7 +96,7 @@ export const TOKEN_LIST = [
   {
     icon: SAITA,
     name: "SAITAMA",
-    address: "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
+    address: "0xce3f08e664693ca792cace4af1364d5e220827b2",
     isAdd: false,
     isDel: false,
     decimals: 9,
@@ -105,25 +105,16 @@ export const TOKEN_LIST = [
   {
     icon: "",
     name: "USDT",
-    address: "0xe185DB528FAfCBceb3bF00687E5aaFDC6DB17089",
+    address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
     isAdd: false,
     isDel: false,
     decimals: 18,
     symbol: "USDT",
   },
   {
-    icon: LP,
-    name: "LP",
-    address: "0xdF334150FFe9Bc4989a7F3FD5db378d0eD60f0A0",
-    isAdd: false,
-    isDel: false,
-    decimals: 18,
-    symbol: "LP",
-  },
-  {
     icon: SHRIYO,
     name: "Shiryo-Inu",
-    address: "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
+    address: "0x1E2F15302B90EddE696593607b6bD444B64e8F02",
     isAdd: false,
     isDel: false,
     decimals: 9,
@@ -132,7 +123,7 @@ export const TOKEN_LIST = [
   {
     icon: IMPACTXP,
     name: "ImpactXP",
-    address: "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
+    address: "0xb12494C8824fc069757F47d177E666c571Cd49aE",
     isAdd: false,
     isDel: false,
     decimals: 9,
@@ -141,7 +132,7 @@ export const TOKEN_LIST = [
   {
     icon: Kishimoto,
     name: "Kishimoto",
-    address: "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
+    address: "0xf5b1fd29d23e98db2d9ebb8435e1082e3b38fb65",
     isAdd: false,
     isDel: false,
     decimals: 9,
@@ -150,7 +141,7 @@ export const TOKEN_LIST = [
   {
     icon: MANDOX,
     name: "Mandox",
-    address: "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
+    address: "0x33d203fa03bb30b133de0fe2d6533c268ba286b6",
     isAdd: false,
     isDel: false,
     decimals: 9,
@@ -159,7 +150,7 @@ export const TOKEN_LIST = [
   {
     icon: shaman,
     name: "Shaman",
-    address: "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
+    address: "0x5fCe9Fc9B5d62aF082A59D0823A062F7529eFA5a",
     isAdd: false,
     isDel: false,
     decimals: 18,
@@ -276,18 +267,18 @@ export const TOKEN_LIST = [
 // ********* BSC_MAIN_NET Contract Address **********
 export const MAIN_CONTRACT_LIST = {
   router: {
-    address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
-    Block: 6615558,
+    address: "0x0c17e776CD218252ADFca8D4e761D3fe757e9778",
+    Block: 15210794,
     abi: routerABI,
   },
   panCakeRouter: {
-    address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
-    blockNumber: 6810080,
+    address: "0x0c17e776CD218252ADFca8D4e761D3fe757e9778",
+    blockNumber: 15210794,
     abi: routerABI,
   },
   factory: {
-    address: "0xae6d1ee7B117BFAD762A14B4B80311cB8F5d7e35",
-    blockNumber: 6430279,
+    address: "0x35113a300ca0D7621374890ABFEAC30E88f214b1",
+    blockNumber: 15210780,
     abi: factoryABI,
   },
   pair: {

@@ -25,9 +25,9 @@ import Loader from "react-loader-spinner";
 import Timer from "../../components/Timer/Timer";
 import { startLoading, stopLoading } from "../../redux/actions";
 const Staking = () => {
-  const stakingProxy = "0xaC0D7aF6B796B9c46f10483C6F7d859265834Fa8";
-  const stakingContract = "0xE6A55671c1b863b73cCd8ECAcf4fa8Db3D6FF1b7";
-  const tokenAddress = "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C";
+  const stakingProxy = "0x409353a02Ba3CCf60F3c503A6fd842a7A9C20782";
+  // const stakingContract = "0xE6A55671c1b863b73cCd8ECAcf4fa8Db3D6FF1b7";
+  const tokenAddress = "0xce3f08e664693ca792cace4af1364d5e220827b2"; //saitaToken
   const MAX_AMT = "0xffffffffffffffffffffffffffffffffffffffff";
   const [inputAmount, setInputAmount] = useState();
   const [days, setDays] = useState(0);
@@ -97,7 +97,7 @@ const Staking = () => {
     );
     const minutes = Math.floor((difference % (60 * 60 * 1000)) / (1000 * 60));
     const seconds = Math.floor((difference % (60 * 1000)) / 1000);
-    console.log("the difference", difference);
+    // console.log("the difference", difference);
     if (difference < 0) {
       daysLeft = false;
 
@@ -239,10 +239,10 @@ const Staking = () => {
         const transactionNo = await contract.methods
           .stakingTx(userAddress)
           .call();
-        console.log("transactionNo", transactionNo);
+        // console.log("transactionNo", transactionNo);
         setTransNo(transactionNo);
         let totalTransactions = transactionNo.txNo;
-        console.log("totalTransactions", totalTransactions);
+        // console.log("totalTransactions", totalTransactions);
         let transactionDetails;
         let stakingRewards;
         for (let i = 1; i <= totalTransactions; i++) {
@@ -252,7 +252,7 @@ const Staking = () => {
           stakingRewards = await contract.methods
             .rewards(userAddress, i)
             .call();
-          console.log("transactionDetails", transactionDetails);
+          // console.log("transactionDetails", transactionDetails);
           await destructure(transactionDetails, i, stakingRewards);
         }
         setDataArray(daataarray);
@@ -265,7 +265,7 @@ const Staking = () => {
       toast.error("Please connect your wallet first");
     }
   };
-  console.log("daysLeft", daysLeft);
+  // console.log("daysLeft", daysLeft);
   return (
     // referral_page
     <div className="container_wrap stakePage py-40">
@@ -282,7 +282,7 @@ const Staking = () => {
                   <span className="ms-2">{tokenBalance?.toFixed(4)}</span>
                 </p>
                 <div className="staking_content">
-                  <form onSubmit={() => alert("ff")}>
+                  <form>
                     <FormControl
                       placeholder="Input"
                       value={inputAmount}
@@ -290,12 +290,6 @@ const Staking = () => {
                       required
                     />
                     <div className="duration_sec">
-                      <Button
-                        className="time_duration"
-                        onClick={() => setDays(30)}
-                      >
-                        30 days
-                      </Button>
                       <Button
                         className="time_duration"
                         onClick={() => setDays(60)}
@@ -307,6 +301,12 @@ const Staking = () => {
                         onClick={() => setDays(90)}
                       >
                         90 days
+                      </Button>
+                      <Button
+                        className="time_duration"
+                        onClick={() => setDays(120)}
+                      >
+                        120 days
                       </Button>
                     </div>
                     <div className="text_area text-white">
@@ -339,7 +339,7 @@ const Staking = () => {
                     Get your stakings
                   </Button>
                 </div>
-                {console.log("in the jsx", dataArray)}
+                {/* {console.log("in the jsx", dataArray)} */}
                 <div className="stakeAmountbox">
                   <Table responsive className="duration_bits">
                     <thead>
@@ -381,7 +381,7 @@ const Staking = () => {
                                       try {
                                         letsUnstake(item.transactionNo);
                                       } catch (err) {
-                                        alert("nnn");
+                                        console.log(err);
                                       }
                                     }}
                                   >
