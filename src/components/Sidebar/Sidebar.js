@@ -13,6 +13,10 @@ import NIOBtoken from "../../assets/images/saitaswap.png";
 import Telegram from "../../assets/images/telegram-icon.svg";
 import Docs from "../../assets/images/docs-icon.svg";
 import Youtube from "../../assets/images/token_icons/saitamaIcons/youtube.svg";
+import facebook from "../../assets/images/token_icons/saitamaIcons/facebook.svg";
+import instagram from "../../assets/images/token_icons/saitamaIcons/instagram.svg";
+import discord from "../../assets/images/token_icons/saitamaIcons/discord.svg";
+
 import Medium from "../../assets/images/medium-icon.svg";
 import Github from "../../assets/images/git.svg";
 import Globe from "../../assets/images/language-switcher-icon.svg";
@@ -74,7 +78,10 @@ const Sidebar = (props) => {
     }
   }, [props.showSocial]);
   return (
-    <ProSidebar className={`sidebar_style ${props.className}`}>
+    <ProSidebar
+      className={`sidebar_style ${props.className}`}
+      style={{ width: "150px" }}
+    >
       <Menu iconShape="square">
         {/* <MenuItem
           onClick={() => { closeSidebar(); setSideBarOption("") }}
@@ -122,7 +129,7 @@ const Sidebar = (props) => {
         >
           <Link to="/staking">Stake</Link>
         </MenuItem>
-        <MenuItem
+        {/* <MenuItem
           onClick={() => {
             closeSidebar();
             setSideBarOption("");
@@ -131,7 +138,7 @@ const Sidebar = (props) => {
           icon={<i className="farm_nav_icon"></i>}
         >
           <Link to="/farmplanets/active">Farms</Link>
-        </MenuItem>
+        </MenuItem> */}
         {/* <MenuItem
           onClick={() => {
             closeSidebar();
@@ -281,11 +288,29 @@ const Sidebar = (props) => {
             </Link>
           </li> */}
           <li>
+            <a href="https://www.instagram.com/we.are.saitama/" target="_blank">
+              <img src={instagram} />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.facebook.com/groups/1275234186328559/"
+              target="_blank"
+            >
+              <img src={facebook} />
+            </a>
+          </li>
+          <li>
             <a
               href="https://www.youtube.com/channel/UCcgXSwHloSMeXygKx8bTGBA"
               target="_blank"
             >
               <img src={Youtube} />
+            </a>
+          </li>
+          <li>
+            <a href="https://discord.gg/saitama" target="_blank">
+              <img src={discord} />
             </a>
           </li>
           {/* <li>
