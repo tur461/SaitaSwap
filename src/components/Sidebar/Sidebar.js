@@ -130,7 +130,7 @@ const Sidebar = (props) => {
           className={splitLocation[1] === "farmplanets" ? "active" : ""}
           icon={<i className="farm_nav_icon"></i>}
         >
-          <Link to="/farmplanets/active">Farm Planets</Link>
+          <Link to="/farmplanets/active">Farms</Link>
         </MenuItem>
         {/* <MenuItem
           onClick={() => {

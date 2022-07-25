@@ -179,7 +179,7 @@ const Staking = () => {
             await destructure(transactionDetails, i, stakingRewards);
           }
 
-          setDataArray(daataarray);
+          setDataArray(daataarray.reverse());
           setIsDisabled(false);
           dispatch(stopLoading());
         } catch (error) {

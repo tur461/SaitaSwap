@@ -70,6 +70,7 @@ const Exchange = (props) => {
   );
   const [tokenTwoCurrency, setCurrencyNameForTokenTwo] =
     useState("Select a token");
+    
   const [tokenOneBalance, setTokenOneBalance] = useState(0);
   const [tokenTwoBalance, setTokenTwoBalance] = useState(0);
   const [tokenOneApproval, setTokenOneApproval] = useState(false);
@@ -332,7 +333,7 @@ const Exchange = (props) => {
     const pair2 = await ExchangeService.getPair(token2, WETH);
     const pairOne = await ExchangeService.getPair(token1, USD);
     const pairTwo = await ExchangeService.getPair(token2, USD);
-    console.log("pOne", pOne, "pTwo", pTwo, "pair1", pair1, "pair2", pair2);
+    // console.log("pOne", pOne, "pTwo", pTwo, "pair1", pair1, "pair2", pair2);
     if (
       pOne !== "0x0000000000000000000000000000000000000000" &&
       pTwo !== "0x0000000000000000000000000000000000000000"
@@ -370,7 +371,7 @@ const Exchange = (props) => {
       // const acc = await ContractServices.getDefaultAccount();
 
       const acc = isUserConnected;
-      console.log("ASDAC", acc);
+      // console.log("ASDAC", acc);
       if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
         return toast.error("Wallet address doesn`t match!");
       }
@@ -406,16 +407,16 @@ const Exchange = (props) => {
             tokenTwoAddress
           );
           if (checkPair !== "0x0000000000000000000000000000000000000000") {
-            console.log("checkPair", checkPair);
+            // console.log("checkPair", checkPair);
             // alert("c");
-            console.log(
-              "tokenOneAddress",
-              tokenOneAddress,
-              "tokenTwoAddress",
-              tokenTwoAddress,
-              "amount",
-              amount
-            );
+            // console.log(
+            //   "tokenOneAddress",
+            //   tokenOneAddress,
+            //   "tokenTwoAddress",
+            //   tokenTwoAddress,
+            //   "amount",
+            //   amount
+            // );
             result = await ExchangeService.getAmountsOut(amount, [
               tokenOneAddress,
               tokenTwoAddress,
@@ -428,10 +429,10 @@ const Exchange = (props) => {
               tokenOneAddress,
               tokenTwoAddress
             );
-            console.log("pair", pair);
+            // console.log("pair", pair);
             if (pair) {
               if (!result) {
-                alert("x");
+                // alert("x");
                 try {
                   result = await ExchangeService.getAmountsOut(amount, pair);
 
@@ -439,12 +440,13 @@ const Exchange = (props) => {
                   add2ForPriceImpact = pair[1];
                   isPriceImpact = true;
                 } catch (err) {
-                  console.log("this iiiiii", err);
+                  // console.log("this iiiiii", err);
+                  toast.error(err);
                 }
               }
             }
           }
-          console.log("resultresultresult", result);
+          // console.log("resultresultresult", result);
           if (result?.length > 0) {
             const a = Number(result[result.length - 1].toFixed(5));
             const ratio = Number(amount) / Number(a);

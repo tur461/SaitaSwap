@@ -159,11 +159,11 @@ const deposit = async (data) => {
       const gasPrice = await ContractServices.calculateGasPrice();
 
       const gas = await contract.methods
-        .deposit(pid, amount, referrer)
+        .deposit(pid, amount)
         .estimateGas({ from, value: 0 });
 
       contract.methods
-        .deposit(pid, amount, referrer)
+        .deposit(pid, amount)
         .send({ from, gasPrice, gas, value: 0 })
         .on("transactionHash", (hash) => {
           resolve(hash);
@@ -284,8 +284,8 @@ const pantherPerBlock = async () => {
       MAIN_CONTRACT_LIST.farm.abi
     );
     // console.log("jiiiiiiiiiiiiiiiiiiiiiii", contractFarm.methods);
-    let bbb= await contractFarm.methods.SaitamaPerBlock().call();
-    console.log("bbb",bbb)
+    let bbb = await contractFarm.methods.SaitamaPerBlock().call();
+    console.log("bbb", bbb);
     return await contractFarm.methods.SaitamaPerBlock().call();
   } catch (err) {
     return err;
