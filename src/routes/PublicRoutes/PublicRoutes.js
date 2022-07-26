@@ -72,7 +72,7 @@ const PublicRoutes = () => {
         }}
         tradeDropdown={!tradeDropdown}
         onOpenChange={(open) => {
-          alert("fd");
+          ;
           openCloseTradeDropdown(!open);
         }}
       />

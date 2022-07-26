@@ -347,13 +347,13 @@ const Exchange = (props) => {
       pOne !== "0x0000000000000000000000000000000000000000" &&
       pTwo !== "0x0000000000000000000000000000000000000000"
     ) {
-      alert("saitama");
+      // alert("saitama");
       return [token1, Saitama, token2];
     } else if (
       pair1 !== "0x0000000000000000000000000000000000000000" &&
       pair2 !== "0x0000000000000000000000000000000000000000"
     ) {
-      alert("weth");
+      // alert("weth");
       return [token1, WETH, token2];
     }
 

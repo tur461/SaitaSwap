@@ -279,7 +279,7 @@ export const MAIN_CONTRACT_LIST = {
   },
   factory: {
     address: "0x35113a300ca0D7621374890ABFEAC30E88f214b1",
-    blockNumber: 15210780,
+    blockNumber: 6430279,
     abi: factoryABI,
   },
   pair: {

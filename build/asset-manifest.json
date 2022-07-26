@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.697f9644.chunk.css",
-    "main.js": "/static/js/main.a9e89f1a.chunk.js",
-    "main.js.map": "/static/js/main.a9e89f1a.chunk.js.map",
+    "main.js": "/static/js/main.62787e2a.chunk.js",
+    "main.js.map": "/static/js/main.62787e2a.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.e55afe93.js",
     "runtime-main.js.map": "/static/js/runtime-main.e55afe93.js.map",
     "static/css/2.06e7cc2f.chunk.css": "/static/css/2.06e7cc2f.chunk.css",
@@ -36,7 +36,6 @@
     "static/media/Statement.74b2a688.pdf": "/static/media/Statement.74b2a688.pdf",
     "static/media/Switch-Icon.cd6ccff3.svg": "/static/media/Switch-Icon.cd6ccff3.svg",
     "static/media/TRON.cba212e0.svg": "/static/media/TRON.cba212e0.svg",
-    "static/media/USDT.c1e6d372.svg": "/static/media/USDT.c1e6d372.svg",
     "static/media/WBNB-Token-Icon.svg": "/static/media/WBNB-Token-Icon.476df943.svg",
     "static/media/check_icon.95410102.svg": "/static/media/check_icon.95410102.svg",
     "static/media/coinbase_icon.a3a7d7fd.svg": "/static/media/coinbase_icon.a3a7d7fd.svg",
@@ -68,6 +67,6 @@
     "static/css/2.06e7cc2f.chunk.css",
     "static/js/2.32aecf91.chunk.js",
     "static/css/main.697f9644.chunk.css",
-    "static/js/main.a9e89f1a.chunk.js"
+    "static/js/main.62787e2a.chunk.js"
   ]
 }
