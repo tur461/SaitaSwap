@@ -331,6 +331,20 @@ const allowanceToken = async (tokenAddress, mainContractAddress, address) => {
   }
 };
 
+const getTokenBalanceForMax = async (tokenAddress, address) => {
+  try {
+    const contract = await callTokenContract(tokenAddress);
+    console.log("### addr:", tokenAddress, address);
+    const decimals = await contract.methods.decimals().call();
+    let result = await contract.methods.balanceOf(address).call();
+    result = Number(result) / 10 ** decimals;
+    return Number(result);
+  } catch (error) {
+    console.log("Error:", error);
+    return 0;
+  }
+};
+
 const getTokenBalance = async (tokenAddress, address) => {
   try {
     const contract = await callTokenContract(tokenAddress);
@@ -382,6 +396,17 @@ const getTokenSymbol = async (tokenAddress) => {
   try {
     const contract = await callTokenContract(tokenAddress);
     return await contract.methods.symbol().call();
+  } catch (error) {
+    return error;
+  }
+};
+
+const getBNBBalanceForMax = async (address) => {
+  try {
+    const web3 = await callWeb3();
+    let result = await web3.eth.getBalance(address);
+    //result = (Number(result) / 10 ** 18).toFixed(5);
+    return Number(result);
   } catch (error) {
     return error;
   }
@@ -446,10 +471,12 @@ export const ContractServices = {
   isMetamaskInstalled,
   isBinanceChainInstalled,
   callWeb3,
+  web3Object,
   callContract,
   calculateGasPrice,
   approveToken,
   getTokenBalance,
+  getBNBBalanceForMax,
   getTokenBalanceFull,
   getDecimals,
   getTokenName,
@@ -459,6 +486,7 @@ export const ContractServices = {
   allowanceToken,
   getTotalSupply,
   convertToDecimals,
+  getTokenBalanceForMax,
   web3ErrorHandle,
   getDefaultAccount,
   callTokenContract,

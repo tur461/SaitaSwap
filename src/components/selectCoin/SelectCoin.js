@@ -15,6 +15,7 @@ const SelectCoin = (props) => {
             onKeyDown={(evt) => {
               symbolsArr.includes(evt.key) && evt.preventDefault();
             }}
+            type="number"
             onChange={props.onChange}
             placeholder={props.placeholder}
             value={props.defaultValue}
@@ -29,7 +30,11 @@ const SelectCoin = (props) => {
         <Col className="selectCoin_right_style">
           <label>{props.label}</label>
           <Col className="select_buttonStyle">
-            {props.max && <strong onClick={props.onMax}>MAX</strong>}
+            {props.max && (
+              <strong onClick={props.onMax} style={{ cursor: "pointer" }}>
+                MAX
+              </strong>
+            )}
             <button onClick={props.onClick}>
               <div>
                 {" "}

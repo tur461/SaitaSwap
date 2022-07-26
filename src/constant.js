@@ -33,10 +33,10 @@ export const DOCS_LINK = "https://docs.anchorswap.finance";
 export const TWITTER_LINK = "https://twitter.com/AnchorSwap";
 export const TELEGRAM_LINK = "https://t.me/joinchat/KP-_HKro73ViZTZk";
 export const AUDIT_LINK = "https://docs.anchorswap.finance/audit/";
-
+export const MIN_NATIVE_CURRENCY_FOR_GAS = 0.01; // eth
 export const EVENTS = {
-  LOGIN_SUCCESS: 'login_success',
-}
+  LOGIN_SUCCESS: "login_success",
+};
 
 export const isMetamakConnected = async () => {
   const { ethereum } = window;

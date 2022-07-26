@@ -25,15 +25,18 @@ import Loader from "react-loader-spinner";
 import Timer from "../../components/Timer/Timer";
 import { startLoading, stopLoading } from "../../redux/actions";
 import { EVENTS } from "../../constant";
+import SwapModal from "../../components/SwapModal/SwapModal";
+import StakeModal from "../../components/StakeModal/StakeModal";
 const Staking = () => {
   const stakingProxy = "0x409353a02Ba3CCf60F3c503A6fd842a7A9C20782";
   // const stakingContract = "0xE6A55671c1b863b73cCd8ECAcf4fa8Db3D6FF1b7";
   const tokenAddress = "0xce3f08e664693ca792cace4af1364d5e220827b2"; //saitaToken
   const MAX_AMT = "0xffffffffffffffffffffffffffffffffffffffff";
-  const [inputAmount, setInputAmount] = useState();
+  const [inputAmount, setInputAmount] = useState(0);
   const [days, setDays] = useState(0);
   const [reward, setReward] = useState(0);
-  const [tokenBalance, setTokenBalance] = useState();
+  const [tokenBalance, setTokenBalance] = useState(0);
+  const [smaBal, setSmaBal] = useState(0.0);
   // const [finaldays, setfinaldays] = useState();
   const [transactionNo, setTransNo] = useState({});
   const [dataArray, setDataArray] = useState([]);
@@ -43,6 +46,7 @@ const Staking = () => {
   const [timerDays, setTimerDays] = useState();
   const [timerHours, setTimerHours] = useState();
   const [timerMinutes, setTimerMinutes] = useState();
+  const [showStakeModal, setShowStakeModal] = useState(!1);
   // const [, setDaysLeft] = useState(true);
   let daysLeft;
   let daataarray = [];
@@ -61,26 +65,41 @@ const Staking = () => {
     (state) => state.persist.isUserConnected
   );
 
-  const someF = async () => {
-    let contract = await ContractServices.callContract(
-      stakingProxy,
-      ABISTAKING
-    );
-    setContract(contract);
+  const getContract = (_) => {
+    return ContractServices.callContract(stakingProxy, ABISTAKING);
+  };
 
-    let rewardPercent = await contract.methods
-      .rewardPercent(days * totalSeconds)
+  const getSetAPY = async (d) => {
+    const c = await getContract();
+    let rewardPercent = await c.methods
+      .rewardPercent((d ? d : days) * totalSeconds)
       .call();
+    console.log("## getting apy:", rewardPercent);
     setReward(rewardPercent / 100);
+  };
 
-    let userAddress = isTheUserConnected;
-    setUserAddress(userAddress);
+  const someF = async () => {
+    let _contract = await getContract();
+    setContract(_contract);
+    setUserAddress(isTheUserConnected);
+    const userAddress = isTheUserConnected;
+
     const TokenBalance = await ContractServices.getTokenBalance(
       tokenAddress,
       userAddress
     );
+    await getSetAPY();
+    if (days === 0) setDisableStakeBtn(!0);
+    try {
+      const x = parseFloat(TokenBalance);
+      if (x !== NaN) {
+        setSmaBal(x);
+        if (parseFloat(inputAmount) < x) setDisableStakeBtn(!0);
+      }
+    } catch (e) {}
     console.log("TokenBalance", TokenBalance);
     setTokenBalance(TokenBalance);
+    getTheStake(isTheUserConnected);
   };
 
   document.addEventListener(EVENTS.LOGIN_SUCCESS, async (e) => {
@@ -88,17 +107,25 @@ const Staking = () => {
     await someF();
   });
 
-  useEffect(
-    (_) => {
-      (async (_) => {
-        await someF();
-      })();
-    },
-    [days]
-  );
+  useEffect((_) => {
+    (async (_) => {
+      await someF();
+    })();
+  }, []);
+
+  const [disabledStakeBtn, setDisableStakeBtn] = useState(!0);
 
   const handleChange = (e) => {
+    let ip = parseFloat(e.target.value);
     setInputAmount(e.target.value);
+    console.log("smabal:", smaBal, "ip", ip);
+    if (`${ip}` == "NaN") return setDisableStakeBtn(!0);
+    if (ip <= 0) return setDisableStakeBtn(!0);
+
+    if (ip > smaBal) return setDisableStakeBtn(!0);
+    console.log("initial days:", days);
+    if (days == 0) return setDisableStakeBtn(!0);
+    setDisableStakeBtn(!1);
     if (inputAmount) {
       setIsDisabled(false);
     }
@@ -136,7 +163,7 @@ const Staking = () => {
     });
   };
 
-  const letsCallContract = async () => {
+  const tryStake = async () => {
     debugger;
     if (isTheUserConnected) {
       if (inputAmount) {
@@ -157,9 +184,11 @@ const Staking = () => {
             .allowance(userAddress, stakingProxy)
             .call();
           if (approveToken == 0) {
-            await tokenInstance.methods
+            toast.info("Kindly confirm saitama token approval.");
+            const tx = await tokenInstance.methods
               .approve(stakingProxy, MAX_AMT)
               .send({ from: userAddress, gas: estimateGas });
+            toast.success("Approval success");
           }
           let contract = await ContractServices.callContract(
             stakingProxy,
@@ -169,11 +198,12 @@ const Staking = () => {
           let gas = await contract.methods
             .stake(days * totalSeconds, BigNumber(inputAmount) * 10 ** 9)
             .estimateGas({ from: userAddress });
-
+          toast.info("Kindly confirm staking transaction.");
           let result = await contract.methods
             .stake(days * totalSeconds, BigNumber(inputAmount) * 10 ** 9)
             .send({ from: userAddress, gas: gas });
           console.log("uuuu result", result);
+          toast.success("Staking success");
           // let data = await contract.methods.stakingTx(userAddress);
           // setfinaldays(days * totalSeconds);
           const transactionNo = await contract.methods
@@ -248,15 +278,17 @@ const Staking = () => {
       toast.error("Please Connect your wallet first");
     }
   };
-  const getTheStake = async () => {
+  const getTheStake = async (uAddr) => {
+    let contract = await ContractServices.callContract(
+      stakingProxy,
+      ABISTAKING
+    );
     // alert("in gettheStake");
     if (isTheUserConnected) {
       try {
         setIsDisabled(true);
         dispatch(startLoading());
-        const transactionNo = await contract.methods
-          .stakingTx(userAddress)
-          .call();
+        const transactionNo = await contract.methods.stakingTx(uAddr).call();
         // console.log("transactionNo", transactionNo);
         setTransNo(transactionNo);
         let totalTransactions = transactionNo.txNo;
@@ -265,23 +297,30 @@ const Staking = () => {
         let stakingRewards;
         for (let i = 1; i <= totalTransactions; i++) {
           transactionDetails = await contract.methods
-            .userTransactions(userAddress, i)
+            .userTransactions(uAddr, i)
             .call();
-          stakingRewards = await contract.methods
-            .rewards(userAddress, i)
-            .call();
+          stakingRewards = await contract.methods.rewards(uAddr, i).call();
           // console.log("transactionDetails", transactionDetails);
           await destructure(transactionDetails, i, stakingRewards);
         }
-        setDataArray(daataarray);
+        setDataArray(daataarray.reverse());
         setIsDisabled(false);
         dispatch(stopLoading());
       } catch (error) {
-        alert(error);
+        alert("5323255" + error);
       }
     } else {
       toast.error("Please connect your wallet first");
     }
+  };
+  const _setDays = async (e, d) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (inputAmount > 0) {
+      setDays(d);
+      await getSetAPY(d);
+      setDisableStakeBtn(!1);
+    } else toast.info("Please enter staking amount.");
   };
   // console.log("daysLeft", daysLeft);
   return (
@@ -302,27 +341,32 @@ const Staking = () => {
                 <div className="staking_content">
                   <form>
                     <FormControl
+                      type="number"
                       placeholder="Input"
                       value={inputAmount}
                       onChange={(e) => handleChange(e)}
                       required
+                      onScroll={(_) => {
+                        console.log("scrolling");
+                        _.preventDefault();
+                      }}
                     />
                     <div className="duration_sec">
                       <Button
                         className="time_duration"
-                        onClick={() => setDays(60)}
+                        onClick={(e) => _setDays(e, 60)}
                       >
                         60 days
                       </Button>
                       <Button
                         className="time_duration"
-                        onClick={() => setDays(90)}
+                        onClick={(e) => _setDays(e, 90)}
                       >
                         90 days
                       </Button>
                       <Button
                         className="time_duration"
-                        onClick={() => setDays(120)}
+                        onClick={(e) => _setDays(e, 120)}
                       >
                         120 days
                       </Button>
@@ -346,14 +390,17 @@ const Staking = () => {
                     <Button
                       className="stake_btn"
                       id="myBtn"
-                      disabled={isDisabled}
-                      onClick={letsCallContract}
+                      disabled={disabledStakeBtn}
+                      onClick={(_) => setShowStakeModal(!0)}
                     >
                       Stake
                     </Button>
                   </form>
 
-                  <Button className="stake_btn" onClick={getTheStake}>
+                  <Button
+                    className="stake_btn"
+                    onClick={() => getTheStake(isTheUserConnected)}
+                  >
                     Get your stakings
                   </Button>
                 </div>
@@ -443,6 +490,16 @@ const Staking = () => {
               </div>
             </Col>
           </Row>
+          <StakeModal
+            handleStake={tryStake}
+            closeModal={() => setShowStakeModal(!showStakeModal)}
+            rewards={finalRewards}
+            stakePeriod={days}
+            show={showStakeModal}
+            // show={true}
+            stakeAmount={inputAmount}
+            tokenBalance={tokenBalance}
+          />
         </Container>
       </div>
       {/* <div className="referrl_comm">

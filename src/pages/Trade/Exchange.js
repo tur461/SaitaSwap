@@ -37,7 +37,7 @@ import Button from "../../components/Button/Button";
 import RecentTransactions from "../../components/RecentTransactions/RecentTransactions";
 import TransactionalModal from "../../components/TransactionalModal/TransactionalModal";
 import iconTimer from "../../assets/images/ionic-ios-timer.svg";
-import { EVENTS } from "../../constant";
+import { EVENTS, MIN_NATIVE_CURRENCY_FOR_GAS } from "../../constant";
 
 const Exchange = (props) => {
   const [show, setShow] = useState(false);
@@ -297,12 +297,14 @@ const Exchange = (props) => {
     if (tokenOne.address === "BNB") {
       // .002 BNB is reserved for saving gas fee
       const bnbBalance =
-        (await ContractServices.getBNBBalance(isUserConnected)) - 0.1;
+        (await ContractServices.getBNBBalanceForMax(isUserConnected)) /
+          10 ** 18 -
+        MIN_NATIVE_CURRENCY_FOR_GAS;
       handleTokenValue(bnbBalance, amountIn);
       setMax(false);
     } else {
       // __ amount of particular token must be reserved for saving -needs to be fixed
-      const tokenBalance = await ContractServices.getTokenBalance(
+      const tokenBalance = await ContractServices.getTokenBalanceForMax(
         tokenOne.address,
         isUserConnected
       );
@@ -381,9 +383,12 @@ const Exchange = (props) => {
 
       const acc = isUserConnected;
       // console.log("ASDAC", acc);
-      if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
-        return toast.error("Wallet address doesn`t match!");
-      }
+      // if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
+      //   return toast.error("Wallet address doesn`t match!");
+      // }
+      console.log("###max balance ", amount);
+      setMax(!0);
+
       let add1ForPriceImpact, add2ForPriceImpact;
       if (tokenType === "TK1") {
         setTokenOneValue(amount);
