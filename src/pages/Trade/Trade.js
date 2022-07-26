@@ -54,7 +54,7 @@ const Trade = (props) => {
     <div className="container_wrap trade">
       <Container fluid className="swapScreen comnSection">
         <Container className="smallContainer">
-          <h2 className="text-center swap_title">Make a Swap</h2>
+          <h2 className="text-center swap_title">Trade</h2>
           <Row>
             {/* <Col md={6} lg={4}>
               <div className="comnBlk lang-blk">
