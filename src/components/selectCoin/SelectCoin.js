@@ -12,16 +12,18 @@ const SelectCoin = (props) => {
         <Col className="selectCoin_left_style">
           <label>{props.inputLabel}</label>
           <input
-            type="number"
-            onKeyDown={(evt) => { symbolsArr.includes(evt.key) && evt.preventDefault() }}
+            onKeyDown={(evt) => {
+              symbolsArr.includes(evt.key) && evt.preventDefault();
+            }}
             onChange={props.onChange}
             placeholder={props.placeholder}
             value={props.defaultValue}
-            min={0} 
+            min={0}
             minLength={1}
             maxLength={79}
             autoCorrect="off"
             autoComplete="off"
+            noscroll
           />
         </Col>
         <Col className="selectCoin_right_style">
@@ -29,10 +31,15 @@ const SelectCoin = (props) => {
           <Col className="select_buttonStyle">
             {props.max && <strong onClick={props.onMax}>MAX</strong>}
             <button onClick={props.onClick}>
-              <div> {props.coinImage && <img src={props.coinImage} className="coin_Img" />}
+              <div>
+                {" "}
+                {props.coinImage && (
+                  <img src={props.coinImage} className="coin_Img" />
+                )}
                 <strong style={{ fontSize: props.selectTokenText ? "" : "" }}>
                   {props.value}
-                </strong></div>
+                </strong>
+              </div>
               <img className="selectDropDownStyle" src={iconDropDown} />
             </button>
           </Col>

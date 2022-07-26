@@ -25,15 +25,15 @@ const callWeb3ForWalletConnect = async (provider) => {
     rpc: {
       // 97: "https://data-seed-prebsc-2-s3.binance.org:8545/",
       // 56: "https://bsc-dataseed.binance.org/",
-      4: "https://rinkeby.infura.io/v3/1eef3e361aac42f79167464a2e0d6564",
+      1: "https://mainnet.infura.io/v3/3a25827bef8e449d85750255d6521b3d",
     },
-    chainId: 4,
-    network: "rinkeby",
-    qrcode: true,
-    qrcodeModalOptions: {
-      mobileLinks: ["metamask"],
-      desktopLinks: ["encrypted ink"],
-    },
+    // chainId: 1,
+    // network: "mainnet",
+    // qrcode: true,
+    // qrcodeModalOptions: {
+    //   mobileLinks: ["metamask", "walletConnect"],
+    //   desktopLinks: ["encrypted ink"],
+    // },
   });
   provider.on("accountsChanged", (accounts) => {
     console.log(accounts);
@@ -334,6 +334,7 @@ const allowanceToken = async (tokenAddress, mainContractAddress, address) => {
 const getTokenBalance = async (tokenAddress, address) => {
   try {
     const contract = await callTokenContract(tokenAddress);
+    console.log("### addr:", tokenAddress, address);
     const decimals = await contract.methods.decimals().call();
     let result = await contract.methods.balanceOf(address).call();
     result = (Number(result) / 10 ** decimals).toFixed(5);
@@ -341,7 +342,7 @@ const getTokenBalance = async (tokenAddress, address) => {
     return Number(result);
   } catch (error) {
     console.log("Error:", error);
-    return error;
+    return 0;
   }
 };
 const getTokenBalanceFull = async (tokenAddress, address) => {
@@ -355,7 +356,7 @@ const getTokenBalanceFull = async (tokenAddress, address) => {
     return result;
   } catch (error) {
     console.log("Error:", error);
-    return error;
+    return 0;
   }
 };
 

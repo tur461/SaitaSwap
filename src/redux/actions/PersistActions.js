@@ -1,4 +1,5 @@
 import packageJson from "../../../package.json";
+import { EVENTS } from "../../constant";
 import { ContractServices } from "../../services/ContractServices";
 
 /** seting action types */
@@ -39,6 +40,10 @@ export const versionManager = () => async (dispatch, getState) => {
  * Action creators
  */
 export const login = (data) => {
+  // console.log("##hi i am sam");
+  setTimeout((_) => {
+    document.dispatchEvent(new Event(EVENTS.LOGIN_SUCCESS, {}));
+  }, 100);
   return {
     type: actionTypes.USER_CONNECTED,
     payload: data,
@@ -46,7 +51,7 @@ export const login = (data) => {
 };
 export const logout = () => {
   ContractServices.setWalletType("Metamask");
-  localStorage.removeItem("persist:root, walletconnect");
+  localStorage.clear();
   window.location.reload();
   return {
     type: actionTypes.LOGOUT,

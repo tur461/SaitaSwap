@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Col, Tabs, Tab } from "react-bootstrap";
 import ConnectWallet from "../../components/ConnectWallet/ConnectWallet";
@@ -37,6 +37,7 @@ import Button from "../../components/Button/Button";
 import RecentTransactions from "../../components/RecentTransactions/RecentTransactions";
 import TransactionalModal from "../../components/TransactionalModal/TransactionalModal";
 import iconTimer from "../../assets/images/ionic-ios-timer.svg";
+import { EVENTS } from "../../constant";
 
 const Exchange = (props) => {
   const [show, setShow] = useState(false);
@@ -49,6 +50,7 @@ const Exchange = (props) => {
   const settingClose = () => setsettingShow(false);
   const settinghandleShow = () => setsettingShow(true);
   const [classToggle, setClassToggle] = useState(false);
+  const lock = useRef(!0);
 
   const dispatch = useDispatch();
 
@@ -70,7 +72,7 @@ const Exchange = (props) => {
   );
   const [tokenTwoCurrency, setCurrencyNameForTokenTwo] =
     useState("Select a token");
-    
+
   const [tokenOneBalance, setTokenOneBalance] = useState(0);
   const [tokenTwoBalance, setTokenTwoBalance] = useState(0);
   const [tokenOneApproval, setTokenOneApproval] = useState(false);
@@ -132,6 +134,13 @@ const Exchange = (props) => {
       setTokenOneBalance(oneBalance);
     }
   };
+
+  document.addEventListener(EVENTS.LOGIN_SUCCESS, async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    // console.log("##FUCK##");
+    await init();
+  });
 
   const onHandleOpenModal = (tokenType) => {
     if (!isUserConnected) {
@@ -239,7 +248,7 @@ const Exchange = (props) => {
         setShowPoolShare(true);
         setLpTokenBalance(0);
         setDisabled(true);
-        setBtnText("Insufficient liquidity for this trade.");
+        setBtnText("Insufficient liquidity");
       }
     }
   };
@@ -424,7 +433,7 @@ const Exchange = (props) => {
             add1ForPriceImpact = tokenOneAddress;
             add2ForPriceImpact = tokenTwoAddress;
           } else {
-            alert("in for pair");
+            // alert("in for pair");
             const pair = await checkPairWithBNBOrUSDT(
               tokenOneAddress,
               tokenTwoAddress
@@ -997,6 +1006,9 @@ const Exchange = (props) => {
     //props.backBtn();
     //window.location.reload();
   };
+  useEffect(async () => {
+    await checkTokenORCurrencyBalance("BNB");
+  }, []);
   const checkTokenORCurrencyBalance = async (address) => {
     if (address === "BNB") {
       return await ContractServices.getBNBBalance(isUserConnected);

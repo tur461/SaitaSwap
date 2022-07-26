@@ -24,6 +24,7 @@ import { toast } from "../../components/Toast/Toast";
 import Loader from "react-loader-spinner";
 import Timer from "../../components/Timer/Timer";
 import { startLoading, stopLoading } from "../../redux/actions";
+import { EVENTS } from "../../constant";
 const Staking = () => {
   const stakingProxy = "0x409353a02Ba3CCf60F3c503A6fd842a7A9C20782";
   // const stakingContract = "0xE6A55671c1b863b73cCd8ECAcf4fa8Db3D6FF1b7";
@@ -59,7 +60,8 @@ const Staking = () => {
   const isTheUserConnected = useSelector(
     (state) => state.persist.isUserConnected
   );
-  useEffect(async () => {
+
+  const someF = async () => {
     let contract = await ContractServices.callContract(
       stakingProxy,
       ABISTAKING
@@ -73,13 +75,28 @@ const Staking = () => {
 
     let userAddress = isTheUserConnected;
     setUserAddress(userAddress);
-    const TokenBalance = await ContractServices.getTokenBalanceFull(
+    const TokenBalance = await ContractServices.getTokenBalance(
       tokenAddress,
       userAddress
     );
-
+    console.log("TokenBalance", TokenBalance);
     setTokenBalance(TokenBalance);
-  }, [days]);
+  };
+
+  document.addEventListener(EVENTS.LOGIN_SUCCESS, async (e) => {
+    e.preventDefault();
+    await someF();
+  });
+
+  useEffect(
+    (_) => {
+      (async (_) => {
+        await someF();
+      })();
+    },
+    [days]
+  );
+
   const handleChange = (e) => {
     setInputAmount(e.target.value);
     if (inputAmount) {
@@ -193,6 +210,7 @@ const Staking = () => {
     }
   };
   console.log("99999", contract?.methods);
+  console.log("thidijojoijoijj", tokenBalance);
   const letsUnstake = async (trans) => {
     if (isTheUserConnected) {
       try {

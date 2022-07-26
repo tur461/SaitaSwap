@@ -45,9 +45,10 @@ const ConnectWallet = ({ show, handleClose }) => {
             dispatch(login({ account, walletType }));
             handleClose(false);
             //return;
-            // window.location.reload();
+            window.location.reload();
           });
           dispatch(login({ account, walletType }));
+          
           handleClose(false);
           //  window.location.reload();
         } catch (error) {
