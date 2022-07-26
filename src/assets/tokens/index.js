@@ -5,7 +5,7 @@ import ETH from "../images/token_icons/ETH-Token.svg";
 import BUSD from "../images/token_icons/BUSD-Token.svg";
 import ADA from "../images/token_icons/ADA.svg";
 import defaultImg from "../images/token_icons/default.svg";
-import USDT from "../images/token_icons/USDT.svg";
+// import USDT from "../images/token_icons/USDT.svg";
 import POLKADOT from "../images/token_icons/POLKADOT.svg";
 import TRON from "../images/token_icons/TRON.svg";
 import CAKE from "../images/token_icons/CAKE.svg";
@@ -13,6 +13,7 @@ import NIOB from "../images/token_icons/NIOB.svg";
 import SHRIYO from "../images/token_icons/saitamaIcons/shriyo-Inu.png";
 import IMPACTXP from "../images/token_icons/saitamaIcons/impactXp.png";
 import Kishimoto from "../images/token_icons/saitamaIcons/kishimoto.png";
+import USDT from "../images/token_icons/saitamaIcons/USDT.png";
 import MANDOX from "../images/token_icons/saitamaIcons/MandoX.png";
 import SAITA from "../images/saitaswap.png";
 import SHAMAN from "../images/schdule.png";
@@ -103,7 +104,7 @@ export const TOKEN_LIST = [
     symbol: "SAITAMA",
   },
   {
-    icon: "",
+    icon: USDT,
     name: "USDT",
     address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
     isAdd: false,

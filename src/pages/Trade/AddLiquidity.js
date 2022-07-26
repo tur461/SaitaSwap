@@ -27,6 +27,7 @@ import { BigNumber } from "bignumber.js";
 import SupplyModal from "../../components/SupplyModal/SupplyModal";
 import RecentTransactions from "../../components/RecentTransactions/RecentTransactions";
 import { ConsoleView } from "react-device-detect";
+import { EVENTS } from "../../constant";
 
 const AddLiquidity = (props) => {
   const tokenList = useSelector((state) => state.persist.tokenList);
@@ -101,7 +102,10 @@ const AddLiquidity = (props) => {
     );
     init();
   }, [search, tokenList]);
-
+  document.addEventListener(EVENTS.LOGIN_SUCCESS, async (e) => {
+    e.preventDefault();
+    await init();
+  });
   const init = async () => {
     if (isUserConnected) {
       const oneBalance = await ContractServices.getBNBBalance(isUserConnected);
@@ -606,20 +610,19 @@ const AddLiquidity = (props) => {
   };
 
   const checkAddLiquidity = async () => {
-    debugger;
     if (!isUserConnected) {
       handleShow1();
     } else {
-      let address;
+      let address = isUserConnected;
       if (walletType === "Metamask") {
-        address = await ContractServices.isMetamaskInstalled("");
-        // address = await isUserConnected;
-        // console.log(address, "address");
+        // address = await ContractServices.isMetamaskInstalled("");
+        address = await isUserConnected;
+        console.log(address, "address");
       }
       if (walletType === "BinanceChain") {
         address = await ContractServices.isBinanceChainInstalled();
       }
-
+      console.log(isUserConnected, address, "####");
       if (isUserConnected?.toLowerCase() !== address?.toLowerCase()) {
         return toast.error("Mismatch wallet address!");
       }
@@ -661,6 +664,7 @@ const AddLiquidity = (props) => {
   };
 
   const addLiquidity = async () => {
+    console.log("isUserConnected", isUserConnected);
     const acc = isUserConnected;
     if (acc && acc.toLowerCase() !== isUserConnected.toLowerCase()) {
       return toast.error("Wallet address doesn`t match!");
