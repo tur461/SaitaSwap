@@ -613,7 +613,7 @@ const AddLiquidity = (props) => {
     if (!isUserConnected) {
       handleShow1();
     } else {
-      let address = isUserConnected;
+      let address = isUserConnected; //address has assigned a value now
       if (walletType === "Metamask") {
         // address = await ContractServices.isMetamaskInstalled("");
         address = await isUserConnected;
