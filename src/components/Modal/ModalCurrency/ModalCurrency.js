@@ -17,7 +17,6 @@ const ModalCurrency = ({
 }) => {
   const dispatch = useDispatch();
   const [values, setValues] = useState({ tokenSearch: "" });
-  console.log('mmmmm', tokenList);
   // Set Token Search Input Value and Pass to Parent Component (Add Liquidity)
   const handleChange = (e, name) => {
     searchByName(e.target.value);

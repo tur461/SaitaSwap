@@ -3,7 +3,7 @@ import { Col, Row, Modal } from "react-bootstrap";
 import CopyIcon from "../../assets/images/copy.png";
 import "./SwitchNetworkModal.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { NETWORK_SCAN } from "../../constant";
+import { NETWORK_SCAN, NETWORK_SCAN_NAME } from "../../constant";
 import { toast } from "../Toast/Toast";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import TolerenceIcon from "../../assets/images/tolerence.png";
@@ -87,7 +87,7 @@ const SwitchNetworkModal = ({ show, handleClose, logout }) => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  View on BSC
+                  View on {NETWORK_SCAN_NAME}
                   <img src={TolerenceIcon} />
                 </a>
                 <div className="ms-3">

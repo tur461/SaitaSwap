@@ -40,7 +40,6 @@ import TransactionalModal from "../../components/TransactionalModal/Transactiona
 import iconTimer from "../../assets/images/ionic-ios-timer.svg";
 
 const Exchange = (props) => {
-  console.log('ccccccc', TOKEN_LIST);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -87,7 +86,6 @@ const Exchange = (props) => {
 
   const [search, setSearch] = useState("");
   const [filteredTokenList, setFilteredTokenList] = useState([]);
-  console.log('ppppp', tokenList);
   const [liquidityConfirmation, setLiquidityConfirmation] = useState(false);
 
   const [selectedCurrency, setSelectedCurrency] = useState("");

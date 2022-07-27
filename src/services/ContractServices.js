@@ -358,7 +358,7 @@ const getTokenBalance = async (tokenAddress, address) => {
     const decimals = await contract.methods.decimals().call();
     let result = await contract.methods.balanceOf(address).call();
     result = (Number(result) / 10 ** decimals).toFixed(5);
-    console.log(result);
+    
     return Number(result);
   } catch (error) {
     console.log("Error:", error);
