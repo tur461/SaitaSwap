@@ -3,7 +3,7 @@ import { Col, Row, Modal } from "react-bootstrap";
 import CopyIcon from "../../assets/images/copy.png";
 import "./ProfileModal.scss";
 import { useSelector } from "react-redux";
-import { BSC_SCAN } from "../../constant";
+import { NETWORK_SCAN, NETWORK_SCAN_NAME } from "../../constant";
 import { toast } from "../Toast/Toast";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import TolerenceIcon from "../../assets/images/tolerence.png";
@@ -30,17 +30,17 @@ const ProfileModal = ({ show, handleClose, logout }) => {
               <p>{isUserConnected}</p>
               <div className="copySec">
                 <a
-                  href={`${BSC_SCAN}/address/${isUserConnected}`}
+                  href={`${NETWORK_SCAN}/address/${isUserConnected}`}
                   target="_blank"
                   rel="noreferrer"
                 >
-                  View on EtherScan
+                  View on {NETWORK_SCAN_NAME}
                   <img src={TolerenceIcon} />
                 </a>
                 <div className="ms-3">
                   <span>Copy</span>&nbsp;
                   <CopyToClipboard
-                    text={`${BSC_SCAN}/address/${isUserConnected}`}
+                    text={`${NETWORK_SCAN}/address/${isUserConnected}`}
                     onCopy={() => toast.success("Copied!")}
                   >
                     <img className="copy-icon" alt="copy" src={CopyIcon} />

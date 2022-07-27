@@ -12,6 +12,7 @@ import {
   stopLoading,
   saveUserLpTokens,
   updateLpToken,
+  initializeTokenList,
 } from "../../../redux/actions";
 import { ContractServices } from "../../../services/ContractServices";
 import { ExchangeService } from "../../../services/ExchangeService";
@@ -81,6 +82,10 @@ const RemoveLiquidity = (props) => {
   const [approvalConfirmation, setApprovalConfirmation] = useState(false);
 
   const [symbolsArr] = useState(["e", "E", "+", "-"]);
+
+  useEffect(() => {
+    dispatch(initializeTokenList(TOKEN_LIST))
+  }, [])
 
   useEffect(() => {
     setFilteredTokenList(
@@ -803,7 +808,6 @@ const RemoveLiquidity = (props) => {
                       min={0}
                       placeholder="0.0"
                       value={liquidityTemp}
-                      min={0}
                       minLength={1}
                       maxLength={79}
                       autoCorrect="off"

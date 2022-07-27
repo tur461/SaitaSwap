@@ -19,6 +19,7 @@ import { ExchangeService } from "../../services/ExchangeService";
 import {
   addTransaction,
   checkUserLpTokens,
+  initializeTokenList,
   searchTokenByNameOrAddress,
   startLoading,
   stopLoading,
@@ -92,6 +93,10 @@ const AddLiquidity = (props) => {
   const [showPoolShare, setShowPoolShare] = useState(false);
   const [showTransactionModal, setShowTransactionModal] = useState(false);
   const [txHash, setTxHash] = useState("");
+
+  useEffect(() => {
+    dispatch(initializeTokenList(TOKEN_LIST))
+  }, [])
 
   useEffect(() => {
     setFilteredTokenList(
@@ -301,10 +306,13 @@ const AddLiquidity = (props) => {
           tokenTwo.address,
           MAIN_CONTRACT_LIST.router.address,
           isUserConnected
-        );
+          );
         allowance = Number(allowance) / 10 ** Number(tokenTwo.decimals);
-        // console.log(allowance, 'token 2')
-        if (amount > allowance) {
+        // Convert String Amount to Number Amount
+        // const nAmount = Number(amount);
+        // if (nAmount > allowance) {
+        const Amount = Number(amount);
+        if (Amount > allowance) {
           setTokenTwoApproval(true);
         } else {
           setTokenTwoApproved(true);
@@ -606,7 +614,7 @@ const AddLiquidity = (props) => {
   };
 
   const checkAddLiquidity = async () => {
-    debugger;
+    // debugger;
     if (!isUserConnected) {
       handleShow1();
     } else {

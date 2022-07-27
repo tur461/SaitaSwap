@@ -29,29 +29,29 @@ import shaman from "../images/token_icons/saitamaIcons/shaman.png";
 export const NIOB1 = "0x035781918b7221293B6938c9c0037cDf1dB183dE";
 export const NIOB2 = "0xADdcE6c9Dd30a6b252eAB252a11aBe518381132C";
 export const BURN_ADDRESS = "0x000000000000000000000000000000000000dEaD";
-export const DEFLATIONNARY_TOKENS = [
-  "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
-  "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
-  "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
-  "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
-  "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
-  "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
-];
+// export const DEFLATIONNARY_TOKENS = [
+//   "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
+//   "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
+//   "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
+//   "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
+//   "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
+//   "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
+// ];
 export const LIQUIDITY_PROVIDER_FEE = 0.2;
 
 // ******** BSC_MAIN_NET LP's, WETH and USD **********
 // export const ANCHOR_BUSD_LP = "0xca8cb77efac26f901042196f766bac4ee5077df0";
 // export const BNB_BUSD_LP = "0xe2466652a46e47fa278be0a2ad8dce7c8445be41";
 // export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
-// export const USD = "0xe9e7cea3dedca5984780bafc599bd69add087d56";
-export const pancakeFactory = "0x6E201B30835033855125bdCfc06Bf5efFD4b75E8";
+// export const pancakeFactory = "0x6E201B30835033855125bdCfc06Bf5efFD4b75E8";
 
 // ******** BSC_TEST_NET LP's, WETH and USD **********
-export const ANCHOR_BUSD_LP = "0xD50Ec4dE8d3f3A63F886860B261E9e560CF02053";
-export const BNB_BUSD_LP = "0xE5799D95Ac7ECCbAf672777eDb516D29c030f5a9";
-export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
-export const USD = "0x2Dd65fFe5F1B2D8a745b7194cCa59B451C5986D2";
-export const Saitama = "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C";
+// export const USD = "0xe9e7cea3dedca5984780bafc599bd69add087d56";
+// export const ANCHOR_BUSD_LP = "0xD50Ec4dE8d3f3A63F886860B261E9e560CF02053";
+// export const BNB_BUSD_LP = "0xE5799D95Ac7ECCbAf672777eDb516D29c030f5a9";
+// export const WETH = "0xfDd1a163518E7ee5e98b60c87E93e2881dbFfCd0";
+// export const USD = "0x2Dd65fFe5F1B2D8a745b7194cCa59B451C5986D2";
+// export const Saitama = "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2";
 
 export const AUDIT = "https://docs.niob.finance/audits";
 export const LOTTERY = "https://docs.niob.finance/products/#niob-lottery";
@@ -64,6 +64,73 @@ export const INSURANCE_FUND =
 export const TRADING_FEE_CASHBACK =
   "https://docs.niob.finance/products/#trading-fee-cashback";
 export const DOCS = "https://docs.niob.finance";
+
+
+// ******************************** LP's, WETH, USD, Deflationary Tokens **************************************
+
+/** BSC TEST NET LP's, WETH, USD, Deflationary  */
+const BSC_TESTNET_WETH = "0xfDd1a163518E7ee5e98b60c87E93e2881dbFfCd0";
+const BSC_TESTNET_Saitama = "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2";
+const BSC_TESTNET_pancakeFactory = "0x6E201B30835033855125bdCfc06Bf5efFD4b75E8";
+const BSC_TESTNET_ANCHOR_BUSD_LP = "";
+const BSC_TESTNET_BNB_BUSD_LP = "";
+const BSC_TESTNET_USD = "";
+const BSC_TESTNET_DEFLATIONNARY_TOKENS = [
+  "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
+  "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
+  "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
+  "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
+  "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
+  "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
+];
+
+/** BSC MAIN NET LP's, WETH, USD, Deflationary  */
+const BSC_MAINNET_WETH = "";
+const BSC_MAINNET_Saitama = "";
+const BSC_MAINNET_pancakeFactory = "";
+const BSC_MAINNET_ANCHOR_BUSD_LP = "";
+const BSC_MAINNET_BNB_BUSD_LP = "";
+const BSC_MAINNET_USD = "";
+const BSC_MAINNET_DEFLATIONNARY_TOKENS = [
+  "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
+  "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
+  "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
+  "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
+  "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
+  "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
+];
+
+/** ETHEREUM MAIN NET LP's, WETH, USD, Deflationary  */
+const ETHEREUM_MAINNET_WETH = "";
+const ETHEREUM_MAINNET_Saitama = "";
+const ETHEREUM_MAINNET_pancakeFactory = "";
+const ETHEREUM_MAINNET_ANCHOR_BUSD_LP = "";
+const ETHEREUM_MAINNET_BNB_BUSD_LP = "";
+const ETHEREUM_MAINNET_USD = "";
+const ETHEREUM_MAINNET_DEFLATIONNARY_TOKENS = [
+  "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
+  "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
+  "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
+  "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
+  "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
+  "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
+];
+
+/** ETHEREUM TEST NET LP's, WETH, USD, Deflationary  */
+const ETHEREUM_TESTNET_WETH = "";
+const ETHEREUM_TESTNET_Saitama = "";
+const ETHEREUM_TESTNET_pancakeFactory = "0x35113a300ca0D7621374890ABFEAC30E88f214b1";
+const ETHEREUM_TESTNET_ANCHOR_BUSD_LP = "";
+const ETHEREUM_TESTNET_BNB_BUSD_LP = "";
+const ETHEREUM_TESTNET_USD = "";
+const ETHEREUM_TESTNET_DEFLATIONNARY_TOKENS = [
+  "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
+  "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
+  "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
+  "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
+  "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
+  "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
+];
 
 
 // ******************************** TOKEN LIST **************************************
@@ -837,165 +904,10 @@ const ETHEREUM_TESTNET_CONTRACT_LIST = {
   },
 };
 
+// Check Current Network (Selected by the User)
 const currentNetwork = localStorage.getItem("CURRENT NETWORK");
 
-/** Default Token List Set this accoriding to default network */
-let TOKEN_LIST_Old = [
-  // {
-  //   icon: USDT,
-  //   name: "ether token",
-  //   address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "ETH",
-  // },
-  // {
-  //   icon: USDT,
-  //   name: "saitama token",
-  //   address: "0x4aac18De824eC1b553dbf342829834E4FF3F7a9F",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "SAITAMA",
-  // },
-  {
-    icon: ETH,
-    name: "ETH",
-    address: "BNB",
-    isAdd: false,
-    isDel: false,
-    decimals: 18,
-    symbol: "ETH",
-  },
-  {
-    icon: SAITA,
-    name: "SAITAMA",
-    address: "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
-    isAdd: false,
-    isDel: false,
-    decimals: 9,
-    symbol: "SAITAMA..",
-  },
-  {
-    icon: LP,
-    name: "LP",
-    address: "0xdF334150FFe9Bc4989a7F3FD5db378d0eD60f0A0",
-    isAdd: false,
-    isDel: false,
-    decimals: 18,
-    symbol: "LP",
-  },
-  {
-    icon: SHRIYO,
-    name: "Shiryo-Inu",
-    address: "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
-    isAdd: false,
-    isDel: false,
-    decimals: 9,
-    symbol: "Shiryo-Inu",
-  },
-  {
-    icon: IMPACTXP,
-    name: "ImpactXP",
-    address: "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
-    isAdd: false,
-    isDel: false,
-    decimals: 9,
-    symbol: "ImpactXP",
-  },
-  {
-    icon: Kishimoto,
-    name: "Kishimoto",
-    address: "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
-    isAdd: false,
-    isDel: false,
-    decimals: 9,
-    symbol: "Kishimoto",
-  },
-  {
-    icon: MANDOX,
-    name: "Mandox",
-    address: "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
-    isAdd: false,
-    isDel: false,
-    decimals: 9,
-    symbol: "Mandox",
-  },
-  {
-    icon: shaman,
-    name: "Shaman",
-    address: "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
-    isAdd: false,
-    isDel: false,
-    decimals: 18,
-    symbol: "Shaman",
-  },
-  // {
-  //   icon: USDT,
-  //   name: "wrapped ether token",
-  //   address: "0x5ac5e6Af46Ef285B3536833E65D245c49b608d9b",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "WETH",
-  // },
-  // {
-  //   icon: BUSD,
-  //   name: "BUSD",
-  //   address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "BUSD",
-  // },
-  // {
-  //   icon: ANCHOR,
-  //   name: "ANCHOR",
-  //   address: "0x4aac18De824eC1b553dbf342829834E4FF3F7a9F",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "ANCHOR",
-  // },
-  // {
-  //   icon: BNB,
-  //   name: "WBNB",
-  //   address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "WBNB",
-  // },
-  // {
-  //   icon: BTC,
-  //   name: "BTCB",
-  //   address: "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "BTCB",
-  // },
-  // {
-  //   icon: ETH,
-  //   name: "B-ETH",
-  //   address: "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "ETH",
-  // },
-  // {
-  //   icon: CAKE,
-  //   name: "CAKE",
-  //   address: "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "CAKE",
-  // },
-];
-
+/** Don't keep TOKEN_LIST empty (it will give error) */
 let TOKEN_LIST = [
   {
     icon: BNB,
@@ -1006,98 +918,95 @@ let TOKEN_LIST = [
     decimals: 18,
     symbol: "BNB",
   },
-  {
-    icon: SAITA,
-    name: "SAITAMA",
-    address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
-    isAdd: false,
-    isDel: false,
-    decimals: 9,
-    symbol: "SAITAMA..",
-  },
-  {
-    icon: LP,
-    name: "LP",
-    address: "0xdF334150FFe9Bc4989a7F3FD5db378d0eD60f0A0",
-    isAdd: false,
-    isDel: false,
-    decimals: 18,
-    symbol: "LP",
-  },
-  {
-    icon: SHRIYO,
-    name: "Shiryo-Inu",
-    address: "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
-    isAdd: false,
-    isDel: false,
-    decimals: 9,
-    symbol: "Shiryo-Inu",
-  },
-  {
-    icon: IMPACTXP,
-    name: "ImpactXP",
-    address: "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
-    isAdd: false,
-    isDel: false,
-    decimals: 9,
-    symbol: "ImpactXP",
-  },
-  {
-    icon: Kishimoto,
-    name: "Kishimoto",
-    address: "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
-    isAdd: false,
-    isDel: false,
-    decimals: 9,
-    symbol: "Kishimoto",
-  },
-  {
-    icon: MANDOX,
-    name: "Mandox",
-    address: "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
-    isAdd: false,
-    isDel: false,
-    decimals: 9,
-    symbol: "Mandox",
-  },
-  {
-    icon: shaman,
-    name: "Shaman",
-    address: "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
-    isAdd: false,
-    isDel: false,
-    decimals: 18,
-    symbol: "Shaman",
-  },
 ];
-
-
 let MAIN_CONTRACT_LIST = [];
+let WETH = "";
+let Saitama = "";
+let pancakeFactory = "";
+let BNB_BUSD_LP = "";
+let ANCHOR_BUSD_LP = "";
+let USD = "";
+let DEFLATIONNARY_TOKENS = [];
 
+// Depending Upon the network chosen by the user required addresses will be set here
 if (currentNetwork === "BSC") {
   TOKEN_LIST = BSC_MAINNET_TOKEN_LIST
   MAIN_CONTRACT_LIST = BSC_MAINNET_CONTRACT_LIST
+  WETH = BSC_MAINNET_WETH;
+  Saitama = BSC_MAINNET_Saitama;
+  pancakeFactory = BSC_MAINNET_pancakeFactory;
+  BNB_BUSD_LP = BSC_MAINNET_BNB_BUSD_LP;
+  ANCHOR_BUSD_LP = BSC_MAINNET_ANCHOR_BUSD_LP;
+  USD = BSC_MAINNET_USD;
+  DEFLATIONNARY_TOKENS = BSC_MAINNET_DEFLATIONNARY_TOKENS;
 }
 if (currentNetwork === "BSC TESTNET") {
-  TOKEN_LIST = BSC_TESTNET_TOKEN_LIST
-  MAIN_CONTRACT_LIST = BSC_TESTNET_CONTRACT_LIST
+  TOKEN_LIST = BSC_TESTNET_TOKEN_LIST;
+  MAIN_CONTRACT_LIST = BSC_TESTNET_CONTRACT_LIST;
+  WETH = BSC_TESTNET_WETH;
+  Saitama = BSC_TESTNET_Saitama;
+  pancakeFactory = BSC_TESTNET_pancakeFactory;
+  BNB_BUSD_LP = BSC_TESTNET_BNB_BUSD_LP;
+  ANCHOR_BUSD_LP = BSC_TESTNET_ANCHOR_BUSD_LP;
+  USD = BSC_TESTNET_USD;
+  DEFLATIONNARY_TOKENS = BSC_TESTNET_DEFLATIONNARY_TOKENS;
 }
 if (currentNetwork === "ETHEREUM") {
-  TOKEN_LIST = ETHEREUM_MAINNET_TOKEN_LIST
-  MAIN_CONTRACT_LIST = ETHEREUM_MAINNET_CONTRACT_LIST
+  TOKEN_LIST = ETHEREUM_MAINNET_TOKEN_LIST;
+  MAIN_CONTRACT_LIST = ETHEREUM_MAINNET_CONTRACT_LIST;
+  WETH = ETHEREUM_MAINNET_WETH;
+  Saitama = ETHEREUM_MAINNET_Saitama;
+  pancakeFactory = ETHEREUM_MAINNET_pancakeFactory;
+  BNB_BUSD_LP = ETHEREUM_MAINNET_BNB_BUSD_LP;
+  ANCHOR_BUSD_LP = ETHEREUM_MAINNET_ANCHOR_BUSD_LP;
+  USD = ETHEREUM_MAINNET_USD;
+  DEFLATIONNARY_TOKENS = ETHEREUM_MAINNET_DEFLATIONNARY_TOKENS;
 }
 if (currentNetwork === "ETHEREUM TESTNET") {
-  TOKEN_LIST = ETHEREUM_TESTNET_TOKEN_LIST
-  MAIN_CONTRACT_LIST = ETHEREUM_TESTNET_CONTRACT_LIST
+  TOKEN_LIST = ETHEREUM_TESTNET_TOKEN_LIST;
+  MAIN_CONTRACT_LIST = ETHEREUM_TESTNET_CONTRACT_LIST;
+  WETH = ETHEREUM_TESTNET_WETH;
+  Saitama = ETHEREUM_TESTNET_Saitama;
+  pancakeFactory = ETHEREUM_TESTNET_pancakeFactory;
+  BNB_BUSD_LP = ETHEREUM_TESTNET_BNB_BUSD_LP;
+  ANCHOR_BUSD_LP = ETHEREUM_TESTNET_ANCHOR_BUSD_LP;
+  USD = ETHEREUM_TESTNET_USD;
+  DEFLATIONNARY_TOKENS = ETHEREUM_TESTNET_DEFLATIONNARY_TOKENS;
 }
-  console.log('1111', TOKEN_LIST);
-  console.log('2222', MAIN_CONTRACT_LIST);
-export { TOKEN_LIST }
-export { MAIN_CONTRACT_LIST }
+
+export { TOKEN_LIST };
+export { MAIN_CONTRACT_LIST };
+export { WETH };
+export { Saitama };
+export { pancakeFactory };
+export { BNB_BUSD_LP };
+export { ANCHOR_BUSD_LP };
+export { USD };
+export { DEFLATIONNARY_TOKENS };
+
+
+/* ***************************************** End *************************************************** */
+
+
+
+
+
+
+
+
+
+
+
  
-
-
-
+// console.log('11111', TOKEN_LIST);
+// console.log('22222', MAIN_CONTRACT_LIST);
+// console.log('33333 weth', WETH);
+// console.log('44444 saitama', Saitama);
+// console.log('55555 pancake', pancakeFactory);
+// console.log('66666 bnb', BNB_BUSD_LP);
+// console.log('77777 anchor', ANCHOR_BUSD_LP);
+// console.log('88888 usd', USD);
+console.log('99999 deflationary', DEFLATIONNARY_TOKENS);
 
 
 // ==============================

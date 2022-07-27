@@ -32,6 +32,7 @@ import {
   addTransaction,
   startLoading,
   stopLoading,
+  initializeTokenList,
 } from "../../redux/actions";
 import Button from "../../components/Button/Button";
 import RecentTransactions from "../../components/RecentTransactions/RecentTransactions";
@@ -39,6 +40,7 @@ import TransactionalModal from "../../components/TransactionalModal/Transactiona
 import iconTimer from "../../assets/images/ionic-ios-timer.svg";
 
 const Exchange = (props) => {
+  console.log('ccccccc', TOKEN_LIST);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -53,7 +55,8 @@ const Exchange = (props) => {
   const dispatch = useDispatch();
 
   const isUserConnected = useSelector((state) => state.persist.isUserConnected);
-  const tokenList = useSelector((state) => state.persist.tokenList);
+  const tokenList = TOKEN_LIST;
+  // const tokenList = useSelector((state) => state.persist.tokenList);
   const deadline = useSelector((state) => state.persist.deadline);
   const slippagePercentage = useSelector(
     (state) => state.persist.slippagePercentage
@@ -84,6 +87,7 @@ const Exchange = (props) => {
 
   const [search, setSearch] = useState("");
   const [filteredTokenList, setFilteredTokenList] = useState([]);
+  console.log('ppppp', tokenList);
   const [liquidityConfirmation, setLiquidityConfirmation] = useState(false);
 
   const [selectedCurrency, setSelectedCurrency] = useState("");
@@ -110,6 +114,10 @@ const Exchange = (props) => {
   const [tokenTwoIcon, setTokenTwoIcon] = useState(defaultImg);
   const [max, setMax] = useState(true);
 
+  useEffect(() => {
+    dispatch(initializeTokenList(TOKEN_LIST))
+  }, [])
+  
   useEffect(() => {
     setFilteredTokenList(
       tokenList?.filter((token) =>
@@ -423,7 +431,7 @@ const Exchange = (props) => {
             add1ForPriceImpact = tokenOneAddress;
             add2ForPriceImpact = tokenTwoAddress;
           } else {
-            alert("in for pair");
+            // alert("in for pair");
             const pair = await checkPairWithBNBOrUSDT(
               tokenOneAddress,
               tokenTwoAddress
@@ -681,7 +689,7 @@ const Exchange = (props) => {
       dispatch(startLoading());
       const data = await handleBNBSwapForTK1(dl, value);
       try {
-        debugger;
+        // debugger;
         // console.log("ww", isUserConnected.toString());
 
         const result =
@@ -1059,6 +1067,7 @@ const Exchange = (props) => {
               <div>
                 {!isDisabled && isUserConnected && <h5>Price</h5>}
                 <h5>Slippage Tolerance</h5>
+                {}
               </div>
               <div className="text-end">
                 <h5>

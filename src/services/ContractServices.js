@@ -353,6 +353,7 @@ const allowanceToken = async (tokenAddress, mainContractAddress, address) => {
 
 const getTokenBalance = async (tokenAddress, address) => {
   try {
+    // console.log('called via 3');
     const contract = await callTokenContract(tokenAddress);
     const decimals = await contract.methods.decimals().call();
     let result = await contract.methods.balanceOf(address).call();

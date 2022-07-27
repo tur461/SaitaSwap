@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Card from "../Card/Card";
 import closeBtn from "../../assets/images/ionic-md-close.svg";
 import checkicon from "../../assets/images/check_icon.svg";
-import { BSC_SCAN } from "../../constant";
+import { NETWORK_SCAN, NETWORK_SCAN_NAME } from "../../constant";
 
 const TransactionModal = ({ txHash, closeTransactionModal }) => {
   return (
@@ -26,11 +26,11 @@ const TransactionModal = ({ txHash, closeTransactionModal }) => {
           <div className="col viewbox">
             <img src={checkicon} alt="icon" width="85" />
             <a
-              href={`${BSC_SCAN}/tx/${txHash}`}
+              href={`${NETWORK_SCAN}/tx/${txHash}`}
               target="_blank"
               rel="noreferrer"
             >
-              View on EtherScan
+              View on {NETWORK_SCAN_NAME}
             </a>
           </div>
           <div className="col">

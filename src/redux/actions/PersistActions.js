@@ -17,6 +17,7 @@ export const actionTypes = {
   LOGIN_CONFIRMATION_SREEN: "LOGIN_CONFIRMATION_SREEN",
   LOGOUT_CONFIRMATION_SREEN: "LOGOUT_CONFIRMATION_SREEN",
   SAVE_FOOTER_DATA: "SAVE_FOOTER_DATA",
+  INITIALIZE_TOKEN_LIST: "INITIALIZE_TOKEN_LIST",
 };
 
 export const versionManager = () => async (dispatch, getState) => {
@@ -50,6 +51,13 @@ export const logout = () => {
   window.location.reload();
   return {
     type: actionTypes.LOGOUT,
+  };
+};
+
+export const initializeTokenList = (data) => {
+  return {
+    type: actionTypes.INITIALIZE_TOKEN_LIST,
+    payload: data,
   };
 };
 

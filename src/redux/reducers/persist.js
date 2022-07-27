@@ -25,6 +25,11 @@ const persist = (state = initialState, action) => {
         isUserConnected: action.payload.account,
         walletType: action.payload.walletType,
       };
+    case actionTypes.INITIALIZE_TOKEN_LIST:
+      return {
+        ...state,
+        tokenList: action.payload,
+      };
     case actionTypes.TOKEN_LIST_ADD:
       initialState.tokenList.push(action.payload);
       return {

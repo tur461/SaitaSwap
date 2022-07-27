@@ -9,8 +9,10 @@ import AddLiquidity from "./AddLiquidity";
 import ImportPool from "./ImportPool";
 import { useSelector } from "react-redux";
 import { toast } from "../../components/Toast/Toast";
+import { TOKEN_LIST } from "../../assets/tokens";
 
 const Trade = (props) => {
+  console.log('bbnn', TOKEN_LIST);
   const {
     match: { params },
     history,

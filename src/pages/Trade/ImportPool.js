@@ -19,6 +19,7 @@ import {
   addLpToken,
   addTransaction,
   checkUserLpTokens,
+  initializeTokenList,
   searchTokenByNameOrAddress,
   startLoading,
   stopLoading,
@@ -66,6 +67,10 @@ const AddLiquidity = (props) => {
   const [selectedCurrency, setSelectedCurrency] = useState("");
 
   const [currentPairAddress, setCurrentPairAddress] = useState("");
+
+  useEffect(() => {
+    dispatch(initializeTokenList(TOKEN_LIST))
+  }, [])
 
   useEffect(() => {
     setFilteredTokenList(

@@ -2,7 +2,7 @@ export const rootName = "";
 export const HOME_ROUTE = process.env.REACT_APP_HOME_ROUTE;
 export const API_HOST = process.env.REACT_APP_API_URL;
 export const CAPTCHA_KEY = process.env.REACT_APP_GOOGLE_CAPTCHA_KEY;
-export const BSC_SCAN = "https://rinkeby.etherscan.io";
+// export const BSC_SCAN = "https://rinkeby.etherscan.io";
 export const NETWORK_CHAIN_NAME = localStorage.getItem("REACT_APP_NETWORK_CHAIN_NAME");
 export const NETWORK_RPC_URL = localStorage.getItem("REACT_APP_NETWORK_RPC_URL");
 export const NETWORK_LINK = localStorage.getItem("REACT_APP_NETWORK_LINK");
@@ -34,6 +34,28 @@ export const DOCS_LINK = "https://docs.anchorswap.finance";
 export const TWITTER_LINK = "https://twitter.com/AnchorSwap";
 export const TELEGRAM_LINK = "https://t.me/joinchat/KP-_HKro73ViZTZk";
 export const AUDIT_LINK = "https://docs.anchorswap.finance/audit/";
+
+const currentNetwork = localStorage.getItem("CURRENT NETWORK");
+let NETWORK_SCAN = "";
+let NETWORK_SCAN_NAME = "";
+if (currentNetwork === "BSC") {
+  NETWORK_SCAN = "";
+  NETWORK_SCAN_NAME = "BSC-Scan";
+}
+if (currentNetwork === "BSC TESTNET") {
+  NETWORK_SCAN = "https://testnet.bscscan.com";
+  NETWORK_SCAN_NAME = "BSC-Scan (Testnet)";
+}
+if (currentNetwork === "ETHEREUM") {
+  NETWORK_SCAN = "";
+  NETWORK_SCAN_NAME = "EtherScan";
+}
+if (currentNetwork === "ETHEREUM TESTNET") {
+  NETWORK_SCAN = "https://rinkeby.etherscan.io";
+  NETWORK_SCAN_NAME = "EtherScan (Testnet)";
+}
+export { NETWORK_SCAN };
+export { NETWORK_SCAN_NAME };
 
 export const isMetamakConnected = async () => {
   const { ethereum } = window;
