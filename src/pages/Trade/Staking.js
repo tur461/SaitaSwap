@@ -307,7 +307,7 @@ const Staking = () => {
         setIsDisabled(false);
         dispatch(stopLoading());
       } catch (error) {
-        alert("5323255" + error);
+        alert(error);
       }
     } else {
       toast.error("Please connect your wallet first");

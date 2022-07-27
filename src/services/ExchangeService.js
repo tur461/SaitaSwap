@@ -774,7 +774,7 @@ const swapExactETHForTokens = async (data, handleBalance, a1, a2) => {
             })
             .on("receipt", (receipt) => {
               console.log(receipt, "in service add liquidity");
-              toast.success("Liquidity added successfully.");
+              toast.success("Swap transaction executed successfully.");
             })
             .on("error", (error, receipt) => {
               reject(error);

@@ -120,6 +120,7 @@ const AddLiquidity = (props) => {
     setFilteredTokenList(tokenList);
 
     if (a1 && a2) {
+      console.log(a1, a2, "a1", "a2");
       dispatch(startLoading());
       let currentPairAddress;
       if (a1 === "BNB") {
@@ -146,7 +147,7 @@ const AddLiquidity = (props) => {
           token1: tk1,
         };
 
-        const result = await dispatch(addLpToken(lpdata));
+        const result = dispatch(addLpToken(lpdata));
         if (result) {
           console.log("this is the result", result);
           setLpTokenBalance(result.balance);

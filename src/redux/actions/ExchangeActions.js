@@ -167,6 +167,7 @@ export const addLpToken = (lp) => {
           lp.pair,
           isUserConnected
         );
+
         if (balance > 0) {
           let token0Obj = {},
             token1Obj = {},
