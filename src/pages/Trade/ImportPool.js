@@ -47,15 +47,15 @@ const AddLiquidity = (props) => {
   const tokenList = useSelector((state) => state.persist.tokenList);
 
   const [modalCurrency, setModalCurrency] = useState(false);
-  const [tokenOne, setTokenOne] = useState(TOKEN_LIST[0]);
+  const [tokenOne, setTokenOne] = useState("");
   const [tokenTwo, setTokenTwo] = useState({});
-  const [tokenOneCurrency, setCurrencyNameForTokenOne] = useState(
-    TOKEN_LIST[0].symbol
-  );
+  const [tokenOneCurrency, setCurrencyNameForTokenOne] = useState("");
   const [tokenTwoCurrency, setCurrencyNameForTokenTwo] =
     useState("Select a currency");
   const [tokenOneValue, setTokenOneValue] = useState(0);
   const [tokenTwoValue, setTokenTwoValue] = useState(0);
+  const [tokenOneSymbol, setTokenOneSymbol] = useState("hh");
+  const [tokenTwoSymbol, setTokenTwoSymbol] = useState("jj");
 
   const [lpTokenBalance, setLpTokenBalance] = useState(0);
   const [tokenType, setTokenType] = useState("TK1");
@@ -146,14 +146,19 @@ const AddLiquidity = (props) => {
           token0: tk0,
           token1: tk1,
         };
+        console.log("lpdata", lpdata);
 
-        const result = dispatch(addLpToken(lpdata));
+        const result = await dispatch(addLpToken(lpdata));
         if (result) {
           console.log("this is the result", result);
+
           setLpTokenBalance(result.balance);
           setCurrentPairAddress(currentPairAddress);
-          setTokenOneValue(result.token1Deposit);
-          setTokenTwoValue(result.token0Deposit);
+          setTokenOneSymbol(result?.token0Obj?.symbol);
+          setTokenTwoSymbol(result?.token1Obj?.symbol);
+
+          setTokenOneValue(result?.token0Deposit.toFixed(6));
+          setTokenTwoValue(result?.token1Deposit.toFixed(6));
         }
       } else {
         setLpTokenBalance(0);
@@ -173,7 +178,7 @@ const AddLiquidity = (props) => {
       toast.error("Something went wrong!");
     }
   };
-
+  console.log("lpTokenBalance", lpTokenBalance);
   return (
     <>
       <Container fluid className="swapScreen comnSection">
@@ -186,8 +191,14 @@ const AddLiquidity = (props) => {
             className="importpoolbox"
             onClick={() => onHandleOpenModal("TK1")}
           >
-            <img src={tokenOne.icon} alt="icon" />{" "}
-            <span>{tokenOne.symbol}</span>
+            {tokenOne.address ? (
+              <>
+                <img src={tokenOne?.icon} alt="icon" />
+                <span>{tokenOne?.symbol}</span>
+              </>
+            ) : (
+              <span>Select a Token</span>
+            )}
           </button>
           <div className="Col btnSwap text-center">
             <img src={awesomePlus} alt="icon" />
@@ -221,11 +232,11 @@ const AddLiquidity = (props) => {
                   </li>
                   <br />
                   <li>
-                    {tokenOne.symbol}: {tokenOneValue}
+                    {tokenOneSymbol}: {tokenOneValue}
                   </li>{" "}
                   <br />
                   <li>
-                    {tokenTwo?.symbol}: {tokenTwoValue}
+                    {tokenTwoSymbol}: {tokenTwoValue}
                   </li>{" "}
                   <br />
                 </ul>

@@ -322,6 +322,7 @@ const RemoveLiquidity = (props) => {
   };
   //sign signature
   const approveTransaction = async () => {
+    debugger;
     setApprove(false);
     let value = Math.floor(liquidityTemp * 10 ** 18);
     value = BigNumber(value).toFixed();
@@ -778,9 +779,9 @@ const RemoveLiquidity = (props) => {
                 </li>
                 {checkBNB && (
                   <h6 className="text-end">
-                    <span onClick={() => setReceiveBNB(!receiveBNB)}>
+                    {/* <span onClick={() => setReceiveBNB(!receiveBNB)}>
                       {receiveBNB ? "Receive WBNB" : "Receive BNB"}
-                    </span>
+                    </span> */}
                   </h6>
                 )}
               </ul>

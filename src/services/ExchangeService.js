@@ -862,6 +862,7 @@ const getPairNonces = async (pair, address) => {
 };
 
 const signRemoveTransaction = async (d, pair) => {
+  debugger;
   try {
     const { owner, spender, deadline, value } = d;
     const web3 = await ContractServices.callWeb3();
