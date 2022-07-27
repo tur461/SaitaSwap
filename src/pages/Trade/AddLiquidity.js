@@ -112,7 +112,7 @@ const AddLiquidity = (props) => {
       setTokenOneBalance(oneBalance);
 
       const { lptoken } = props;
-
+      console.log(lptoken, "lptoken");
       if (lptoken) {
         // console.log(lptoken, "Lpztoken");
         setCurrentPairAddress(lptoken.pair);

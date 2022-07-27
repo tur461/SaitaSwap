@@ -368,7 +368,7 @@ const Staking = () => {
                         className="time_duration"
                         onClick={(e) => _setDays(e, 90)}
                       >
-                        60 days
+                        90 days
                       </Button>
                     </div>
                     <div className="text_area text-white">
