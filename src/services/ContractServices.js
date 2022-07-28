@@ -142,19 +142,13 @@ const isBinanceChainInstalled = async () => {
 };
 
 const walletWindowListener = async () => {
-  console.log('called 1');
   const { BinanceChain, ethereum } = window;
-  console.log('called 2');
   if (walletTypeObject === "Metamask") {
-    console.log('called 3');
     const result = Boolean(ethereum && ethereum.isMetaMask);
-    console.log('called 4');
     if (result) {
-      console.log('called 5');
-      console.log('ttttttt', ethereum.chainId);
+      console.log('ttt chainId', ethereum.chainId);
       console.log(NETWORK_CHAIN_ID);
       if (ethereum.chainId !== NETWORK_CHAIN_ID) {
-        console.log('called 6');
         try {
           const chain = await ethereum.request({
             method: "wallet_switchEthereumChain",
@@ -164,7 +158,6 @@ const walletWindowListener = async () => {
           console.log("metamask error", error);
           if (error?.code === 4902) {
             try {
-              console.log('called 7');
               const addChain = await ethereum.request({
                 method: "wallet_addEthereumChain",
                 params: [
@@ -188,14 +181,9 @@ const walletWindowListener = async () => {
       }
       console.log('called 8');
       ethereum.on("chainChanged", async (chainId) => {
-        console.log('called 9');
-
         if (chainId !== NETWORK_CHAIN_ID) {
-        console.log('called 10');
-          
           // toast.error('Select Binance Smart Chain Mainnet Network in wallet!')
           try {
-            console.log('called 11');
             const chain = await ethereum.request({
               method: "wallet_switchEthereumChain",
               params: [{ chainId: NETWORK_CHAIN_ID }],
