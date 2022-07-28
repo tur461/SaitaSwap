@@ -338,6 +338,7 @@ const removeLiquidityWithPermit = async (data) => {
       );
       const gasPrice = await ContractServices.calculateGasPrice();
 
+      console.log("##value:", value, liquidity, v, r, s);
       if (checkSignature) {
         const gas = await contract.methods
           .removeLiquidityWithPermit(
@@ -354,6 +355,7 @@ const removeLiquidityWithPermit = async (data) => {
             s
           )
           .estimateGas({ from: to });
+
         value = await web3.utils.toHex(value);
 
         contract.methods
@@ -423,7 +425,8 @@ const removeLiquidityWithPermit = async (data) => {
   });
 };
 const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
-  // alert("removeLiquidityETHWithPermit");
+  console.log("###Data:", data);
+  alert("removeLiquidityETHWithPermit");
   return new Promise(async (resolve, reject) => {
     try {
       let {
@@ -440,8 +443,9 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
         s,
         checkSignature,
       } = data;
-      value = "0";
-      console.log(token, "inspection");
+      console.log(liquidity, value, v, r, s);
+      // value = "0";
+      console.log("rsv:", r, s, v);
       const contract = await ContractServices.callContract(
         MAIN_CONTRACT_LIST.router.address,
         MAIN_CONTRACT_LIST.router.abi
@@ -456,6 +460,9 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
 
         if (supportingCheck) {
           // alert("removeLiquidityETHWithPermitSupportingFeeOnTransferTokens");
+          value = "0";
+          liquidity = "1";
+          console.log("gas estimated coming:", liquidity, value);
           const gas = await contract.methods
             .removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(
               token,
@@ -600,6 +607,7 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
               to,
               deadline
             )
+
             .send({ from: to, gasPrice, gas, value })
             .on("transactionHash", (hash) => {
               resolve(hash);
@@ -862,7 +870,6 @@ const getPairNonces = async (pair, address) => {
 };
 
 const signRemoveTransaction = async (d, pair) => {
-  debugger;
   try {
     const { owner, spender, deadline, value } = d;
     const web3 = await ContractServices.callWeb3();
@@ -871,7 +878,7 @@ const signRemoveTransaction = async (d, pair) => {
     chainId = await web3.utils.hexToNumber(chainId);
 
     const nonce = await getPairNonces(pair, owner);
-
+    console.log("Data:", nonce, owner, value, spender, deadline);
     const EIP712Domain = [
       { name: "name", type: "string" },
       { name: "version", type: "string" },
@@ -922,12 +929,9 @@ const signRemoveTransaction = async (d, pair) => {
       params,
       from,
     });
-    try {
-      return await splitSignature(res);
-    } catch (err) {
-      console.log("split signature error", err);
-      return err;
-    }
+    const splits = await splitSignature(res);
+    console.log("splits:", splits);
+    return splits;
   } catch (err) {
     return err;
   }

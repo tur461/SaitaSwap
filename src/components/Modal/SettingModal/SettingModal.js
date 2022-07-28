@@ -135,7 +135,7 @@ const SettingModal = ({ show, handleClose }) => {
                 </div>
                 {error && <small className="frontrunText">{error}</small>}
               </div>
-              <h6>Transaction deadline</h6>
+              <h6>Transaction Timeout</h6>
               <div className="selct_area dedline">
                 <div className="d-flex align-items-center">
                   <input

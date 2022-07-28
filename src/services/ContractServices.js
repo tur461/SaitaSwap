@@ -25,7 +25,7 @@ const callWeb3ForWalletConnect = async (provider) => {
     rpc: {
       // 97: "https://data-seed-prebsc-2-s3.binance.org:8545/",
       // 56: "https://bsc-dataseed.binance.org/",
-      1: "https://mainnet.infura.io/v3/3a25827bef8e449d85750255d6521b3d",
+      1: "https://mainnet.infura.io/v3/4e0625c5f11f4c7b97100b9c95984e13",
     },
     // chainId: 1,
     // network: "mainnet",

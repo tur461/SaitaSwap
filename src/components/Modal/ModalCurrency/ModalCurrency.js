@@ -79,7 +79,6 @@ const ModalCurrency = ({
           {tokenList && tokenList?.length ? (
             tokenList.map((token, index) => (
               <Col key={index}>
-                {console.log("hahahaha", token)}
                 {currencyName === token?.symbol ? (
                   <CoinItem
                     className="active"

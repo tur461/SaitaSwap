@@ -322,7 +322,6 @@ const RemoveLiquidity = (props) => {
   };
   //sign signature
   const approveTransaction = async () => {
-    debugger;
     setApprove(false);
     let value = Math.floor(liquidityTemp * 10 ** 18);
     value = BigNumber(value).toFixed();
