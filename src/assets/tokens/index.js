@@ -29,29 +29,7 @@ import shaman from "../images/token_icons/saitamaIcons/shaman.png";
 export const NIOB1 = "0x035781918b7221293B6938c9c0037cDf1dB183dE";
 export const NIOB2 = "0xADdcE6c9Dd30a6b252eAB252a11aBe518381132C";
 export const BURN_ADDRESS = "0x000000000000000000000000000000000000dEaD";
-// export const DEFLATIONNARY_TOKENS = [
-//   "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C",
-//   "0x0758d7257c0B66C2770a6e94B6c554Db57F921C1",
-//   "0xC3cCc28F41eF294F768F6F35b1F7095F86566b2E",
-//   "0xc936cb37F35d3b5F5640Af2fe5AF48afe8e9af3c",
-//   "0x9b0f368da211a0dFfAEBfE53a42d6B4A204FAE75",
-//   "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C",
-// ];
 export const LIQUIDITY_PROVIDER_FEE = 0.2;
-
-// ******** BSC_MAIN_NET LP's, WETH and USD **********
-// export const ANCHOR_BUSD_LP = "0xca8cb77efac26f901042196f766bac4ee5077df0";
-// export const BNB_BUSD_LP = "0xe2466652a46e47fa278be0a2ad8dce7c8445be41";
-// export const WETH = "0xc778417E063141139Fce010982780140Aa0cD5Ab";
-// export const pancakeFactory = "0x6E201B30835033855125bdCfc06Bf5efFD4b75E8";
-
-// ******** BSC_TEST_NET LP's, WETH and USD **********
-// export const USD = "0xe9e7cea3dedca5984780bafc599bd69add087d56";
-// export const ANCHOR_BUSD_LP = "0xD50Ec4dE8d3f3A63F886860B261E9e560CF02053";
-// export const BNB_BUSD_LP = "0xE5799D95Ac7ECCbAf672777eDb516D29c030f5a9";
-// export const WETH = "0xfDd1a163518E7ee5e98b60c87E93e2881dbFfCd0";
-// export const USD = "0x2Dd65fFe5F1B2D8a745b7194cCa59B451C5986D2";
-// export const Saitama = "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2";
 
 export const AUDIT = "https://docs.niob.finance/audits";
 export const LOTTERY = "https://docs.niob.finance/products/#niob-lottery";
@@ -137,24 +115,6 @@ const ETHEREUM_TESTNET_DEFLATIONNARY_TOKENS = [
 
 /** BSC MAIN NET Token List  */
 const BSC_MAINNET_TOKEN_LIST = [
-  // {
-  //   icon: USDT,
-  //   name: "ether token",
-  //   address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "ETH",
-  // },
-  // {
-  //   icon: USDT,
-  //   name: "saitama token",
-  //   address: "0x4aac18De824eC1b553dbf342829834E4FF3F7a9F",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "SAITAMA",
-  // },
   {
     icon: ETH,
     name: "BSC-Mainnet",
@@ -227,69 +187,6 @@ const BSC_MAINNET_TOKEN_LIST = [
     decimals: 18,
     symbol: "Shaman",
   },
-  // {
-  //   icon: USDT,
-  //   name: "wrapped ether token",
-  //   address: "0x5ac5e6Af46Ef285B3536833E65D245c49b608d9b",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "WETH",
-  // },
-  // {
-  //   icon: BUSD,
-  //   name: "BUSD",
-  //   address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "BUSD",
-  // },
-  // {
-  //   icon: ANCHOR,
-  //   name: "ANCHOR",
-  //   address: "0x4aac18De824eC1b553dbf342829834E4FF3F7a9F",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "ANCHOR",
-  // },
-  // {
-  //   icon: BNB,
-  //   name: "WBNB",
-  //   address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "WBNB",
-  // },
-  // {
-  //   icon: BTC,
-  //   name: "BTCB",
-  //   address: "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "BTCB",
-  // },
-  // {
-  //   icon: ETH,
-  //   name: "B-ETH",
-  //   address: "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "ETH",
-  // },
-  // {
-  //   icon: CAKE,
-  //   name: "CAKE",
-  //   address: "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "CAKE",
-  // },
 ];
 
 /** BSC TEST NET Token List */
@@ -366,91 +263,10 @@ const BSC_TESTNET_TOKEN_LIST = [
     decimals: 18,
     symbol: "Shaman",
   },
-  // {
-  //   icon: USDT,
-  //   name: "wrapped ether token",
-  //   address: "0x5ac5e6Af46Ef285B3536833E65D245c49b608d9b",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "WETH",
-  // },
-  // {
-  //   icon: BUSD,
-  //   name: "BUSD",
-  //   address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "BUSD",
-  // },
-  // {
-  //   icon: ANCHOR,
-  //   name: "ANCHOR",
-  //   address: "0x4aac18De824eC1b553dbf342829834E4FF3F7a9F",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "ANCHOR",
-  // },
-  // {
-  //   icon: BNB,
-  //   name: "WBNB",
-  //   address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "WBNB",
-  // },
-  // {
-  //   icon: BTC,
-  //   name: "BTCB",
-  //   address: "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "BTCB",
-  // },
-  // {
-  //   icon: ETH,
-  //   name: "B-ETH",
-  //   address: "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "ETH",
-  // },
-  // {
-  //   icon: CAKE,
-  //   name: "CAKE",
-  //   address: "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "CAKE",
-  // },
 ];
 
 /** ETHEREUM MAIN NET Token List */
 const ETHEREUM_MAINNET_TOKEN_LIST = [
-  // {
-  //   icon: USDT,
-  //   name: "ether token",
-  //   address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "ETH",
-  // },
-  // {
-  //   icon: USDT,
-  //   name: "saitama token",
-  //   address: "0x4aac18De824eC1b553dbf342829834E4FF3F7a9F",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "SAITAMA",
-  // },
   {
     icon: ETH,
     name: "ETH",
@@ -590,24 +406,6 @@ const ETHEREUM_MAINNET_TOKEN_LIST = [
 
 /** ETHEREUM TEST NET Token List */
 const ETHEREUM_TESTNET_TOKEN_LIST = [
-  // {
-  //   icon: USDT,
-  //   name: "ether token",
-  //   address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "ETH",
-  // },
-  // {
-  //   icon: USDT,
-  //   name: "saitama token",
-  //   address: "0x4aac18De824eC1b553dbf342829834E4FF3F7a9F",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "SAITAMA",
-  // },
   {
     icon: ETH,
     name: "ETH",
@@ -680,69 +478,6 @@ const ETHEREUM_TESTNET_TOKEN_LIST = [
     decimals: 18,
     symbol: "Shaman",
   },
-  // {
-  //   icon: USDT,
-  //   name: "wrapped ether token",
-  //   address: "0x5ac5e6Af46Ef285B3536833E65D245c49b608d9b",
-  //   isAdd: true,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "WETH",
-  // },
-  // {
-  //   icon: BUSD,
-  //   name: "BUSD",
-  //   address: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "BUSD",
-  // },
-  // {
-  //   icon: ANCHOR,
-  //   name: "ANCHOR",
-  //   address: "0x4aac18De824eC1b553dbf342829834E4FF3F7a9F",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "ANCHOR",
-  // },
-  // {
-  //   icon: BNB,
-  //   name: "WBNB",
-  //   address: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "WBNB",
-  // },
-  // {
-  //   icon: BTC,
-  //   name: "BTCB",
-  //   address: "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "BTCB",
-  // },
-  // {
-  //   icon: ETH,
-  //   name: "B-ETH",
-  //   address: "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "ETH",
-  // },
-  // {
-  //   icon: CAKE,
-  //   name: "CAKE",
-  //   address: "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
-  //   isAdd: false,
-  //   isDel: false,
-  //   decimals: 18,
-  //   symbol: "CAKE",
-  // },
 ];
 
 
@@ -826,7 +561,7 @@ const BSC_TESTNET_CONTRACT_LIST = {
   },
 };
 
-/** ETHEREUM-MAIN NET CONTRACTS */
+/** ETHEREUM MAIN-NET CONTRACTS */
 const ETHEREUM_MAINNET_CONTRACT_LIST = {
   router: {
     address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
@@ -865,7 +600,7 @@ const ETHEREUM_MAINNET_CONTRACT_LIST = {
   },
 };
 
-/** ETHEREUM-TEST NET CONTRACTS */
+/** ETHEREUM TEST-NET CONTRACTS */
 const ETHEREUM_TESTNET_CONTRACT_LIST = {
   router: {
     address: "0xC206bCb31DF33A972b6F52A99C24B5D6b74afdf2",
@@ -1006,49 +741,4 @@ export { DEFLATIONNARY_TOKENS };
 // console.log('66666 bnb', BNB_BUSD_LP);
 // console.log('77777 anchor', ANCHOR_BUSD_LP);
 // console.log('88888 usd', USD);
-console.log('99999 deflationary', DEFLATIONNARY_TOKENS);
-
-
-// ==============================
-
-// WETH: {
-//   name: 'wrapped ether token',
-//   dec: 18,
-//   sym: 'WETH',
-//   icon: Eth,
-//   bal: '',
-//   isAdded: !0,
-//   isDeleted: !1,
-//   addr: '0xc778417E063141139Fce010982780140Aa0cD5Ab',
-// },
-// TUR: {
-//   name: 'tur token',
-//   dec: 18,
-//   sym: 'TUR',
-//   icon: Gen,
-//   bal: '',
-//   isAdded: !0,
-//   isDeleted: !1,
-//   addr: '0xEe8F3Df788B0357d35D66F9023626f99f29a8351',
-// },
-// STEEP: {
-//   name: 'steep labs token',
-//   dec: 18,
-//   sym: 'STEEP',
-//   icon: Gen,
-//   bal: '',
-//   isAdded: !0,
-//   isDeleted: !1,
-//   addr: '0x8605c0c5E361dd897A5526558C48E7ff0D51353c',
-// },
-// SAITAMA: {
-//   name: 'saitama token',
-//   dec: 18,
-//   sym: 'SAITAMA',
-//   icon: Saitama,
-//   bal: '',
-//   isAdded: !0,
-//   isDeleted: !1,
-//   addr: '0x352E956eB0247792842ABD234d3f7425BBf544c2',
-// }
-// }
+// console.log('99999 deflationary', DEFLATIONNARY_TOKENS);
