@@ -24,9 +24,12 @@ import { toast } from "../../components/Toast/Toast";
 import Loader from "react-loader-spinner";
 import Timer from "../../components/Timer/Timer";
 import { startLoading, stopLoading } from "../../redux/actions";
+import { Saitama } from "../../assets/tokens";
+import { STAKING_PROXY_ADDRESS } from "../../assets/tokens";
+
 const Staking = () => {
-  const contractAddress = "0xd9bcc6474499B397707D3379595f2d27f47B3629";
-  const tokenAddress = "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C";
+  // const STAKING_PROXY_ADDRESS = "0xd9bcc6474499B397707D3379595f2d27f47B3629";
+  // const tokenAddress = "0x0eD81CAe766d5B1a4B3ed4DFbED036be13c6C09C";
   const MAX_AMT = "0xffffffffffffffffffffffffffffffffffffffff";
   const [inputAmount, setInputAmount] = useState();
   const [days, setDays] = useState(0);
@@ -59,7 +62,7 @@ const Staking = () => {
   );
   useEffect(async () => {
     let contract = await ContractServices.callContract(
-      contractAddress,
+      STAKING_PROXY_ADDRESS,
       ABISTAKING
     );
     setContract(contract);
@@ -72,7 +75,7 @@ const Staking = () => {
     let userAddress = isTheUserConnected;
     setUserAddress(userAddress);
     const TokenBalance = await ContractServices.getTokenBalanceFull(
-      tokenAddress,
+      Saitama,
       userAddress
     );
 
@@ -123,24 +126,24 @@ const Staking = () => {
           // let userAddress = await ContractServices.isMetamaskInstalled();
           // let gasPrice = await Contractservices.calculateGasPrice();
           let tokenInstance = await ContractServices.callContract(
-            tokenAddress,
+            Saitama,
             TOKENABI
           );
 
           let estimateGas = await tokenInstance.methods
-            .approve(contractAddress, MAX_AMT)
+            .approve(STAKING_PROXY_ADDRESS, MAX_AMT)
             .estimateGas({ from: userAddress });
           setIsDisabled(true);
           let approveToken = await tokenInstance.methods
-            .allowance(userAddress, contractAddress)
+            .allowance(userAddress, STAKING_PROXY_ADDRESS)
             .call();
           if (approveToken == 0) {
             await tokenInstance.methods
-              .approve(contractAddress, MAX_AMT)
+              .approve(STAKING_PROXY_ADDRESS, MAX_AMT)
               .send({ from: userAddress, gas: estimateGas });
           }
           let contract = await ContractServices.callContract(
-            contractAddress,
+            STAKING_PROXY_ADDRESS,
             ABISTAKING
           );
 
@@ -187,7 +190,7 @@ const Staking = () => {
     if (isTheUserConnected) {
       try {
         let contract = await ContractServices.callContract(
-          contractAddress,
+          STAKING_PROXY_ADDRESS,
           ABISTAKING
         );
         let userAddress = await ContractServices.isMetamaskInstalled();
