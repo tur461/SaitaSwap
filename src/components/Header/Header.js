@@ -35,22 +35,22 @@ const Header = props => {
         isUserConnected ? setShow(!show) : setShow(true);
     }
     const addListeners = async () => {
-        let address;
-        if (walletType === 'Metamask') {
-            address = await ContractServices.isMetamaskInstalled('');
-        }
-        if (walletType === 'BinanceChain') {
-            address = await ContractServices.isBinanceChainInstalled();
-        }
+        // let address;
+        // if (walletType === 'Metamask') {
+        //     address = await ContractServices.isMetamaskInstalled('');
+        // }
+        // if (walletType === 'BinanceChain') {
+        //     address = await ContractServices.isBinanceChainInstalled();
+        // }
 
         ContractServices.walletWindowListener();
-        if (address) {
-            window.ethereum.on('accountsChanged', function (accounts) {
-                const account = accounts[0];
-                dispatch(login({ account, walletType }));
-                window.location.reload();
-            });
-        }
+        // if (address) {
+        //     window.ethereum.on('accountsChanged', function (accounts) {
+        //         const account = accounts[0];
+        //         dispatch(login({ account, walletType }));
+        //         window.location.reload();
+        //     });
+        // }
     };
     const logoutCall = () => {
         dispatch(logout());

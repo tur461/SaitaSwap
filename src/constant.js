@@ -7,7 +7,7 @@ export const NETWORK_CHAIN_NAME = process.env.REACT_APP_NETWORK_CHAIN_NAME;
 export const NETWORK_RPC_URL = process.env.REACT_APP_NETWORK_RPC_URL;
 export const NETWORK_LINK = process.env.REACT_APP_NETWORK_LINK;
 export const NETWORK_VERSION = process.env.REACT_APP_NETWORK_VERSION;
-export const NETWORK_CHAIN_ID = process.env.REACT_APP_NETWORK_CHAIN_ID;
+export const NETWORK_CHAIN_ID = process.env.REACT_APP_NETWORK_CHAIN_ID || 1;
 export const NETWORK_NATIVE_CURRENCY_NAME =
   process.env.REACT_APP_NETWORK_NATIVE_CURRENCY_NAME;
 export const NETWORK_NATIVE_CURRENCY_SYMBOL =
@@ -35,11 +35,27 @@ export const TELEGRAM_LINK = "https://t.me/joinchat/KP-_HKro73ViZTZk";
 export const AUDIT_LINK = "https://docs.anchorswap.finance/audit/";
 export const MIN_NATIVE_CURRENCY_FOR_GAS = 0.01; // eth
 
+export const ADDRESS = {
+  ZERO: `0x${'0'.repeat(40)}`,
+}
+
 export const ERRORS = {
   SLIPG_LOW: "Slippage is too low",
   SLIPG_HIGH: "Slippage is too high",
   APR_PENDING: "Wait, approval is pending",
 };
+
+export const WALLET_TYPES = {
+  NONE: 'None',
+  COINBASE: 'CoinBase',
+  METAMASK: 'Metamask',
+  CONNECT_WALLET: 'ConnectWallet',
+}
+
+export const URLS = {
+  RPC_LOCAL: 'http://localhost:8545',
+  RPC_REMOTE: 'https://eth.getblock.io/dedicated/mainnet/1cd01716-7d96-44f5-9a90-7416a4ac657b/'
+}
 
 export const EVENTS = {
   LOGIN_SUCCESS: "login_success",
@@ -56,8 +72,8 @@ export const isMetamakConnected = async () => {
       });
       return true;
     } else {
-      window.alert(`Install Metamask extension first!`);
-      window.open("https://metamask.io/", "_blank");
+      window.alert(`Install Coinbase extension first!`);
+      // window.open("https://metamask.io/", "_blank");
       return false;
     }
   } catch (error) {

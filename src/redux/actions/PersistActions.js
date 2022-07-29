@@ -1,5 +1,5 @@
 import packageJson from "../../../package.json";
-import { EVENTS } from "../../constant";
+import { EVENTS, WALLET_TYPES } from "../../constant";
 import { ContractServices } from "../../services/ContractServices";
 
 /** seting action types */
@@ -50,7 +50,7 @@ export const login = (data) => {
   };
 };
 export const logout = () => {
-  ContractServices.setWalletType("Metamask");
+  ContractServices.setWalletType(WALLET_TYPES.NONE);
   localStorage.clear();
   window.location.reload();
   return {

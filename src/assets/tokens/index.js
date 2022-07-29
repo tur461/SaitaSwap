@@ -50,7 +50,7 @@ export const pancakeFactory = "0x35113a300ca0D7621374890ABFEAC30E88f214b1";
 export const ANCHOR_BUSD_LP = "0xE49d2CE0157D43941F05E969793aAFa71D90BaA4";
 export const BNB_BUSD_LP = "0xE5799D95Ac7ECCbAf672777eDb516D29c030f5a9";
 export const WETH = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2"; //mainNet weth
-export const USD = "0x2Dd65fFe5F1B2D8a745b7194cCa59B451C5986D2";
+export const USD = "0xdAC17F958D2ee523a2206206994597C13D831ec7";
 export const Saitama = "0xce3f08e664693ca792cace4af1364d5e220827b2"; //mainnet Saita
 
 export const AUDIT = "https://docs.niob.finance/audits";

@@ -38,6 +38,7 @@ import RecentTransactions from "../../components/RecentTransactions/RecentTransa
 import TransactionalModal from "../../components/TransactionalModal/TransactionalModal";
 import iconTimer from "../../assets/images/ionic-ios-timer.svg";
 import { EVENTS, MIN_NATIVE_CURRENCY_FOR_GAS } from "../../constant";
+import { formatDown, formatUp, isAddr } from "../../utils";
 
 const Exchange = (props) => {
   const [show, setShow] = useState(false);
@@ -312,6 +313,54 @@ const Exchange = (props) => {
       setMax(false);
     }
   };
+
+  const getPathToUsdtForToken = async token => {
+    const weth = WETH;
+    const usdt = USD;
+    const sma = Saitama;
+
+    const getPair = ExchangeService.getPair;
+    
+    const isWithUsdtViaSma = async _ => isAddr(await getPair(token, sma));
+    const isWithUsdtDirect = async _ => isAddr(await getPair(token, usdt));
+    const isWithUsdtViaWeth = async _ => isAddr(await getPair(token, weth));
+
+    return await isWithUsdtDirect() ? [
+      token,
+      usdt
+    ] : await isWithUsdtViaSma() ? [
+      token,
+      sma,
+      usdt
+    ] : await isWithUsdtViaWeth() ? [
+      token,
+      weth,
+      usdt
+    ] : null;
+
+  }
+
+  const tryGetPossiblePathToUSDT = async (token1, token2) => {
+    return [
+      await getPathToUsdtForToken(token1),
+      await getPathToUsdtForToken(token2)
+    ]
+  }
+
+  const tryGetDollarDenomination = async (token1, token2) => {
+    const amountsOut = ExchangeService.getAmountsOut;
+    const decimals = ContractServices.getDecimals;
+    const decimal = [
+      await decimals(token1),
+      await decimals(token2),
+    ] 
+    const paths = await tryGetPossiblePathToUSDT(token1, token2);
+    const usdtAmountPerEachToken = [
+      formatDown(await amountsOut(formatUp(1, decimal[0]), paths[0]), 6),
+      formatDown(await amountsOut(formatUp(1, decimal[1]), paths[1]), 6),
+    ]
+    return usdtAmountPerEachToken;
+  }
 
   const checkPairWithBNBOrUSDT = async (token1, token2) => {
     // const pOne = await ExchangeService.getPair(token1, Saitama);

@@ -11,13 +11,13 @@ let { store, persistor } = configureStore();
 
 function App() {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ConnectedRouter history={history}>
-          <Application></Application>
-        </ConnectedRouter>
-      </PersistGate>
-    </Provider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ConnectedRouter history={history}>
+            <Application></Application>
+          </ConnectedRouter>
+        </PersistGate>
+      </Provider>
   );
 }
 

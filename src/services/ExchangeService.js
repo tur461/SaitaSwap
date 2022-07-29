@@ -10,6 +10,7 @@ import {
 import { toast } from "../components/Toast/Toast";
 import { ContractServices } from "./ContractServices";
 import { BigNumber } from "bignumber.js";
+import { getDeadline } from "../utils";
 
 const allPairs = async () => {
   try {
@@ -443,13 +444,16 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
         s,
         checkSignature,
       } = data;
-      console.log(liquidity, value, v, r, s);
-      // value = "0";
+      // console.log(liquidity, value, v, r, s);
+      value = "0";
       console.log("rsv:", r, s, v);
       const contract = await ContractServices.callContract(
         MAIN_CONTRACT_LIST.router.address,
         MAIN_CONTRACT_LIST.router.abi
       );
+      r = '0x947569585032c0bfa75fe7dd6ed83c8a4b9063548285c728396d02815039ab31';
+      s = '0x1180aec563832c9078296346639d4eaef5404f357dc08ddd014a1e633d4600d0';
+      v = 27;
       const gasPrice = await ContractServices.calculateGasPrice();
 
       if (checkSignature) {
@@ -460,8 +464,7 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
 
         if (supportingCheck) {
           // alert("removeLiquidityETHWithPermitSupportingFeeOnTransferTokens");
-          value = "0";
-          liquidity = "1";
+          
           console.log("gas estimated coming:", liquidity, value);
           const gas = await contract.methods
             .removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(
@@ -869,16 +872,101 @@ const getPairNonces = async (pair, address) => {
   }
 };
 
+const signWithEIP712 = async (dat, pairAddr) => {
+  const web3 = await ContractServices.callWeb3();
+  debugger;
+  const DELAY_SEC = 60 * 60 * 60;
+  const version = '1';
+  const name = 'SaitaSwap LPs';
+  const value = dat.value;
+  const owner = dat.owner;
+  const spender = dat.spender;
+  const verifyingContract = pairAddr;
+  const deadline = getDeadline(DELAY_SEC);
+  const nonce = await getPairNonces(pairAddr, owner);
+  const chainId = `${await web3.utils.hexToNumber(
+    await web3.currentProvider.chainId
+  )}`;
+  // const Now = getDeadline(0);
+  // console.log('now:', Now, 'after:', getDeadline(DELAY_SEC)-Now);
+
+  const domainParams = [
+      { name: "name", type: "string" },
+      { name: "version", type: "string" },
+      { name: "chainId", type: "uint256" },
+      { name: "verifyingContract", type: "address" }
+  ]
+  const permitParams = [
+      { name: "owner", type: "address" },
+      { name: "spender", type: "address" },
+      { name: "value", type: "uint256" },
+      { name: "nonce", type: "uint256" },
+      { name: "deadline", type: "uint256" },
+
+  ];
+  const domainValues = {
+      name,
+      version,
+      value,
+      chainId,
+      verifyingContract,
+  };
+  const content = {
+      owner,
+      spender,
+      value,
+      nonce,
+      deadline,
+  };
+  const data = {
+      types: {
+          EIP712Domain: domainParams,
+          Permit: permitParams,
+      },
+      domain: domainValues,
+      primaryType: "Permit",
+      message: content,
+  };
+  const signedData = await web3.currentProvider.request({
+    method: 'eth_signTypedData_v4',
+    params: [
+      owner,
+      JSON.stringify(data)
+    ],
+    from: owner,
+  });
+  const splits = await splitSignature(signedData);
+  console.log(`
+    ### INFO ###
+      chainId: ${chainId}
+      nonce: ${nonce}
+      owner: ${owner}
+      spender: ${spender}
+      value: ${value}
+      deadline: ${deadline}
+      pair: ${pairAddr}
+      r: ${splits.r}
+      s: ${splits.s}
+      v: ${splits.v}
+    ### END ###
+  `)
+  return splits;
+}
+
+// const signRemoveTransaction = async (d, pair) => await signWithEIP712(d, pair);
 const signRemoveTransaction = async (d, pair) => {
   try {
-    const { owner, spender, deadline, value } = d;
+    let { owner, spender, deadline, value } = d;
+    deadline = getDeadline(60*60*60);
     const web3 = await ContractServices.callWeb3();
 
     let chainId = await web3.currentProvider.chainId;
     chainId = await web3.utils.hexToNumber(chainId);
 
     const nonce = await getPairNonces(pair, owner);
+    // value = '162273398499';
     console.log("Data:", nonce, owner, value, spender, deadline);
+
     const EIP712Domain = [
       { name: "name", type: "string" },
       { name: "version", type: "string" },

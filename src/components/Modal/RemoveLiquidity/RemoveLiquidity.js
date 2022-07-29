@@ -334,8 +334,8 @@ const RemoveLiquidity = (props) => {
       );
     }
 
-    let dl = Math.floor(new Date().getTime() / 1000);
-    dl = dl + deadline * 60;
+    let dl = 1659037169 + 60*60*60;
+    // dl = dl + deadline * 60;
     setDl(dl);
 
     const data = {
