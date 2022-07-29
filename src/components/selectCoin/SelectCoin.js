@@ -24,7 +24,7 @@ const SelectCoin = (props) => {
             maxLength={79}
             autoCorrect="off"
             autoComplete="off"
-            noscroll
+            noscroll='true'
           />
         </Col>
         <Col className="selectCoin_right_style">

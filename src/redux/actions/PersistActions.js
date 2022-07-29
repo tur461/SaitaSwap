@@ -51,6 +51,7 @@ export const login = (data) => {
 };
 export const logout = () => {
   ContractServices.setWalletType(WALLET_TYPES.NONE);
+  ContractServices.clearWeb3Object();
   localStorage.clear();
   window.location.reload();
   return {

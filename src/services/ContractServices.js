@@ -13,7 +13,7 @@ import {
 } from "../constant";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
-let web3Object;
+let web3Object=null;
 let contractOjbect;
 let currentContractAddress;
 let tokenContractObject;
@@ -170,7 +170,7 @@ const walletWindowListener = async () => {
                   },
                 ],
               });
-              window.location.reload();
+              // window.location.reload();
             } catch (error) {}
           }
         }
@@ -230,37 +230,22 @@ const walletWindowListener = async () => {
 };
 
 const callWeb3 = async () => {
-  if (web3Object) {
-    console.log("we already have web3Object", web3Object);
-    return web3Object;
-  }
-  // console.log("web3Objectweb3Object", web3Object);
-  const { coinbaseWalletExtension, ethereum, web3, BinanceChain } = window;
+  console.log('callWeb3', web3Object, walletTypeObject);
+  if (web3Object) return web3Object;
+  const { coinbaseWalletExtension, ethereum, web3 } = window;
   if (walletTypeObject === WALLET_TYPES.METAMASK) {
-    if (ethereum && ethereum.isMetaMask) {
-      web3Object = new Web3(ethereum);
-      return web3Object;
-    } else if (ethereum) {
-      web3Object = new Web3(ethereum);
-      return web3Object;
-    } else if (web3) {
-      web3Object = new Web3(web3.currentProvider);
-      return web3Object;
-    } else {
-      toast.error("You have to install Wallet!");
-    }
-  } else if(coinbaseWalletExtension && coinbaseWalletExtension.isCoinbaseWallet) {
-    web3Object = new Web3(coinbaseWalletExtension);
-    return web3Object;
-  } else {
-    if (BinanceChain) {
-      web3Object = new Web3(BinanceChain);
-      return web3Object;
-    } else {
-      toast.error("You have to install Wallet!");
-    }
-  }
+    console.log('walletTypeObject', walletTypeObject, 'ethereum', ethereum);
+    if (ethereum && ethereum.isMetaMask) return (web3Object = new Web3(ethereum));
+    else if (web3) return (web3Object = new Web3(web3.currentProvider));
+    else toast.error("You have to install Wallet!");
+  } else if(walletTypeObject === WALLET_TYPES.COINBASE) {
+    console.log('walletTypeObject', walletTypeObject, 'coinbaseWalletExtension', coinbaseWalletExtension);
+    if(coinbaseWalletExtension && coinbaseWalletExtension.isCoinbaseWallet) return (web3Object = new Web3(coinbaseWalletExtension));
+  } else if(walletTypeObject === WALLET_TYPES.NONE) return (web3Object = null);
+  else return toast.error("You have to install Wallet!");
 };
+
+const clearWeb3Object = _ => web3Object = null;
 
 const callContract = async (contractAddress, contractABI) => {
   if (
@@ -499,5 +484,6 @@ export const ContractServices = {
   walletWindowListener,
   walletTypeObject,
   getLiquidity100Value,
+  clearWeb3Object,
   callWeb3ForWalletConnect,
 };

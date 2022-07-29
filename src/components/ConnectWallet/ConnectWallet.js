@@ -5,8 +5,6 @@ import { useDispatch } from "react-redux";
 import { ContractServices } from "../../services/ContractServices";
 import { login } from "../../redux/actions";
 import { toast } from "../../components/Toast/Toast";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-
 import iconMatamask from "../../assets/images/metamask_icon.png";
 import iconCoinbase from "../../assets/images/coinbase_icon.svg";
 import iconWallet from "../../assets/images/wallet_icon.svg";
@@ -66,7 +64,9 @@ const ConnectWallet = ({ show, handleClose }) => {
   
   const dispatch = useDispatch();
 
-  const loginCall = async (walletType, type) => {
+  const loginCall = async (walletType) => {
+    console.log('login call:', walletType);
+    ContractServices.setWalletType(walletType);
     try {
       if(walletType === WALLET_TYPES.COINBASE){
         const result = await connectWallet.connect(
@@ -94,25 +94,10 @@ const ConnectWallet = ({ show, handleClose }) => {
           console.log('chianId', await provider.getChainId());
           const accounts = await connectWallet.getAccounts();
           console.log('accounts:', accounts.address)
-
           dispatch(login({ account: accounts.address, walletType }));
-        } else {
-          console.log('connected', result.provider);
-        }
-
-        // const account = await result.provider.enable();
-        // console.log('external connected', result.provider, account);
-        
-          
+        } else console.log('not connected!', result);
         handleClose(false);
-      }else if (walletType === "BinanceChain") {
-        const account = await ContractServices.isBinanceChainInstalled();
-        if (account) {
-          dispatch(login({ account, walletType }));
-          handleClose(false);
-          // window.location.reload();
-        }
-      } else if (walletType === "Walletconnect") {
+      } else if (walletType === WALLET_TYPES.CONNECT_WALLET) {
         try {
           const d = await ContractServices.callWeb3ForWalletConnect();
           const account = d.provider.accounts[0];
@@ -122,9 +107,9 @@ const ConnectWallet = ({ show, handleClose }) => {
           );
           d.provider.on("accountsChanged", async (accounts) => {
             console.log("account changed on remote");
-            setTimeout(function () {
+            // setTimeout(function () {
               window.location.reload();
-            }, 500);
+            // }, 500);
             let account = accounts[0];
             console.log("in connect wallet1", account);
             dispatch(login({ account, walletType }));
@@ -140,7 +125,7 @@ const ConnectWallet = ({ show, handleClose }) => {
           console.log(error, "wallet error");
         }
       } else {
-        const account = await ContractServices.isMetamaskInstalled(type);
+        const account = await ContractServices.isMetamaskInstalled(walletType);
         if (account) {
           dispatch(login({ account, walletType }));
           handleClose(false);
@@ -154,7 +139,7 @@ const ConnectWallet = ({ show, handleClose }) => {
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("walletconnect"))
-        loginCall("Walletconnect", "Walletconnect");
+        loginCall(WALLET_TYPES.CONNECT_WALLET);
     })();
   }, []);
 
@@ -174,7 +159,7 @@ const ConnectWallet = ({ show, handleClose }) => {
           <Col className="baseToken_style token_strut">
             <ul>
               <li>
-                <Button onClick={() => loginCall("Metamask", "Metamask")}>
+                <Button onClick={() => loginCall(WALLET_TYPES.METAMASK)}>
                   MetaMask
                   <span>
                     <img src={iconMatamask} />
@@ -193,7 +178,7 @@ const ConnectWallet = ({ show, handleClose }) => {
               </li>
               <li>
                 <Button
-                  onClick={() => loginCall("Walletconnect", "Walletconnect")}
+                  onClick={() => loginCall(WALLET_TYPES.CONNECT_WALLET)}
                 >
                   WalletConnect
                   <span>
