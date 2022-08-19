@@ -102,7 +102,7 @@ const Staking = () => {
     getTheStake(isTheUserConnected);
   };
 
-  document.addEventListener(EVENTS.LOGIN_SUCCESS, async (e) => {
+  document.addEventListener(EVENTS.WC_SUCCESS, async (e) => {
     e.preventDefault();
     await someF();
   });

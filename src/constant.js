@@ -49,7 +49,7 @@ export const WALLET_TYPES = {
   NONE: 'None',
   COINBASE: 'CoinBase',
   METAMASK: 'Metamask',
-  CONNECT_WALLET: 'ConnectWallet',
+  WALLET_CONNECT: 'WalletConnect',
 }
 
 export const URLS = {
@@ -58,7 +58,7 @@ export const URLS = {
 }
 
 export const EVENTS = {
-  LOGIN_SUCCESS: "login_success",
+  WC_SUCCESS: "connect_any_wallet_success",
 };
 
 export const isMetamakConnected = async () => {

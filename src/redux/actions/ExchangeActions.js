@@ -69,8 +69,8 @@ export const getUserLPTokens = () => async (dispatch, getState) => {
     } = getState();
     if (!updateUserLpTokens) {
       dispatch(saveUserLpTokens([]));
-      let lpTokensCount = await UserService.getPairsCount();
-      lpTokensCount = lpTokensCount.data.count;
+      // let lpTokensCount = await UserService.getPairsCount();
+      let lpTokensCount = lpTokensCount.data.count;
 
       const limit = 100;
       const totalPages = Math.ceil(lpTokensCount / limit);

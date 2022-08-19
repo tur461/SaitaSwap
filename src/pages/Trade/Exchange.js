@@ -136,7 +136,7 @@ const Exchange = (props) => {
     }
   };
 
-  document.addEventListener(EVENTS.LOGIN_SUCCESS, async (e) => {
+  document.addEventListener(EVENTS.WC_SUCCESS, async (e) => {
     e.preventDefault();
     e.stopPropagation();
     // console.log("##FUCK##");

@@ -39,10 +39,10 @@ export const versionManager = () => async (dispatch, getState) => {
 /*
  * Action creators
  */
-export const login = (data) => {
+export const connectAnyWalletSuccess = (data) => {
   // console.log("##hi i am sam");
   setTimeout((_) => {
-    document.dispatchEvent(new Event(EVENTS.LOGIN_SUCCESS, {}));
+    document.dispatchEvent(new Event(EVENTS.WC_SUCCESS, {}));
   }, 100);
   return {
     type: actionTypes.USER_CONNECTED,

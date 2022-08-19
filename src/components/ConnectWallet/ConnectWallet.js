@@ -3,7 +3,7 @@ import { Col, Row, Modal, Button } from "react-bootstrap";
 import "./ConnectWallet.scss";
 import { useDispatch } from "react-redux";
 import { ContractServices } from "../../services/ContractServices";
-import { login } from "../../redux/actions";
+import { connectAnyWalletSuccess } from "../../redux/actions";
 import { toast } from "../../components/Toast/Toast";
 import iconMatamask from "../../assets/images/metamask_icon.png";
 import iconCoinbase from "../../assets/images/coinbase_icon.svg";
@@ -14,6 +14,11 @@ import Binance from "../../assets/images/Binance-chain.png";
 import MathWallet from "../../assets/images/mathwallet.png";
 import { URLS, WALLET_TYPES } from "../../constant";
 import * as AMFI from '@amfi/connect-wallet';
+import { ensureChain, tryGetAccount } from "../../services/utils/wallet";
+import { CHAIN_ID, WALLET_EVENT } from "../../services/constants/wallet";
+import { rEqual } from "../../services/utils/common";
+import log from "../../services/logging/logger";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 const chains = [
   {
@@ -22,15 +27,43 @@ const chains = [
       hex: '0x1',
   }
 
+];
+
+const wallets = [
+  'MetaMask', 
+  'WalletConnect', 
+  'CoinbaseWallet'
 ]
 
 const config = {
-  wallets: ['CoinbaseWallet'],
+  wallets,
   network: {
     name: 'ethereum',
     chainID: 1,
   },
   provider: {
+    MetaMask: {
+      name: 'MetaMask',
+      useProvider: 'rpc',
+      provider: {
+        rpc: {
+          rpc: {
+            
+          }
+        }
+      }
+    },
+    CoinbaseWallet: {
+      name: 'CoinbaseWallet',
+      useProvider: 'rpc',
+      provider: {
+        rpc: {
+          rpc: {
+
+          }
+        }
+      }
+    },
     CoinbaseWallet: {
       name: 'CoinbaseWallet',
       useProvider: 'rpc', // Used to select the type of provider below
@@ -58,88 +91,63 @@ const config = {
 };
 
 const ConnectWallet = ({ show, handleClose }) => {
-  const connectWallet = new AMFI.ConnectWallet();
-  connectWallet.addChains(chains)
-
-  
   const dispatch = useDispatch();
+  
+  const handlePostConnection = async (wType, wallet) => {
+    wallet.on(WALLET_EVENT.CHAIN_CHANGE, async chainId => {
+      log.s('chain changed:', chainId);
+      if(!rEqual(CHAIN_ID.ETHEREUM.HEX, chainId)) 
+        await ensureChain(wType, wallet);
+    })
+    const acc = await tryGetAccount(wType, wallet);
+    log.i('account:', acc);
+    if (acc) {
+      await ensureChain(wType, wallet);
+      dispatch(connectAnyWalletSuccess({ account: acc, wType }));
+      handleClose(!1);
+    }
+  }
 
-  const loginCall = async (walletType) => {
-    console.log('login call:', walletType);
+  const connectAnyWallet = async (walletType) => {
     ContractServices.setWalletType(walletType);
-    try {
-      if(walletType === WALLET_TYPES.COINBASE){
-        const result = await connectWallet.connect(
+    let wallet = null;
+    switch(walletType) {
+      case WALLET_TYPES.METAMASK:
+        wallet = window.ethereum;
+        await handlePostConnection(walletType, wallet);
+      break;
+      case WALLET_TYPES.COINBASE:
+        const coinBase = new AMFI.ConnectWallet();
+        coinBase.addChains(chains);
+        const result = await coinBase.connect(
           config.provider.CoinbaseWallet, 
           config.network, 
           config.settings
         );
-        console.log('result:', result);
         if(result.connected) {
-          
-          result.provider.on('connect', e => {
-            console.log('on connect', e);
-            // dispatch(login({ account, walletType }));
-          })
-          result.provider.on('disconnect', e => {
-            console.log('on disconnect');
-          })
-          result.provider.on('accountsChanged', accounts => {
-            console.log('account changed:', accounts);
-          })
-          result.provider.on('chainChanged', e => {
-            console.log('chain changed:', e);
-          })
-          const provider = result.provider;
-          console.log('chianId', await provider.getChainId());
-          const accounts = await connectWallet.getAccounts();
-          console.log('accounts:', accounts.address)
-          dispatch(login({ account: accounts.address, walletType }));
-        } else console.log('not connected!', result);
-        handleClose(false);
-      } else if (walletType === WALLET_TYPES.CONNECT_WALLET) {
-        try {
-          const d = await ContractServices.callWeb3ForWalletConnect();
-          const account = d.provider.accounts[0];
-          console.log("in connect wallet", account, d);
-          d.provider.on("connect", (_) =>
-            console.log("congrats u r connected..")
-          );
-          d.provider.on("accountsChanged", async (accounts) => {
-            console.log("account changed on remote");
-            // setTimeout(function () {
-              window.location.reload();
-            // }, 500);
-            let account = accounts[0];
-            console.log("in connect wallet1", account);
-            dispatch(login({ account, walletType }));
-            handleClose(false);
-            //return;
-            // window.location.reload();
-          });
-          dispatch(login({ account, walletType }));
-          
-          handleClose(false);
-          //  window.location.reload();
-        } catch (error) {
-          console.log(error, "wallet error");
-        }
-      } else {
-        const account = await ContractServices.isMetamaskInstalled(walletType);
-        if (account) {
-          dispatch(login({ account, walletType }));
-          handleClose(false);
-          // window.location.reload();
-        }
-      }
-    } catch (err) {
-      toast.error(err.message);
-    }
+          wallet = result.provider;
+          // wallet.on('accountsChanged', accounts => {
+          //   console.log('account changed:', accounts);
+          // })
+          await handlePostConnection(walletType, wallet);
+        } else log.i('not connected!', result);
+      break;
+      case WALLET_TYPES.WALLET_CONNECT:
+        wallet = new WalletConnectProvider({
+          rpc: {
+            1: URLS.RPC_REMOTE
+          },
+          qrcode: !0,
+        });
+        await handlePostConnection(walletType, wallet);
+      break;
+      default: log.e('invalid wallet type!!');
+    } 
   };
   useEffect(() => {
     (async () => {
       if (localStorage.getItem("walletconnect"))
-        loginCall(WALLET_TYPES.CONNECT_WALLET);
+        connectAnyWallet(WALLET_TYPES.WALLET_CONNECT);
     })();
   }, []);
 
@@ -159,7 +167,7 @@ const ConnectWallet = ({ show, handleClose }) => {
           <Col className="baseToken_style token_strut">
             <ul>
               <li>
-                <Button onClick={() => loginCall(WALLET_TYPES.METAMASK)}>
+                <Button onClick={() => connectAnyWallet(WALLET_TYPES.METAMASK)}>
                   MetaMask
                   <span>
                     <img src={iconMatamask} />
@@ -168,7 +176,7 @@ const ConnectWallet = ({ show, handleClose }) => {
               </li>
               <li>
                 <Button
-                  onClick={_ => loginCall(WALLET_TYPES.COINBASE)}
+                  onClick={_ => connectAnyWallet(WALLET_TYPES.COINBASE)}
                 >
                   CoinBase Wallet
                   <span>
@@ -178,7 +186,7 @@ const ConnectWallet = ({ show, handleClose }) => {
               </li>
               <li>
                 <Button
-                  onClick={() => loginCall(WALLET_TYPES.CONNECT_WALLET)}
+                  onClick={() => connectAnyWallet(WALLET_TYPES.WALLET_CONNECT)}
                 >
                   WalletConnect
                   <span>

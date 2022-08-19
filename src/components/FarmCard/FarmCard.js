@@ -10,8 +10,8 @@ const FarmCard = props => {
     const history = useHistory();
 
     return (
-       <Card className="farmcard">
-           <div className="d-flex">
+        <Card className="farmcard">
+            <div className="d-flex">
                 <div className="cions">
                     <span className="coin_imgs uppr"><img src={props.icon1} alt={"icon"}/></span>
                     <span className="coin_imgs dwn"><img src={props.icon2} alt={"icon"}/></span>
@@ -25,7 +25,7 @@ const FarmCard = props => {
                 <h3>APR {props.apy}</h3>
                 <ButtonLink title="Farm" icon={farmicon} link="/farmplanets/active" />
             </div>
-       </Card>
+        </Card>
     )
 }
 

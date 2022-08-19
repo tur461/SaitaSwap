@@ -19,59 +19,6 @@ let currentContractAddress;
 let tokenContractObject;
 let currentTokenAddress;
 let walletTypeObject = WALLET_TYPES.NONE;
-let walletConnectProvider;
-
-const callWeb3ForWalletConnect = async (provider) => {
-  provider = new WalletConnectProvider({
-    rpc: {
-      // 97: "https://data-seed-prebsc-2-s3.binance.org:8545/",
-      // 56: "https://bsc-dataseed.binance.org/",
-      // 1: "https://mainnet.infura.io/v3/4e0625c5f11f4c7b97100b9c95984e13",
-      0: 'http://localhost:8545'
-    },
-    // chainId: 1,
-    // network: "mainnet",
-    // qrcode: true,
-    // qrcodeModalOptions: {
-    //   mobileLinks: ["metamask", "walletConnect"],
-    //   desktopLinks: ["encrypted ink"],
-    // },
-  });
-
-  provider.on("accountsChanged", (accounts) => {
-    console.log(accounts);
-  });
-
-  provider.on("chainChanged", (chainId) => {
-    console.log(chainId);
-  });
-
-  provider.on("disconnect", (code, reason) => {
-    console.log(code, reason);
-  });
-
-  const results = await provider.enable();
-  console.log("results:", results);
-  web3Object = new Web3(provider);
-  // const contract = new web3Object.eth.Contract(
-  //   TOKEN_ABI,
-  //   "0xaC0DBd7a6f4D50B51aca4e8D363875922CBBE29C"
-  // );
-  // const txHash = await contract.methods
-  //   .approve(provider.accounts[0], "1000000000000000000000")
-  //   .send({
-  //     from: provider.accounts[0],
-  //   });
-  // const txHash = await web3Object.eth.sendTransaction({
-  //   from: provider.accounts[0],
-  //   data: web3Object.eth.abi.encodeFunctionCall(
-  //     TOKEN_ABI.filter((o) => o.type === "function" && o.name === "approve")[0],
-  //     [provider.accounts[0], "1000000000000000000000"]
-  //   ),
-  // });
-  // console.log("got an web3 instance and called approve:", txHash);
-  return { provider, web3: web3Object };
-};
 
 //only for lp tokens
 const convertToDecimals = async (value) => {
@@ -485,5 +432,4 @@ export const ContractServices = {
   walletTypeObject,
   getLiquidity100Value,
   clearWeb3Object,
-  callWeb3ForWalletConnect,
 };
