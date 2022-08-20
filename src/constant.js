@@ -35,6 +35,8 @@ export const TWITTER_LINK = "https://twitter.com/AnchorSwap";
 export const TELEGRAM_LINK = "https://t.me/joinchat/KP-_HKro73ViZTZk";
 export const AUDIT_LINK = "https://docs.anchorswap.finance/audit/";
 
+export const SAITA_PAIR_NAME = 'SaitaSwap LPs';
+
 const currentNetwork = localStorage.getItem("CURRENT NETWORK");
 let NETWORK_SCAN = "";
 let NETWORK_SCAN_NAME = "";

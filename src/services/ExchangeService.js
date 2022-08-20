@@ -10,6 +10,7 @@ import {
 import { toast } from "../components/Toast/Toast";
 import { ContractServices } from "./ContractServices";
 import { BigNumber } from "bignumber.js";
+import { SAITA_PAIR_NAME } from "../constant";
 
 const allPairs = async () => {
   try {
@@ -448,7 +449,7 @@ const removeLiquidityETHWithPermit = async (data, updateLpTokens) => {
         const supportingCheck = DEFLATIONNARY_TOKENS.find(
           (ele) => ele.toLowerCase() === token.toLowerCase()
         );
-
+        
         if (supportingCheck) {
           const gas = await contract.methods
             .removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(
@@ -872,7 +873,7 @@ const signRemoveTransaction = async (d, pair) => {
       { name: "verifyingContract", type: "address" },
     ];
     const domain = {
-      name: "Uniswap V2",
+      name: SAITA_PAIR_NAME,
       version: "1",
       value,
       chainId,
@@ -915,6 +916,17 @@ const signRemoveTransaction = async (d, pair) => {
       params,
       from,
     });
+    console.log('[signRemoveTransaction]');
+    console.log('signature:', res);
+    console.log(
+      'owner: ' + owner, 
+      '\nspender: ' + spender, 
+      '\ndeadline: ' + deadline, 
+      '\nnonce: ' + nonce,
+      '\nvalue: ' + value,
+      '\nchainID: ' + chainId,
+      '\nverifyingContract: ' + pair,
+    );
     try {
       return await splitSignature(res);
     } catch (err) {

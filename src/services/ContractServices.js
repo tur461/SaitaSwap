@@ -35,6 +35,7 @@ const callWeb3ForWalletConnect = async (provider) => {
     // },
     chainId:  Number(NETWORK_CHAIN_ID_NUMBER),
     network: NETWORK_CHAIN_NAME,
+    infuraId: 'c4dceb1e503f41d0b2afab2b23447bc7',
     qrcode: true,
     qrcodeModalOptions: {
       mobileLinks: ["metamask"],

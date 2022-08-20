@@ -330,7 +330,7 @@ const RemoveLiquidity = (props) => {
     setApprove(false);
     let value = Math.floor(liquidityTemp * 10 ** 18);
     value = BigNumber(value).toFixed();
-
+    
     if (rangeValue === 100) {
       //fixing for 100%
       value = await ContractServices.getLiquidity100Value(
@@ -522,6 +522,13 @@ const RemoveLiquidity = (props) => {
         s = signedData.s;
         v = signedData.v;
       }
+      console.log('[removeLiquidity]');
+      console.log(
+        '\nsignedData:', signedData,
+        '\nr: ' + r,
+        '\ns: ' + s,
+        '\nv: ' + v,
+      )
 
       const data = {
         token,
